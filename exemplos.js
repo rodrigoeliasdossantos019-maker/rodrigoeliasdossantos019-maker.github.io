@@ -297,8 +297,69 @@ h1{font-size:1.25rem;margin-bottom:4px}
 </div>
 <p class="nota">Clínica Bem Cuidar · sistema fictício · nomes e dados de demonstração</p>
 </main></body></html>`
+  },
+  {
+    id: "firmware-sensor",
+    categoria: "firmware",
+    titulo: "Estufa Monitorada",
+    tipo: "Firmware + painel",
+    descricao: "Sensor de temperatura e umidade com ESP32 e painel ao vivo no navegador.",
+    html: `<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#0b1410;color:#d8efe2;min-height:100vh;padding:24px}
+.topo{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.topo b{font-size:1.2rem;color:#5ee6a0}
+.status{font-size:.8rem;color:#8fb5a1}.status i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#5ee6a0;margin-right:6px;animation:pisca 1.6s infinite}
+@keyframes pisca{50%{opacity:.25}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.card{background:#12211a;border:1px solid #1f3a2c;border-radius:14px;padding:18px}
+.card small{color:#8fb5a1;font-size:.78rem}
+.card b{display:block;font-size:2.1rem;margin-top:4px;color:#fff}
+.card span{font-size:.75rem;color:#5ee6a0}
+.grafico{background:#12211a;border:1px solid #1f3a2c;border-radius:14px;padding:18px;margin-bottom:18px}
+.grafico h2,.codigo h2{font-size:.95rem;margin-bottom:12px}
+svg{width:100%;height:140px}
+.codigo{background:#07100c;border:1px solid #1f3a2c;border-radius:14px;padding:18px;font-family:Consolas,monospace;font-size:.8rem;line-height:1.6;overflow-x:auto}
+.c{color:#5d7a6b}.k{color:#5ee6a0}.n{color:#ffcf6b}
+.nota{margin-top:14px;font-size:.72rem;color:#5d7a6b}
+</style></head><body>
+<div class="topo"><b>🌱 Estufa Monitorada</b><span class="status"><i></i>ESP32 conectado · atualizado agora</span></div>
+<div class="cards">
+<div class="card"><small>Temperatura</small><b id="temp">24,6 °C</b><span>dentro do ideal</span></div>
+<div class="card"><small>Umidade do ar</small><b id="umid">68%</b><span>dentro do ideal</span></div>
+<div class="card"><small>Irrigação</small><b>Desligada</b><span>liga abaixo de 55%</span></div>
+</div>
+<div class="grafico"><h2>Temperatura nas últimas 12 horas</h2>
+<svg viewBox="0 0 300 100" preserveAspectRatio="none"><polyline fill="none" stroke="#5ee6a0" stroke-width="2" points="0,70 25,66 50,60 75,52 100,45 125,40 150,38 175,42 200,48 225,55 250,58 275,57 300,54"/><line x1="0" y1="30" x2="300" y2="30" stroke="#ffcf6b" stroke-dasharray="4 4" stroke-width="1"/></svg></div>
+<div class="codigo"><h2 style="font-family:Segoe UI,Arial">Trecho do firmware</h2>
+<span class="c">// lê o sensor e liga a irrigação quando o ar fica seco</span><br>
+<span class="k">void</span> loop() {<br>
+&nbsp;&nbsp;<span class="k">float</span> umidade = dht.readHumidity();<br>
+&nbsp;&nbsp;<span class="k">if</span> (umidade &lt; <span class="n">55</span>) digitalWrite(RELE, HIGH);<br>
+&nbsp;&nbsp;<span class="k">else</span> digitalWrite(RELE, LOW);<br>
+&nbsp;&nbsp;enviarParaPainel(umidade);<br>
+&nbsp;&nbsp;delay(<span class="n">5000</span>);<br>
+}</div>
+<p class="nota">Estufa Monitorada · projeto fictício · dados de demonstração</p>
+<script>
+let t=24.6,u=68;setInterval(()=>{t+=(Math.random()-.5)*.3;u+=(Math.random()-.5)*1.2;document.getElementById("temp").textContent=t.toFixed(1).replace(".",",")+" °C";document.getElementById("umid").textContent=Math.round(u)+"%"},2000);
+</script>
+</body></html>`
   }
 ];
+// textos dos cartões em inglês (os exemplos em si continuam em português)
+const EXEMPLOS_EN = {
+  "padaria": { tipo: "Business website", descricao: "Bakery website with menu, opening hours and ordering via WhatsApp." },
+  "academia": { tipo: "Landing page", descricao: "Sales page for a gym, with plans and a free trial class." },
+  "sistema": { tipo: "Management system", descricao: "Dashboard to track stock and sales instead of a spreadsheet." },
+  "app-delivery": { tipo: "Delivery app", descricao: "App to order food from local restaurants and track the delivery." },
+  "app-agenda": { tipo: "Booking app", descricao: "Beauty salon app: the client picks the service, day and time." },
+  "sistema-clinica": { tipo: "Scheduling system", descricao: "Front desk system for a clinic: today's appointments, patients and confirmations." },
+  "firmware-sensor": { tipo: "Firmware + dashboard", descricao: "ESP32 temperature and humidity sensor with a live web panel." },
+};
+const textoExemplo = (ex, campo) =>
+  (typeof idiomaAtual === "function" && idiomaAtual() === "en" && EXEMPLOS_EN[ex.id]?.[campo]) || ex[campo];
 
 // ===== Exemplos abaixo dos ícones (clicar abre, clicar de novo fecha) e janela do exemplo =====
 (() => {
@@ -332,10 +393,10 @@ h1{font-size:1.25rem;margin-bottom:4px}
       cartao.innerHTML = `
         <span class="exemplo-mini"><iframe tabindex="-1" aria-hidden="true"></iframe></span>
         <span class="exemplo-info">
-          <small>${ex.tipo}</small>
+          <small>${textoExemplo(ex, "tipo")}</small>
           <strong>${ex.titulo}</strong>
-          <span>${ex.descricao}</span>
-          <em>Ver funcionando →</em>
+          <span>${textoExemplo(ex, "descricao")}</span>
+          <em>${typeof t === "function" ? t("exemplos.ver") : "Ver funcionando →"}</em>
         </span>`;
       cartao.querySelector("iframe").srcdoc = ex.html;
       cartao.addEventListener("click", () => abrirExemplo(ex));
@@ -395,4 +456,5 @@ h1{font-size:1.25rem;margin-bottom:4px}
   janela.addEventListener("click", (e) => { if (e.target === janela) fecharExemplo(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !janela.hidden) fecharExemplo(); });
   window.addEventListener("resize", ajustarMiniaturas);
+  document.addEventListener("idioma-mudou", () => { if (aberta) mostrar(aberta); });
 })();

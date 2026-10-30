@@ -57,9 +57,9 @@ const enviar = document.getElementById("enviar-whats");
 // o link do botão é atualizado a cada letra digitada
 function montarLink() {
   const d = new FormData(formulario);
-  let texto = "Olá Rodrigo! Vim pelo seu site.";
-  if (d.get("nome")) texto += `\n\nNome: ${d.get("nome")}`;
-  if (d.get("contato")) texto += `\nContato: ${d.get("contato")}`;
+  let texto = t("whats.ola");
+  if (d.get("nome")) texto += `\n\n${t("whats.nome")}: ${d.get("nome")}`;
+  if (d.get("contato")) texto += `\n${t("whats.contato")}: ${d.get("contato")}`;
   if (d.get("mensagem")) texto += `\n\n${d.get("mensagem")}`;
   enviar.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
 }
@@ -67,6 +67,7 @@ function montarLink() {
 formulario.addEventListener("input", montarLink);
 formulario.addEventListener("submit", (e) => { e.preventDefault(); enviar.click(); });
 montarLink();
+document.addEventListener("idioma-mudou", montarLink);
 
 // ===== Tela de boas-vindas (só na entrada) =====
 (() => {
@@ -134,4 +135,41 @@ montarLink();
     try { localStorage.setItem("tema", novo); } catch (e) {}
     setTimeout(() => raiz.classList.remove("trocando-tema"), 450);
   });
+})();
+
+// ===== Serviços, Monte seu pedido e botão flutuante =====
+(() => {
+  const NUMERO = "5519992932822";
+  const link = (texto) => `https://wa.me/${NUMERO}?text=${encodeURIComponent(texto)}`;
+
+  // cada pacote abre o WhatsApp já dizendo qual pacote interessa
+  function atualizarPacotes() {
+    document.querySelectorAll("[data-pedido]").forEach((a) => {
+      a.href = link(`${t("pac.msg")} "${t(a.dataset.pedido)}".`);
+    });
+  }
+
+  // Monte seu pedido: junta os itens marcados numa lista
+  const enviar = document.getElementById("monte-enviar");
+  const caixas = document.querySelectorAll(".monte input[type=checkbox]");
+  function atualizarLista() {
+    if (!enviar) return;
+    const itens = [...caixas].filter((c) => c.checked).map((c) => `• ${t(c.value)}`);
+    enviar.href = link(itens.length ? `${t("monte.msg")}\n\n${itens.join("\n")}` : t("whats.ola"));
+    enviar.classList.toggle("pronto", itens.length > 0);
+  }
+  caixas.forEach((c) => c.addEventListener("change", atualizarLista));
+
+  // botão flutuante: rótulo no idioma certo e some na primeira tela
+  const flutuante = document.querySelector(".whats-flutuante");
+  function rotuloFlutuante() { if (flutuante) flutuante.setAttribute("aria-label", t("whats.flutuante")); }
+  function mostrarFlutuante() {
+    if (flutuante) flutuante.classList.toggle("visivel", window.scrollY > window.innerHeight * 0.6);
+  }
+  window.addEventListener("scroll", () => requestAnimationFrame(mostrarFlutuante), { passive: true });
+
+  function tudo() { atualizarPacotes(); atualizarLista(); rotuloFlutuante(); }
+  document.addEventListener("idioma-mudou", tudo);
+  tudo();
+  mostrarFlutuante();
 })();

@@ -1357,6 +1357,243 @@ body.janela-aberta { overflow: hidden; }
 :root[data-tema="escuro"] .botao-cheio { background: var(--destaque); border-color: var(--destaque); color: #111; }
 :root[data-tema="escuro"] .botao-cheio:hover { background: transparent; color: var(--destaque); }
 
+/* ===== Botão de idioma (PT / EN) ===== */
+.idioma-botao {
+  margin-right: 10px;
+  height: 38px;
+  min-width: 46px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: var(--branco);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.idioma-botao:hover { border-color: var(--destaque); color: var(--destaque); }
+.tema-botao { margin-right: 10px; }
+.idioma-botao { margin-right: 18px; }
+:root[data-tema="claro"] body.no-topo .idioma-botao { color: #111; border-color: rgba(0, 0, 0, 0.3); }
+@media (min-width: 721px) {
+  :root[data-tema="claro"] body.no-topo .idioma-botao { color: var(--branco); border-color: rgba(255, 255, 255, 0.35); }
+}
+
+/* ===== Minha história ===== */
+.secao-historia { background: var(--branco); text-align: center; }
+.historia p { color: #444; max-width: 600px; margin: 0 auto 16px; font-size: 1rem; }
+.historia p:first-of-type::first-letter { font-size: 1.6em; font-weight: 800; color: var(--destaque); }
+.historia .link-barras { margin-top: 26px; }
+
+/* ===== Como eu trabalho ===== */
+.secao-processo { background: var(--escuro); color: var(--branco); }
+.passos {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  counter-reset: passo;
+  position: relative;
+}
+.passos::before {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--destaque), transparent);
+}
+.passos li { position: relative; text-align: center; padding: 0 6px; }
+.passo-num {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 2px solid var(--destaque);
+  background: var(--escuro);
+  color: var(--destaque);
+  font-size: 1.3rem;
+  font-weight: 800;
+  position: relative;
+}
+.passos h3 { font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+.passos p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
+
+/* ===== Serviços (pacotes) ===== */
+.pacotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 60px;
+}
+.pacote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px 26px;
+  background: var(--branco);
+  border: 2px solid var(--cinza-medio);
+  border-radius: 12px;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.pacote:hover { transform: translateY(-6px); border-color: var(--destaque); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1); }
+.pacote.destaque { border-color: var(--preto); }
+.pacote h3 { font-size: 1.1rem; }
+.pacote p { font-size: 0.88rem; color: var(--texto-suave); }
+.pacote ul { list-style: none; margin: 6px 0 18px; display: grid; gap: 8px; flex: 1; }
+.pacote li { font-size: 0.88rem; padding-left: 22px; position: relative; }
+.pacote li::before { content: "✓"; position: absolute; left: 0; color: var(--destaque); font-weight: 800; }
+.pacote .botao-contorno, .pacote .botao-cheio { margin: 0; text-align: center; }
+.pacote-selo {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--destaque);
+  color: var(--preto);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ===== Monte seu pedido ===== */
+.monte {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 34px 30px;
+  border-radius: 14px;
+  background: var(--preto);
+  color: var(--branco);
+  text-align: center;
+}
+.monte h3 { font-size: 1.3rem; margin-bottom: 6px; }
+.monte > p { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-bottom: 22px; }
+.monte-opcoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.monte-opcoes label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.monte-opcoes label:hover { border-color: var(--destaque); }
+.monte-opcoes input { width: 18px; height: 18px; accent-color: var(--destaque); flex-shrink: 0; }
+.monte-opcoes label:has(input:checked) { border-color: var(--destaque); background: rgba(201, 164, 92, 0.12); }
+.monte .botao-cheio { background: var(--branco); color: var(--preto); border-color: var(--branco); }
+.monte .botao-cheio.pronto { background: var(--destaque); border-color: var(--destaque); }
+
+/* ===== Perguntas frequentes ===== */
+.secao-faq { background: var(--branco); }
+.secao-faq details {
+  border-bottom: 1px solid var(--cinza-medio);
+  padding: 4px 0;
+}
+.secao-faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 34px 16px 0;
+  font-weight: 600;
+  position: relative;
+}
+.secao-faq summary::-webkit-details-marker { display: none; }
+.secao-faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--destaque);
+  transition: transform 0.3s;
+}
+.secao-faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.secao-faq details p { color: var(--texto-suave); padding: 0 0 18px; font-size: 0.95rem; }
+
+/* ===== Botão flutuante do WhatsApp ===== */
+.whats-flutuante {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right, 0px));
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: scale(0.6) translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.whats-flutuante.visivel { opacity: 1; transform: none; pointer-events: auto; }
+.whats-flutuante:hover { transform: scale(1.08); }
+.whats-flutuante svg { width: 30px; height: 30px; }
+.whats-flutuante::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: whats-onda 2.2s ease-out infinite;
+}
+@keyframes whats-onda { from { transform: scale(1); opacity: 0.7; } to { transform: scale(1.6); opacity: 0; } }
+body.janela-aberta .whats-flutuante { display: none; }
+
+/* versão escura das seções novas */
+:root[data-tema="escuro"] .secao-historia,
+:root[data-tema="escuro"] .secao-faq { background: #121212; color: #e8e8e8; }
+:root[data-tema="escuro"] .historia p,
+:root[data-tema="escuro"] .secao-faq details p { color: #a8a8a8; }
+:root[data-tema="escuro"] .secao-historia .titulo-caixa,
+:root[data-tema="escuro"] .secao-faq .titulo-caixa,
+:root[data-tema="escuro"] #servicos .titulo-caixa { border-color: #fff; }
+:root[data-tema="escuro"] .secao-faq details { border-color: #2c2c2c; }
+:root[data-tema="escuro"] #servicos.secao-clara { color: #e8e8e8; background: radial-gradient(ellipse at 50% 45%, #232323 0%, #161616 60%, #0d0d0d 100%); }
+:root[data-tema="escuro"] #servicos .texto-centro { color: #a8a8a8; }
+:root[data-tema="escuro"] .pacote { background: #1a1a1a; border-color: #2e2e2e; }
+:root[data-tema="escuro"] .pacote.destaque { border-color: var(--destaque); }
+:root[data-tema="escuro"] .pacote p { color: #a8a8a8; }
+:root[data-tema="escuro"] .pacote .botao-contorno { border-color: #fff; color: #fff; }
+:root[data-tema="escuro"] .pacote .botao-contorno:hover { background: #fff; color: #111; }
+:root[data-tema="escuro"] .monte { background: #000; border: 1px solid #2a2a2a; }
+
+@media (max-width: 900px) {
+  .pacotes { grid-template-columns: 1fr; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .passos { grid-template-columns: repeat(2, 1fr); gap: 34px 18px; }
+  .passos::before { display: none; }
+}
+@media (max-width: 520px) {
+  .monte-opcoes { grid-template-columns: 1fr; }
+  .monte { padding: 28px 18px; }
+  .idioma-botao { min-width: 40px; padding: 0 9px; margin-right: 12px; }
+  .tema-botao { margin-right: 8px; }
+}
+
 /* ===== Tela de boas-vindas ===== */
 .intro { display: none; }
 

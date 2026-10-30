@@ -50,6 +50,13 @@
       var tema = temaSalvo || (matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro");
       document.documentElement.setAttribute("data-tema", tema);
     } catch (e) { document.documentElement.setAttribute("data-tema", "claro"); }
+    // idioma: usa a escolha salva ou a língua do aparelho (português ou inglês)
+    try {
+      var idiomaSalvo = localStorage.getItem("idioma");
+      var idioma = idiomaSalvo || (/^pt/i.test(navigator.language || "pt") ? "pt" : "en");
+      document.documentElement.setAttribute("data-idioma", idioma);
+      if (idioma === "en") document.documentElement.setAttribute("lang", "en");
+    } catch (e) { document.documentElement.setAttribute("data-idioma", "pt"); }
     try {
       if (!sessionStorage.getItem("boasVindasVista") &&
           !matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -66,9 +73,9 @@
     <span class="intro-logo">R</span>
     <p class="intro-texto" data-texto="Bem-vindo ao meu portfólio digital"></p>
     <span class="intro-linha"></span>
-    <small class="intro-nome">Rodrigo Elias · Desenvolvedor</small>
+    <small class="intro-nome" data-i18n="intro.nome">Rodrigo Elias · Desenvolvedor</small>
   </div>
-  <span class="intro-pular">toque para entrar</span>
+  <span class="intro-pular" data-i18n="intro.pular">toque para entrar</span>
 </div>
 
 <div class="trilho" id="trilho">
@@ -81,22 +88,24 @@
         <svg class="icone-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
         <svg class="icone-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
       </button>
+      <button class="idioma-botao" id="idioma-botao" type="button" aria-label="Switch to English" title="Português / English">EN</button>
       <button class="menu-botao" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="menu-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#contato" class="menu-destaque">Contato</a></li>
+        <li><a href="#sobre" data-i18n="menu.sobre">Sobre</a></li>
+        <li><a href="#servicos" data-i18n="menu.servicos">Serviços</a></li>
+        <li><a href="#habilidades" data-i18n="menu.hab">Habilidades</a></li>
+        <li><a href="#contato" class="menu-destaque" data-i18n="menu.contato">Contato</a></li>
       </ul>
     </nav>
 
     <div class="topo-conteudo container">
       <div class="topo-texto">
-        <p class="topo-ola">Olá, eu sou</p>
+        <p class="topo-ola" data-i18n="topo.ola">Olá, eu sou</p>
         <h1>Rodrigo Elias</h1>
-        <p class="topo-cargo">Desenvolvedor / Campinas, SP</p>
-        <p class="topo-frase">Eu faço a parte difícil.</p>
+        <p class="topo-cargo" data-i18n="topo.cargo">Desenvolvedor / Campinas, SP</p>
+        <p class="topo-frase" data-i18n="topo.frase">Eu faço a parte difícil.</p>
         <div class="topo-redes redes-quadradas">
           <a href="https://wa.me/5519992932822" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.4.6-.4.8 0l.6 1.3c.1.3 0 .5-.2.7l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.4-.3.7-.2l1.3.6c.4.2.4.6 0 .8-.6.6-1.5.8-2.3.5a7 7 0 0 1-3.7-3.7c-.3-.8-.1-1.7.5-2.3z" fill="currentColor"/></svg>
@@ -106,6 +115,9 @@
           </a>
           <a href="https://www.linkedin.com/in/rodrigo-silva-7545/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><text x="12" y="16" text-anchor="middle" font-family="Arial" font-weight="700" font-size="10" fill="#d6d6d6">in</text></svg>
+          </a>
+          <a href="https://github.com/rodrigoeliasdossantos019-maker" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
           </a>
         </div>
       </div>
@@ -118,13 +130,13 @@
     <!-- ===== Sobre ===== -->
     <section id="sobre" class="secao secao-clara">
       <div class="container estreito">
-        <h2 class="titulo-caixa">Sobre mim</h2>
-        <p class="sobre-resumo">
+        <h2 class="titulo-caixa" data-i18n="sobre.titulo">Sobre mim</h2>
+        <p class="sobre-resumo" data-i18n="sobre.resumo">
           Sou o Rodrigo Elias, desenvolvedor em Campinas, São Paulo. Faço o site que aparece no Google,
           o app que vai para a loja e o sistema que tira a empresa da planilha.
           E quando precisar desenhar placa, eu escrevo o firmware também.
         </p>
-        <a href="#habilidades" class="link-barras">Explorar</a>
+        <a href="#habilidades" class="link-barras" data-i18n="sobre.explorar">Explorar</a>
 
         <div class="divisor" aria-hidden="true">
           <svg viewBox="0 0 60 10"><path d="M0 5h16M44 5h16M18 5l3-3 3 6 3-6 3 6 3-6 3 6 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
@@ -134,22 +146,22 @@
           <article class="servico">
             <svg class="servico-icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/><circle cx="5.5" cy="6.3" r=".6"/><circle cx="7.7" cy="6.3" r=".6"/></svg>
             <div>
-              <h3>Sites</h3>
-              <p>Sites rápidos e bonitos, feitos para aparecer no Google e trazer clientes.</p>
+              <h3 data-i18n="serv.sites.t">Sites</h3>
+              <p data-i18n="serv.sites.p">Sites rápidos e bonitos, feitos para aparecer no Google e trazer clientes.</p>
             </div>
           </article>
           <article class="servico">
             <svg class="servico-icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 7 3.5 12l5 5M15.5 7l5 5-5 5M13.5 5l-3 14"/></svg>
             <div>
-              <h3>Desenvolvimento</h3>
-              <p>Apps que vão para a loja e sistemas que tiram a sua empresa da planilha.</p>
+              <h3 data-i18n="serv.dev.t">Desenvolvimento</h3>
+              <p data-i18n="serv.dev.p">Apps que vão para a loja e sistemas que tiram a sua empresa da planilha.</p>
             </div>
           </article>
           <article class="servico">
             <svg class="servico-icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></svg>
             <div>
               <h3>Firmware</h3>
-              <p>Placa desenhada? Eu escrevo o código que roda nela. Quem responde sou eu, não sou um robô.</p>
+              <p data-i18n="serv.fw.p">Placa desenhada? Eu escrevo o código que roda nela. Quem responde sou eu, não sou um robô.</p>
             </div>
           </article>
         </div>
@@ -160,13 +172,37 @@
       </div>
     </section>
 
+    <!-- ===== Minha história ===== -->
+    <section id="historia" class="secao secao-historia">
+      <div class="container estreito historia">
+        <h2 class="titulo-caixa" data-i18n="hist.titulo">Minha história</h2>
+        <p data-i18n="hist.p1">Desde cedo eu quis entender como as coisas funcionam no mundo digital. Esse interesse virou paixão, e hoje é o meu trabalho.</p>
+        <p data-i18n="hist.p2">Estou no começo da carreira e encaro isso como vantagem: cada projeto recebe toda a minha atenção, e eu estudo todos os dias para entregar mais e melhor.</p>
+        <p data-i18n="hist.p3">Minha meta é transformar essa paixão em algo grande, sempre com honestidade e com Deus na frente.</p>
+        <a class="link-barras" href="https://github.com/rodrigoeliasdossantos019-maker" target="_blank" rel="noopener" data-i18n="hist.github">Ver meu GitHub</a>
+      </div>
+    </section>
+
+    <!-- ===== Como eu trabalho ===== -->
+    <section id="processo" class="secao secao-processo">
+      <div class="container">
+        <h2 class="titulo-caixa claro" data-i18n="proc.titulo">Como eu trabalho</h2>
+        <ol class="passos">
+          <li><span class="passo-num">1</span><h3 data-i18n="proc.1t">Conversa</h3><p data-i18n="proc.1p">Você me conta a ideia pelo WhatsApp. Eu faço perguntas para entender o que o seu negócio precisa.</p></li>
+          <li><span class="passo-num">2</span><h3 data-i18n="proc.2t">Proposta</h3><p data-i18n="proc.2p">Mando o que vou fazer, o prazo e o valor, tudo por escrito e sem surpresa.</p></li>
+          <li><span class="passo-num">3</span><h3 data-i18n="proc.3t">Desenvolvimento</h3><p data-i18n="proc.3p">Construo o projeto e te mostro o andamento. Você acompanha e pede ajustes no caminho.</p></li>
+          <li><span class="passo-num">4</span><h3 data-i18n="proc.4t">Entrega</h3><p data-i18n="proc.4p">Coloco no ar, te ensino a usar e continuo por perto se precisar de suporte.</p></li>
+        </ol>
+      </div>
+    </section>
+
     <!-- ===== Habilidades ===== -->
     <section id="habilidades" class="secao secao-clara">
       <div class="container estreito">
-        <h2 class="titulo-caixa">Habilidades</h2>
+        <h2 class="titulo-caixa" data-i18n="hab.titulo">Habilidades</h2>
 
         <!-- Logotipos: Devicon (devicon.dev) -->
-        <h3 class="categoria">Usando agora:</h3>
+        <h3 class="categoria" data-i18n="hab.usando">Usando agora:</h3>
         <ul class="logos">
           <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" width="44" height="44" loading="lazy">HTML5</li>
           <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt="" width="44" height="44" loading="lazy">CSS3</li>
@@ -178,45 +214,116 @@
           <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/pycharm/pycharm-original.svg" alt="" width="44" height="44" loading="lazy">PyCharm</li>
         </ul>
 
-        <h3 class="categoria">O que eu entrego:</h3>
+        <h3 class="categoria" data-i18n="hab.entrego">O que eu entrego:</h3>
         <ul class="logos logos-linha">
           <!-- clicar abre uma janela com os exemplos daquela categoria -->
-          <li><a href="#habilidades" data-abrir="sites" title="Ver exemplos de sites"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg>Sites</a></li>
+          <li><a href="#habilidades" data-abrir="sites" title="Ver exemplos de sites"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg><span data-i18n="entrega.sites">Sites</span></a></li>
           <li><a href="#habilidades" data-abrir="apps" title="Ver exemplos de apps"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg>Apps</a></li>
-          <li><a href="#habilidades" data-abrir="sistemas" title="Ver exemplos de sistemas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M7 16v-3M11 16V9M15 16v-5M19 16V7"/></svg>Sistemas</a></li>
-          <li><a href="#contato" title="Fale comigo sobre firmware"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></svg>Firmware</a></li>
+          <li><a href="#habilidades" data-abrir="sistemas" title="Ver exemplos de sistemas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M7 16v-3M11 16V9M15 16v-5M19 16V7"/></svg><span data-i18n="entrega.sistemas">Sistemas</span></a></li>
+          <li><a href="#habilidades" data-abrir="firmware" title="Ver exemplo de firmware"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></svg>Firmware</a></li>
         </ul>
 
         <!-- exemplos aparecem aqui ao clicar em Sites, Apps ou Sistemas (clicar de novo esconde) -->
         <div class="painel-exemplos" id="painel-exemplos" hidden>
-          <p class="exemplos-aviso">Projetos de demonstração que eu criei para mostrar como trabalho. As empresas e os dados são fictícios. Clique para ver funcionando.</p>
+          <p class="exemplos-aviso" data-i18n="exemplos.aviso">Projetos de demonstração que eu criei para mostrar como trabalho. As empresas e os dados são fictícios. Clique para ver funcionando.</p>
           <div class="grade-exemplos" id="grade-exemplos"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Serviços (pacotes) ===== -->
+    <section id="servicos" class="secao secao-clara">
+      <div class="container">
+        <h2 class="titulo-caixa" data-i18n="pac.titulo">Serviços</h2>
+        <p class="texto-centro" data-i18n="pac.sub">Escolha um ponto de partida. O valor sai na proposta, de acordo com o que você precisa.</p>
+        <div class="pacotes">
+          <article class="pacote">
+            <h3 data-i18n="pac.1t">Site essencial</h3>
+            <p data-i18n="pac.1p">Para quem precisa estar na internet com uma página bonita e fácil de achar.</p>
+            <ul>
+              <li data-i18n="pac.1a">Página única com seus serviços</li>
+              <li data-i18n="pac.1b">Botão de WhatsApp</li>
+              <li data-i18n="pac.1c">Funciona no celular</li>
+            </ul>
+            <a class="botao-contorno" target="_blank" rel="noopener" data-pedido="pac.1t" href="https://wa.me/5519992932822" data-i18n="pac.botao">Pedir orçamento</a>
+          </article>
+          <article class="pacote destaque">
+            <span class="pacote-selo" data-i18n="pac.selo">Mais pedido</span>
+            <h3 data-i18n="pac.2t">Site + Google</h3>
+            <p data-i18n="pac.2p">Para quem quer ser encontrado por clientes que procuram no Google.</p>
+            <ul>
+              <li data-i18n="pac.2a">Tudo do Site essencial</li>
+              <li data-i18n="pac.2b">Várias páginas</li>
+              <li data-i18n="pac.2c">Preparado para o Google</li>
+              <li data-i18n="pac.2d">Formulário de contato</li>
+            </ul>
+            <a class="botao-cheio" target="_blank" rel="noopener" data-pedido="pac.2t" href="https://wa.me/5519992932822" data-i18n="pac.botao">Pedir orçamento</a>
+          </article>
+          <article class="pacote">
+            <h3 data-i18n="pac.3t">Sob medida</h3>
+            <p data-i18n="pac.3p">Para quem precisa de um app, um sistema ou firmware feito para o seu caso.</p>
+            <ul>
+              <li data-i18n="pac.3a">App, sistema ou firmware</li>
+              <li data-i18n="pac.3b">Feito do zero para você</li>
+              <li data-i18n="pac.3c">Suporte depois da entrega</li>
+            </ul>
+            <a class="botao-contorno" target="_blank" rel="noopener" data-pedido="pac.3t" href="https://wa.me/5519992932822" data-i18n="pac.botao">Pedir orçamento</a>
+          </article>
+        </div>
+
+        <!-- Monte seu pedido: marca o que precisa e manda pelo WhatsApp -->
+        <div class="monte" id="monte">
+          <h3 data-i18n="monte.titulo">Monte seu pedido</h3>
+          <p data-i18n="monte.sub">Marque o que você precisa. Eu recebo a lista no WhatsApp e respondo com a proposta.</p>
+          <div class="monte-opcoes">
+            <label><input type="checkbox" value="monte.o1"><span data-i18n="monte.o1">Site novo</span></label>
+            <label><input type="checkbox" value="monte.o2"><span data-i18n="monte.o2">Aparecer no Google</span></label>
+            <label><input type="checkbox" value="monte.o3"><span data-i18n="monte.o3">Loja virtual</span></label>
+            <label><input type="checkbox" value="monte.o4"><span data-i18n="monte.o4">App para celular</span></label>
+            <label><input type="checkbox" value="monte.o5"><span data-i18n="monte.o5">Sistema para a empresa</span></label>
+            <label><input type="checkbox" value="monte.o6"><span data-i18n="monte.o6">Firmware para placa</span></label>
+            <label><input type="checkbox" value="monte.o7"><span data-i18n="monte.o7">Manutenção de site existente</span></label>
+            <label><input type="checkbox" value="monte.o8"><span data-i18n="monte.o8">Ainda não sei, quero conversar</span></label>
+          </div>
+          <a class="botao-cheio" id="monte-enviar" target="_blank" rel="noopener" href="https://wa.me/5519992932822" data-i18n="monte.enviar">Enviar minha lista</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Perguntas frequentes ===== -->
+    <section id="faq" class="secao secao-faq">
+      <div class="container estreito">
+        <h2 class="titulo-caixa" data-i18n="faq.titulo">Perguntas frequentes</h2>
+        <details><summary data-i18n="faq.1q">Quanto tempo leva para ficar pronto?</summary><p data-i18n="faq.1a">Depende do tamanho do projeto. Um site simples fica pronto mais rápido que um app ou sistema. O prazo certo vai por escrito na proposta.</p></details>
+        <details><summary data-i18n="faq.2q">Quanto custa?</summary><p data-i18n="faq.2a">Cada projeto é diferente, então eu monto o valor depois de entender o que você precisa. Use o Monte seu pedido e eu te respondo com a proposta.</p></details>
+        <details><summary data-i18n="faq.3q">Você atende fora de Campinas?</summary><p data-i18n="faq.3a">Sim. Eu moro em Campinas, mas atendo pela internet clientes de qualquer lugar.</p></details>
+        <details><summary data-i18n="faq.4q">E depois que o site fica pronto?</summary><p data-i18n="faq.4a">Eu te ensino a usar e continuo disponível para ajustes e manutenção.</p></details>
+        <details><summary data-i18n="faq.5q">Com quem eu falo?</summary><p data-i18n="faq.5a">Comigo, direto. Quem responde sou eu, não sou um robô.</p></details>
       </div>
     </section>
 
     <!-- ===== Contato ===== -->
     <section id="contato" class="secao">
       <div class="container estreito">
-        <h2 class="titulo-caixa">Contato</h2>
-        <p class="texto-centro">Me conta o que você precisa. A mensagem chega direto no meu WhatsApp.</p>
+        <h2 class="titulo-caixa" data-i18n="contato.titulo">Contato</h2>
+        <p class="texto-centro" data-i18n="contato.texto">Me conta o que você precisa. A mensagem chega direto no meu WhatsApp.</p>
         <a class="instagram-destaque" href="https://www.instagram.com/its.rodrigoelias/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
           @its.rodrigoelias
         </a>
 
         <form class="formulario" id="formulario">
-          <label>Seu nome
+          <label><span data-i18n="form.nome">Seu nome</span>
             <input type="text" id="nome" name="nome" autocomplete="name">
           </label>
-          <label>Seu e-mail ou telefone
+          <label><span data-i18n="form.contato">Seu e-mail ou telefone</span>
             <input type="text" id="contato-campo" name="contato">
           </label>
-          <label>Mensagem
+          <label><span data-i18n="form.msg">Mensagem</span>
             <textarea id="mensagem" name="mensagem" rows="5"></textarea>
           </label>
           <!-- link real: o texto digitado entra na mensagem automaticamente -->
-          <a id="enviar-whats" class="botao-cheio" href="https://wa.me/5519992932822" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+          <a id="enviar-whats" class="botao-cheio" href="https://wa.me/5519992932822" target="_blank" rel="noopener" data-i18n="form.enviar">Enviar pelo WhatsApp</a>
         </form>
       </div>
     </section>
@@ -226,11 +333,12 @@
   <!-- ===== Rodapé preto ===== -->
   <footer class="rodape">
     <div class="container">
-      <p class="rodape-frase">“Jesus é meu pastor e nada me faltará.”</p>
+      <p class="rodape-frase" data-i18n="rodape.frase">“Jesus é meu pastor e nada me faltará.”</p>
       <div class="topo-redes">
         <a href="https://www.instagram.com/its.rodrigoelias/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
         <a href="https://www.linkedin.com/in/rodrigo-silva-7545/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
         <a href="https://wa.me/5519992932822" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+        <a href="https://github.com/rodrigoeliasdossantos019-maker" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
       </div>
       <p class="rodape-insta"><a href="https://www.instagram.com/its.rodrigoelias/" target="_blank" rel="noopener">@its.rodrigoelias</a></p>
       <small>© <span id="ano"></span> Rodrigo Elias · Campinas, SP</small>
@@ -238,14 +346,20 @@
   </footer>
 </div>
 
+
+  <!-- botão flutuante do WhatsApp -->
+  <a class="whats-flutuante" href="https://wa.me/5519992932822" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.4.6-.4.8 0l.6 1.3c.1.3 0 .5-.2.7l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.4-.3.7-.2l1.3.6c.4.2.4.6 0 .8-.6.6-1.5.8-2.3.5a7 7 0 0 1-3.7-3.7c-.3-.8-.1-1.7.5-2.3z" fill="currentColor"/></svg>
+  </a>
+
   <!-- janela que mostra o exemplo aberto -->
   <div class="janela" id="janela-exemplo" role="dialog" aria-modal="true" aria-labelledby="janela-titulo" hidden>
     <div class="janela-caixa">
       <div class="janela-barra">
         <strong class="janela-titulo" id="janela-titulo"></strong>
         <div class="janela-tamanhos" role="group" aria-label="Tamanho da tela">
-          <button type="button" data-tamanho="computador" aria-pressed="true">Computador</button>
-          <button type="button" data-tamanho="celular" aria-pressed="false">Celular</button>
+          <button type="button" data-tamanho="computador" aria-pressed="true" data-i18n="janela.computador">Computador</button>
+          <button type="button" data-tamanho="celular" aria-pressed="false" data-i18n="janela.celular">Celular</button>
         </div>
         <button type="button" class="janela-fechar" aria-label="Fechar exemplo">✕</button>
       </div>
@@ -255,6 +369,7 @@
     </div>
   </div>
 
+  <script src="idioma.js" defer></script>
   <script src="script.js" defer></script>
   <script src="exemplos.js" defer></script>
 </body>
