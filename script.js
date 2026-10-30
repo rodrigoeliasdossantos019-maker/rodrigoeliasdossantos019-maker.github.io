@@ -67,3 +67,71 @@ function montarLink() {
 formulario.addEventListener("input", montarLink);
 formulario.addEventListener("submit", (e) => { e.preventDefault(); enviar.click(); });
 montarLink();
+
+// ===== Tela de boas-vindas (só na entrada) =====
+(() => {
+  const intro = document.getElementById("intro");
+  if (!intro || !document.documentElement.classList.contains("mostrar-intro")) return;
+
+  // monta o texto letra por letra; "portfólio digital" fica dourado
+  const alvo = intro.querySelector(".intro-texto");
+  const palavras = alvo.dataset.texto.split(" ");
+  let atraso = 0.35;
+  palavras.forEach((palavra, i) => {
+    const grupo = document.createElement("span");
+    grupo.style.display = "inline-block";
+    grupo.style.opacity = "1";
+    grupo.style.transform = "none";
+    grupo.style.animation = "none";
+    if (i >= palavras.length - 2) grupo.className = "destaque";
+    [...palavra].forEach((letra) => {
+      const s = document.createElement("span");
+      s.textContent = letra;
+      s.style.animationDelay = `${atraso.toFixed(2)}s`;
+      atraso += 0.035;
+      grupo.appendChild(s);
+    });
+    alvo.appendChild(grupo);
+    if (i < palavras.length - 1) alvo.appendChild(document.createTextNode(" "));
+    atraso += 0.06;
+  });
+
+  let saiu = false;
+  function sair() {
+    if (saiu) return;
+    saiu = true;
+    intro.classList.add("saindo");
+    setTimeout(() => {
+      document.documentElement.classList.remove("mostrar-intro");
+      intro.remove();
+    }, 900);
+  }
+
+  intro.addEventListener("click", sair);
+  document.addEventListener("keydown", sair, { once: true });
+  setTimeout(sair, 3400); // sai sozinha depois de ~3 segundos
+})();
+
+// ===== Versão clara / escura =====
+(() => {
+  const botao = document.getElementById("tema-botao");
+  if (!botao) return;
+  const raiz = document.documentElement;
+
+  function aplicar(tema) {
+    raiz.setAttribute("data-tema", tema);
+    botao.setAttribute("aria-label", tema === "escuro" ? "Trocar para a versão clara" : "Trocar para a versão escura");
+    const cor = document.querySelector('meta[name="theme-color"]');
+    if (cor) cor.setAttribute("content", tema === "escuro" ? "#0d0d0d" : "#111111");
+  }
+
+  aplicar(raiz.getAttribute("data-tema") || "claro");
+
+  botao.addEventListener("click", () => {
+    const novo = raiz.getAttribute("data-tema") === "escuro" ? "claro" : "escuro";
+    raiz.classList.add("trocando-tema");
+    aplicar(novo);
+    try { localStorage.setItem("tema", novo); } catch (e) {}
+    setTimeout(() => raiz.classList.remove("trocando-tema"), 450);
+  });
+})();
