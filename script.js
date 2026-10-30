@@ -57,7 +57,7 @@ const enviar = document.getElementById("enviar-whats");
 // o link do botão é atualizado a cada letra digitada
 function montarLink() {
   const d = new FormData(formulario);
-  let texto = "Olá Rodrigão! Vim pelo seu site.";
+  let texto = "Olá Rodrigo! Vim pelo seu site.";
   if (d.get("nome")) texto += `\n\nNome: ${d.get("nome")}`;
   if (d.get("contato")) texto += `\nContato: ${d.get("contato")}`;
   if (d.get("mensagem")) texto += `\n\n${d.get("mensagem")}`;

@@ -476,7 +476,7 @@ a { color: inherit; }
 
 /* palavra gigante de fundo */
 #sobre::before {
-  content: "RODRIGÃO";
+  content: "RODRIGO ELIAS";
   position: absolute;
   top: 40px;
   left: 50%;
