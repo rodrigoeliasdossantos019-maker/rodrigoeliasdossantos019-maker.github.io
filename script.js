@@ -8,7 +8,7 @@ const menuBotao = document.querySelector(".menu-botao");
 menuBotao.addEventListener("click", () => {
   const aberto = menu.classList.toggle("aberto");
   menuBotao.setAttribute("aria-expanded", aberto);
-  menuBotao.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+  menuBotao.setAttribute("aria-label", t(aberto ? "a11y.fecharMenu" : "a11y.abrirMenu"));
   atualizar(); // menu aberto ganha fundo escuro mesmo na primeira tela
 });
 
@@ -121,12 +121,13 @@ document.addEventListener("idioma-mudou", montarLink);
 
   function aplicar(tema) {
     raiz.setAttribute("data-tema", tema);
-    botao.setAttribute("aria-label", tema === "escuro" ? "Trocar para a versão clara" : "Trocar para a versão escura");
+    botao.setAttribute("aria-label", t(tema === "escuro" ? "a11y.temaClaro" : "a11y.temaEscuro"));
     const cor = document.querySelector('meta[name="theme-color"]');
     if (cor) cor.setAttribute("content", tema === "escuro" ? "#0d0d0d" : "#111111");
   }
 
   aplicar(raiz.getAttribute("data-tema") || "claro");
+  document.addEventListener("idioma-mudou", () => aplicar(raiz.getAttribute("data-tema") || "claro"));
 
   botao.addEventListener("click", () => {
     const novo = raiz.getAttribute("data-tema") === "escuro" ? "claro" : "escuro";

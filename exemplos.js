@@ -389,7 +389,7 @@ const textoExemplo = (ex, campo) =>
       const cartao = document.createElement("button");
       cartao.type = "button";
       cartao.className = "exemplo" + (ex.formato === "celular" ? " exemplo-app" : "");
-      cartao.setAttribute("aria-label", `Abrir exemplo: ${ex.titulo}`);
+      cartao.setAttribute("aria-label", `${t("a11y.abrirExemplo")} ${ex.titulo}`);
       cartao.innerHTML = `
         <span class="exemplo-mini"><iframe tabindex="-1" aria-hidden="true"></iframe></span>
         <span class="exemplo-info">

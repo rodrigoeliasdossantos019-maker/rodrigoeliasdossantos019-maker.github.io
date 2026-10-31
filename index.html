@@ -84,12 +84,12 @@
   <header class="topo">
     <nav class="menu container">
       <a href="#" class="logo">R</a>
-      <button class="tema-botao" id="tema-botao" type="button" aria-label="Trocar para a versão escura" title="Versão clara / escura">
+      <button class="tema-botao" id="tema-botao" type="button" aria-label="Trocar para a versão escura" title="Versão clara / escura" data-i18n-title="a11y.temaTitulo">
         <svg class="icone-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
         <svg class="icone-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
       </button>
       <button class="idioma-botao" id="idioma-botao" type="button" aria-label="Switch to English" title="Português / English">EN</button>
-      <button class="menu-botao" aria-label="Abrir menu" aria-expanded="false">
+      <button class="menu-botao" aria-label="Abrir menu" data-i18n-aria="a11y.abrirMenu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="menu-links">
@@ -121,7 +121,7 @@
           </a>
         </div>
       </div>
-      <img class="topo-foto" src="img/foto.webp" alt="Foto do Rodrigo Elias de terno" width="1200" height="1600" fetchpriority="high">
+      <img class="topo-foto" src="img/foto.webp" alt="Foto do Rodrigo Elias de terno" data-i18n-alt="a11y.foto" width="1200" height="1600" fetchpriority="high">
     </div>
   </header>
 
@@ -217,10 +217,10 @@
         <h3 class="categoria" data-i18n="hab.entrego">O que eu entrego:</h3>
         <ul class="logos logos-linha">
           <!-- clicar abre uma janela com os exemplos daquela categoria -->
-          <li><a href="#habilidades" data-abrir="sites" title="Ver exemplos de sites"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg><span data-i18n="entrega.sites">Sites</span></a></li>
-          <li><a href="#habilidades" data-abrir="apps" title="Ver exemplos de apps"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg>Apps</a></li>
-          <li><a href="#habilidades" data-abrir="sistemas" title="Ver exemplos de sistemas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M7 16v-3M11 16V9M15 16v-5M19 16V7"/></svg><span data-i18n="entrega.sistemas">Sistemas</span></a></li>
-          <li><a href="#habilidades" data-abrir="firmware" title="Ver exemplo de firmware"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></svg>Firmware</a></li>
+          <li><a href="#habilidades" data-abrir="sites" title="Ver exemplos de sites" data-i18n-title="a11y.exSites"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg><span data-i18n="entrega.sites">Sites</span></a></li>
+          <li><a href="#habilidades" data-abrir="apps" title="Ver exemplos de apps" data-i18n-title="a11y.exApps"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg>Apps</a></li>
+          <li><a href="#habilidades" data-abrir="sistemas" title="Ver exemplos de sistemas" data-i18n-title="a11y.exSistemas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M7 16v-3M11 16V9M15 16v-5M19 16V7"/></svg><span data-i18n="entrega.sistemas">Sistemas</span></a></li>
+          <li><a href="#habilidades" data-abrir="firmware" title="Ver exemplo de firmware" data-i18n-title="a11y.exFirmware"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></svg>Firmware</a></li>
         </ul>
 
         <!-- exemplos aparecem aqui ao clicar em Sites, Apps ou Sistemas (clicar de novo esconde) -->
@@ -357,14 +357,14 @@
     <div class="janela-caixa">
       <div class="janela-barra">
         <strong class="janela-titulo" id="janela-titulo"></strong>
-        <div class="janela-tamanhos" role="group" aria-label="Tamanho da tela">
+        <div class="janela-tamanhos" role="group" aria-label="Tamanho da tela" data-i18n-aria="a11y.tamanho">
           <button type="button" data-tamanho="computador" aria-pressed="true" data-i18n="janela.computador">Computador</button>
           <button type="button" data-tamanho="celular" aria-pressed="false" data-i18n="janela.celular">Celular</button>
         </div>
-        <button type="button" class="janela-fechar" aria-label="Fechar exemplo">✕</button>
+        <button type="button" class="janela-fechar" aria-label="Fechar exemplo" data-i18n-aria="a11y.fechar">✕</button>
       </div>
       <div class="janela-tela" data-tamanho="computador">
-        <iframe title="Exemplo aberto"></iframe>
+        <iframe title="Exemplo aberto" data-i18n-title="a11y.exemploAberto"></iframe>
       </div>
     </div>
   </div>

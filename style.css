@@ -1588,6 +1588,7 @@ body.janela-aberta .whats-flutuante { display: none; }
   .passos::before { display: none; }
 }
 @media (max-width: 520px) {
+  .passos { grid-template-columns: 1fr; gap: 30px; }
   .monte-opcoes { grid-template-columns: 1fr; }
   .monte { padding: 28px 18px; }
   .idioma-botao { min-width: 40px; padding: 0 9px; margin-right: 12px; }
@@ -1685,6 +1686,22 @@ body.janela-aberta .whats-flutuante { display: none; }
 @keyframes intro-letra { to { opacity: 1; transform: none; } }
 @keyframes intro-linha { to { width: min(320px, 70vw); } }
 @keyframes intro-aparecer { to { opacity: 1; } }
+
+/* ===== Correções do Q.A. ===== */
+/* contraste do texto no lado cinza do topo (versão clara) */
+:root[data-tema="claro"] .topo-cargo { color: #555; }
+:root[data-tema="claro"] .topo-frase { color: #6b5220; }
+
+/* palavras longas não empurram a página para os lados */
+.passos li, .pacote, .servico, .monte-opcoes label { min-width: 0; }
+.passos h3, .pacote h3, .servico h3 { overflow-wrap: anywhere; }
+
+/* links com barrinhas: área de toque maior */
+.link-barras { padding-top: 10px; padding-bottom: 10px; }
+
+/* contorno dourado para quem navega pelo teclado */
+:focus-visible { outline: 2px solid var(--destaque); outline-offset: 3px; }
+.formulario input:focus-visible, .formulario textarea:focus-visible { outline: none; }
 
 /* ===== Tablet ===== */
 @media (max-width: 900px) {

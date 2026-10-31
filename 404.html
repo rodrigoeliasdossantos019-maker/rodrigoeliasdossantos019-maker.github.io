@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página não encontrada | Rodrigo Elias</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --dourado: #c9a45c; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 24px max(16px, env(safe-area-inset-left, 0px));
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 50% 40%, #1c1c1c 0%, #000 70%);
+      color: #fff;
+      text-align: center;
+    }
+    .logo {
+      width: 56px; height: 56px; margin: 0 auto 26px;
+      display: grid; place-items: center;
+      border: 2px solid var(--dourado); color: var(--dourado);
+      font-size: 1.5rem; font-weight: 800;
+    }
+    h1 { font-size: clamp(4rem, 18vw, 8rem); line-height: 1; color: var(--dourado); }
+    p { margin: 14px auto 0; max-width: 420px; color: rgba(255, 255, 255, 0.75); }
+    .en { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
+    a {
+      display: inline-block; margin-top: 30px; padding: 13px 30px;
+      border: 2px solid var(--dourado); border-radius: 999px;
+      color: #fff; text-decoration: none; font-weight: 800;
+      font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    a:hover, a:focus-visible { background: var(--dourado); color: #111; outline: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="logo">R</div>
+    <h1>404</h1>
+    <p>Essa página não existe. Talvez o endereço tenha sido digitado errado.</p>
+    <p class="en">This page doesn't exist. The address may have been typed incorrectly.</p>
+    <a href="/">Voltar ao início · Home</a>
+  </main>
+</body>
+</html>

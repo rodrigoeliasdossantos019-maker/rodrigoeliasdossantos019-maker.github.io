@@ -163,6 +163,40 @@ Object.assign(TEXTOS.en, {
   "whats.flutuante": "Chat on WhatsApp",
 });
 
+// rótulos lidos por leitores de tela e dicas ao passar o mouse
+Object.assign(TEXTOS.pt, {
+  "a11y.temaTitulo": "Versão clara / escura",
+  "a11y.temaEscuro": "Trocar para a versão escura",
+  "a11y.temaClaro": "Trocar para a versão clara",
+  "a11y.abrirMenu": "Abrir menu",
+  "a11y.fecharMenu": "Fechar menu",
+  "a11y.foto": "Foto do Rodrigo Elias de terno",
+  "a11y.exSites": "Ver exemplos de sites",
+  "a11y.exApps": "Ver exemplos de apps",
+  "a11y.exSistemas": "Ver exemplos de sistemas",
+  "a11y.exFirmware": "Ver exemplo de firmware",
+  "a11y.tamanho": "Tamanho da tela",
+  "a11y.fechar": "Fechar exemplo",
+  "a11y.exemploAberto": "Exemplo aberto",
+  "a11y.abrirExemplo": "Abrir exemplo:",
+});
+Object.assign(TEXTOS.en, {
+  "a11y.temaTitulo": "Light / dark mode",
+  "a11y.temaEscuro": "Switch to dark mode",
+  "a11y.temaClaro": "Switch to light mode",
+  "a11y.abrirMenu": "Open menu",
+  "a11y.fecharMenu": "Close menu",
+  "a11y.foto": "Photo of Rodrigo Elias wearing a suit",
+  "a11y.exSites": "See website examples",
+  "a11y.exApps": "See app examples",
+  "a11y.exSistemas": "See system examples",
+  "a11y.exFirmware": "See firmware example",
+  "a11y.tamanho": "Screen size",
+  "a11y.fechar": "Close example",
+  "a11y.exemploAberto": "Open example",
+  "a11y.abrirExemplo": "Open example:",
+});
+
 // idioma atual e tradução de uma chave
 function idiomaAtual() {
   return document.documentElement.getAttribute("data-idioma") === "en" ? "en" : "pt";
@@ -181,6 +215,10 @@ function aplicarIdioma(idioma) {
     const texto = t(el.dataset.i18n);
     if (texto) el.textContent = texto;
   });
+
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => el.setAttribute("alt", t(el.dataset.i18nAlt)));
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => el.setAttribute("title", t(el.dataset.i18nTitle)));
 
   // texto animado da tela de boas-vindas (montado depois pelo script.js)
   const intro = document.querySelector(".intro-texto");
