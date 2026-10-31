@@ -12,6 +12,17 @@ menuBotao.addEventListener("click", () => {
   atualizar(); // menu aberto ganha fundo escuro mesmo na primeira tela
 });
 
+// fecha o menu com Esc ou tocando fora dele
+function fecharMenu() {
+  if (!menu.classList.contains("aberto")) return;
+  menu.classList.remove("aberto");
+  menuBotao.setAttribute("aria-expanded", "false");
+  menuBotao.setAttribute("aria-label", t("a11y.abrirMenu"));
+  atualizar();
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharMenu(); });
+document.addEventListener("click", (e) => { if (!menu.contains(e.target)) fecharMenu(); });
+
 // fecha o menu ao clicar num link
 document.querySelectorAll(".menu-links a").forEach((link) =>
   link.addEventListener("click", () => {

@@ -1703,6 +1703,10 @@ body.janela-aberta .whats-flutuante { display: none; }
 :focus-visible { outline: 2px solid var(--destaque); outline-offset: 3px; }
 .formulario input:focus-visible, .formulario textarea:focus-visible { outline: none; }
 
+/* itens do menu que só aparecem no celular */
+.menu-links .so-celular { display: none; }
+@media (max-width: 720px) { .menu-links .so-celular { display: list-item; } }
+
 /* ===== Tablet ===== */
 @media (max-width: 900px) {
   .grade-habilidades { grid-template-columns: repeat(3, 1fr); }
@@ -1759,7 +1763,15 @@ body.janela-aberta .whats-flutuante { display: none; }
   .menu-links a { display: block; padding: 14px; }
   .menu-destaque { border: 0; }
 
-  .menu.aberto .menu-links { max-height: 300px; }
+  .menu.aberto .menu-links { max-height: 80vh; overflow-y: auto; }
+
+  /* o recorte da faixa escura escondia a lista do menu no celular */
+  .menu { box-shadow: none; clip-path: none; }
+  .menu-links { box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35); }
+  .menu-links li + li { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+  .menu-links a { color: #fff; opacity: 0.9; }
+  .menu-links a.ativo { color: var(--destaque); }
+  .menu-links .menu-destaque { margin: 10px auto 16px; display: table; padding: 10px 28px; border-radius: 999px; background: var(--destaque); color: #111 !important; }
   .menu.aberto .menu-botao span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
   .menu.aberto .menu-botao span:nth-child(2) { opacity: 0; }
   .menu.aberto .menu-botao span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }

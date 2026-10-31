@@ -197,6 +197,10 @@ Object.assign(TEXTOS.en, {
   "a11y.abrirExemplo": "Open example:",
 });
 
+// itens extras do menu do celular
+Object.assign(TEXTOS.pt, { "menu.historia": "Minha história", "menu.processo": "Como eu trabalho", "menu.faq": "Perguntas frequentes" });
+Object.assign(TEXTOS.en, { "menu.historia": "My story", "menu.processo": "How I work", "menu.faq": "FAQ" });
+
 // idioma atual e tradução de uma chave
 function idiomaAtual() {
   return document.documentElement.getAttribute("data-idioma") === "en" ? "en" : "pt";
