@@ -253,6 +253,21 @@ main { max-width: 1240px; margin: 0 auto; }
 .link-imagem input:focus { border-color: var(--roxo); outline: none; }
 .link-imagem .botao { padding: 10px 16px; }
 
+/* formatos famosos */
+.sem-topo { margin-top: 0; }
+.formatos { display: flex; flex-wrap: wrap; gap: 8px; max-height: 190px; overflow-y: auto; padding: 2px; }
+.formatos button {
+  padding: 8px 12px; border-radius: 10px; border: 1px solid var(--linha); background: var(--fundo-2);
+  color: var(--texto); font: 600 0.78rem "Montserrat", sans-serif; cursor: pointer; text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+}
+.formatos button:hover { border-color: var(--roxo); }
+.formatos button[aria-pressed="true"] { background: var(--roxo); border-color: var(--roxo); }
+
+/* figurinhas desenhadas (personagens do MemesLab) */
+.figurinhas button img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.figurinhas.personagens { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
+
 /* ===== Figurinhas ===== */
 .abas-fig { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; }
 .abas-fig button {
