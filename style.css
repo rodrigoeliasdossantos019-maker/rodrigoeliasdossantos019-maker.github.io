@@ -1707,6 +1707,9 @@ body.janela-aberta .whats-flutuante { display: none; }
 .menu-links .so-celular { display: none; }
 @media (max-width: 720px) { .menu-links .so-celular { display: list-item; } }
 
+/* links da seção Minha história lado a lado */
+.historia .link-barras { display: inline-block; margin: 26px 8px 0; }
+
 /* ===== Tablet ===== */
 @media (max-width: 900px) {
   .grade-habilidades { grid-template-columns: repeat(3, 1fr); }

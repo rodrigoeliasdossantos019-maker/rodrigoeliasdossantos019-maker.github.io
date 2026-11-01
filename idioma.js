@@ -201,6 +201,10 @@ Object.assign(TEXTOS.en, {
 Object.assign(TEXTOS.pt, { "menu.historia": "Minha história", "menu.processo": "Como eu trabalho", "menu.faq": "Perguntas frequentes" });
 Object.assign(TEXTOS.en, { "menu.historia": "My story", "menu.processo": "How I work", "menu.faq": "FAQ" });
 
+// link do projeto MemesLab
+Object.assign(TEXTOS.pt, { "hist.memes": "Ver meu projeto MemesLab" });
+Object.assign(TEXTOS.en, { "hist.memes": "See my MemesLab project" });
+
 // idioma atual e tradução de uma chave
 function idiomaAtual() {
   return document.documentElement.getAttribute("data-idioma") === "en" ? "en" : "pt";
