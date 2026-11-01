@@ -180,6 +180,39 @@
     { nome: "Ninguém: / Meu gato:", fundo: 0, textos: ["Ninguém:", "Meu gato às 4 da manhã:"] },
   ];
 
+  // ---------- fotos engraçadas de bichos (Unsplash, licença gratuita) ----------
+  const FOTO = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1080&q=80`;
+  const MINI = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=220&h=220&q=60`;
+  const FOTOS = [
+    { id: "1515536765-9b2a70c4b333", nome: "Cavalo rindo" },
+    { id: "1722501011971-ba07f6a5e435", nome: "Vaca mostrando a língua" },
+    { id: "1541364983171-a8ba01e95cfc", nome: "Pug sério" },
+    { id: "1533738363-b7f9aef128ce", nome: "Gato de óculos" },
+    { id: "1766107283245-3d2c073081b4", nome: "Lêmure assustado" },
+    { id: "1638231366498-adf341fa6f31", nome: "Cabra gritando" },
+    { id: "1438283173091-5dbf5c5a3206", nome: "Cavalo gritando" },
+    { id: "1552053831-71594a27632d", nome: "Cachorro comendo flor" },
+    { id: "1758503455332-f5d970316074", nome: "Gato caubói" },
+    { id: "1583511655826-05700d52f4d9", nome: "Cachorro de pijama" },
+    { id: "1726562520505-c625d5dc9717", nome: "Burro curioso" },
+    { id: "1734984400916-d51a7348da39", nome: "Camelo de perto" },
+    { id: "1730041822286-c6c2b579a7d9", nome: "Gato estiloso" },
+    { id: "1556997685-309989c1aa82", nome: "Boi encarando" },
+    { id: "1777432736524-0f15d2d65bed", nome: "Panda de cabeça para baixo" },
+    { id: "1639192602482-f6d1b4bb54b7", nome: "Macaco de boca aberta" },
+    { id: "1552474705-dd8183e00901", nome: "Alpaca descabelada" },
+    { id: "1787456916243-86a3c069c303", nome: "Esquilo com laranja" },
+  ];
+
+  // formatos de conversa (faixa branca em cima + foto)
+  FORMATOS.unshift(
+    { nome: "💬 Conversa: Mãe / Eu", legenda: true, foto: 0, textos: ["- Mãe, vou sair", "- Volta cedo", "- Pode deixar, mãe...", "Eu chegando às 4 da manhã:"] },
+    { nome: "💬 Quando você...", legenda: true, foto: 2, textos: ["Quando você fala que vai dormir cedo e alguém manda \"só mais um episódio\""] },
+    { nome: "💬 Minha amiga: / Eu:", legenda: true, foto: 4, textos: ["Minha amiga: \"tô falando sério, nunca mais fico com ele\"", "Eu:"] },
+    { nome: "💬 Amor, ouvi um barulho", legenda: true, foto: 10, textos: ["- Amor, ouvi um barulho no quintal", "- Solta o cachorro pra ver", "O cachorro:"] },
+    { nome: "💬 Quando a pessoa aparece", legenda: true, foto: 5, textos: ["Quando você tá falando mal da pessoa e ela aparece"] },
+  );
+
   // ---------- estado ----------
   const estado = {
     imagem: null,      // foto enviada
@@ -224,7 +257,23 @@
   // caixas de toque: textos e figurinhas
   let caixas = [];
 
-  function tamanhoTela() {
+  // ---------- modo legenda: faixa branca em cima com o texto (estilo conversa) ----------
+  const FONTE_LEGENDA = '"Helvetica Neue", Arial, sans-serif';
+  const modoLegenda = () => campo("legenda").checked;
+
+  function layoutLegenda(w) {
+    const e = estilo();
+    const tam = Math.round(e.tamanho * 0.62 * (w / LADO));
+    ctx.font = `${tam}px ${FONTE_LEGENDA}`;
+    const texto = estado.textos.map((t) => t.texto).filter((t) => t.trim()).join("\n");
+    const linhas = texto ? quebrarLinhas(texto, w * 0.9) : [];
+    const altLinha = tam * 1.3;
+    const margem = tam * 0.9;
+    const altura = linhas.length ? Math.round(linhas.length * altLinha + margem * 2) : 0;
+    return { tam, linhas, altLinha, margem, altura };
+  }
+
+  function tamanhoFoto() {
     if (estado.imagem) {
       const prop = estado.imagem.height / estado.imagem.width;
       return { w: LADO, h: Math.round(Math.min(Math.max(LADO * prop, LADO * 0.4), LADO * 2)) };
@@ -233,16 +282,36 @@
   }
 
   function desenhar({ semSelecao = false } = {}) {
-    const { w, h } = tamanhoTela();
+    const foto = tamanhoFoto();
+    const w = foto.w;
+    const legenda = modoLegenda() ? layoutLegenda(w) : null;
+    const topoFoto = legenda ? legenda.altura : 0;
+    const h = foto.h + topoFoto;
     if (tela.width !== w || tela.height !== h) { tela.width = w; tela.height = h; }
 
     ctx.clearRect(0, 0, w, h);
-    if (estado.imagem) ctx.drawImage(estado.imagem, 0, 0, w, h);
-    else estado.modelo.desenhar(ctx, w, h);
+
+    // faixa branca com o texto em cima
+    if (legenda) {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, topoFoto);
+      ctx.fillStyle = "#111111";
+      ctx.font = `${legenda.tam}px ${FONTE_LEGENDA}`;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      legenda.linhas.forEach((l, n) => ctx.fillText(l, w * 0.05, legenda.margem + n * legenda.altLinha));
+    }
+
+    // foto ou fundo pronto
+    ctx.save();
+    ctx.translate(0, topoFoto);
+    if (estado.imagem) ctx.drawImage(estado.imagem, 0, 0, foto.w, foto.h);
+    else estado.modelo.desenhar(ctx, foto.w, foto.h);
+    ctx.restore();
 
     caixas = [];
 
-    // figurinhas ficam embaixo dos textos
+    // figurinhas (posição relativa à imagem inteira)
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     estado.figurinhas.forEach((f, i) => {
@@ -250,12 +319,8 @@
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate((f.giro * Math.PI) / 180);
-      if (f.pers) {
-        ctx.drawImage(f.pers.imagem, -f.tam / 2, -f.tam / 2, f.tam, f.tam);
-      } else {
-        ctx.font = `${f.tam}px ${FONTE_EMOJI}`;
-        ctx.fillText(f.emoji, 0, f.tam * 0.05);
-      }
+      if (f.pers) ctx.drawImage(f.pers.imagem, -f.tam / 2, -f.tam / 2, f.tam, f.tam);
+      else { ctx.font = `${f.tam}px ${FONTE_EMOJI}`; ctx.fillText(f.emoji, 0, f.tam * 0.05); }
       ctx.restore();
       const meio = f.tam * 0.6;
       caixas.push({ tipo: "fig", i, x: cx - meio, y: cy - meio, w: meio * 2, h: meio * 2 });
@@ -269,7 +334,10 @@
       }
     });
 
-    // textos
+    // no modo legenda o texto já está na faixa branca
+    if (legenda) return;
+
+    // textos no estilo clássico (em cima da foto, com borda)
     const e = estilo();
     const tam = e.tamanho * (w / LADO);
     ctx.font = `${tam}px "${e.fonte}", Impact, "Arial Black", sans-serif`;
@@ -301,10 +369,19 @@
       const [x, y] = estado.modelo.posicoes[i];
       return { x, y };
     }
+    const total = Math.max(estado.textos.length, i + 1);
+    // com mais de dois textos, eles se espalham de cima para baixo
+    if (total > 2) return { x: 0.5, y: 0.1 + (i * 0.8) / (total - 1) };
     if (i === 0) return { x: 0.5, y: 0.12 };
     if (i === 1) return { x: 0.5, y: 0.88 };
     return { x: 0.5, y: 0.5 };
   }
+
+  // ao desligar a legenda, os textos voltam para cima da foto sem se amontoar
+  campo("legenda").addEventListener("change", () => {
+    if (!campo("legenda").checked) estado.textos.forEach((t, i) => Object.assign(t, posicaoPadrao(i)));
+    desenhar();
+  });
 
   function definirTextos(lista) {
     estado.textos = lista.map((texto, i) => ({ texto, ...posicaoPadrao(i) }));
@@ -468,7 +545,21 @@
     b.type = "button";
     b.textContent = f.nome;
     b.setAttribute("aria-pressed", "false");
-    b.addEventListener("click", () => {
+    b.addEventListener("click", async () => {
+      campo("legenda").checked = !!f.legenda;
+      if (f.legenda) {
+        avisar("Carregando a foto...");
+        try { await usarImagem(FOTO(FOTOS[f.foto].id)); }
+        catch (e) { avisar("Não consegui carregar a foto. Verifique a internet."); return; }
+        estado.textos = f.textos.map((texto, i) => ({ texto, ...posicaoPadrao(i) }));
+        estado.figurinhas = [];
+        selecionarFigurinha(-1);
+        montarLista();
+        desenhar();
+        [...caixaFormatos.children].forEach((x) => x.setAttribute("aria-pressed", x === b));
+        avisar(`Formato "${f.nome.replace("💬 ", "")}" pronto. Troque o texto ou a foto!`);
+        return;
+      }
       escolherModelo(MODELOS[f.fundo]);
       estado.textos = f.textos.map((texto, i) => ({ texto, ...posicaoPadrao(i) }));
       if (f.unico) estado.textos[0].y = 0.15;
@@ -480,10 +571,34 @@
     caixaFormatos.appendChild(b);
   });
 
+  // ---------- galeria de fotos de bichos ----------
+  const caixaFotos = campo("fotos");
+  FOTOS.forEach((f) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.title = f.nome;
+    b.setAttribute("aria-label", `Usar foto: ${f.nome}`);
+    b.setAttribute("aria-pressed", "false");
+    const img = document.createElement("img");
+    img.src = MINI(f.id);
+    img.alt = "";
+    img.loading = "lazy";
+    b.appendChild(img);
+    b.addEventListener("click", async () => {
+      avisar("Carregando a foto...");
+      try {
+        await usarImagem(FOTO(f.id), `Foto "${f.nome}" pronta. Escreva o texto!`);
+        [...caixaFotos.children].forEach((x) => x.setAttribute("aria-pressed", x === b));
+      } catch (e) { avisar("Não consegui carregar a foto. Verifique a internet."); }
+    });
+    caixaFotos.appendChild(b);
+  });
+
   // ---------- foto (botão, arrastar e soltar, colar) ----------
   async function usarImagem(src, avisoTexto) {
     const img = new Image();
     img.decoding = "async";
+    if (/^https?:/i.test(src)) img.crossOrigin = "anonymous";
     img.src = src;
     await img.decode();
     estado.imagem = img;
@@ -571,7 +686,7 @@
   tela.addEventListener("pointercancel", soltar);
 
   // ---------- estilo ----------
-  ["tamanho", "cor", "borda", "maiusculas", "sombra"].forEach((id) => campo(id).addEventListener("input", () => desenhar()));
+  ["tamanho", "cor", "borda", "maiusculas", "sombra", "legenda"].forEach((id) => campo(id).addEventListener("input", () => desenhar()));
   campo("fonte").addEventListener("change", () => document.fonts.load(`80px "${campo("fonte").value}"`).then(() => desenhar()));
 
   campo("limpar").addEventListener("click", () => {
@@ -645,6 +760,8 @@
     usarComoBase: (src) => usarImagem(src, "Pronto! Edite o texto e coloque figurinhas."),
     avisar,
     baixarBlob,
+    fotos: FOTOS,
+    urlFoto: (id, largura = 640) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${largura}&h=${largura}&q=75`,
   };
 
   // ---------- começa com um exemplo pronto ----------

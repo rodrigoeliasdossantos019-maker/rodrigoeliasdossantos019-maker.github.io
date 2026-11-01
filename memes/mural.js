@@ -1,5 +1,5 @@
 // ===== MemesLab — mural de memes =====
-// Os memes de exemplo são criações originais, desenhados aqui com fundos e emojis.
+// Os memes de exemplo usam fotos de bichos do Unsplash (licença gratuita) e piadas originais.
 // Curtidas e memes publicados ficam guardados só no aparelho de quem usa (localStorage).
 (() => {
   const mural = document.getElementById("mural");
@@ -11,58 +11,92 @@
   const FONTE_EMOJI = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
 
   // ---------- memes de exemplo ----------
+  // Fotos reais de bichos (Unsplash, licença gratuita) com piadas originais.
+  // estilo "legenda": faixa branca em cima (conversa) | estilo "classico": texto branco com borda na foto
   const EXEMPLOS = [
-    { id: "ex1", cat: "escola", cima: "Quando o professor diz", baixo: "que vai ter prova surpresa", emoji: "😱", fundo: ["#3a86ff", "#0b1d51"], autor: "ZoeiraTotal", av: "🦊", curtidas: 12700, coment: 328, horas: 2 },
-    { id: "ex2", cat: "trabalho", cima: "Eu na segunda", baixo: "fingindo que estou bem", emoji: "🙂", extra: "☕", fundo: ["#f4a261", "#6b2d0f"], autor: "CafeComMeme", av: "☕", curtidas: 24300, coment: 573, horas: 5 },
-    { id: "ex3", cat: "programacao", cima: "Funcionou e eu", baixo: "não sei por quê", emoji: "🤯", extra: "💻", fundo: ["#2a9d8f", "#0b2b26"], autor: "DevCansado", av: "🤖", curtidas: 18900, coment: 421, horas: 8 },
-    { id: "ex4", cat: "bichos", cima: "Meu gato quando", baixo: "eu chego em casa", emoji: "😼", fundo: ["#e9c46a", "#7a4f10"], autor: "Miau2000", av: "🐱", curtidas: 31200, coment: 890, horas: 1 },
-    { id: "ex5", cat: "jogos", cima: "Só mais uma partida", baixo: "eram 4 da manhã", emoji: "🎮", extra: "🌙", fundo: ["#7b2cbf", "#10002b"], autor: "GamerRaiz", av: "👾", curtidas: 15400, coment: 260, horas: 12 },
-    { id: "ex6", cat: "reacoes", cima: "Eu lendo", baixo: "o grupo da família", emoji: "🫠", fundo: ["#ef476f", "#4a0d1e"], autor: "SemFiltro", av: "🙃", curtidas: 9800, coment: 145, horas: 20 },
-    { id: "ex7", cat: "engracados", cima: "Ninguém:", baixo: "Eu dançando na cozinha", emoji: "🕺", extra: "🍳", fundo: ["#ffbe0b", "#8a3b00"], autor: "RiDemais", av: "😂", curtidas: 21000, coment: 512, horas: 3 },
-    { id: "ex8", cat: "escola", cima: "Grupo do trabalho", baixo: "eu fazendo tudo sozinho", emoji: "😤", extra: "📚", fundo: ["#06d6a0", "#03402f"], autor: "Estudante", av: "📚", curtidas: 11300, coment: 233, horas: 26 },
-    { id: "ex9", cat: "engracados", cima: "Quando o salário cai", baixo: "e já tem dono", emoji: "💸", extra: "🥲", fundo: ["#8338ec", "#24064f"], autor: "ContasPagas", av: "💰", curtidas: 27800, coment: 640, horas: 6 },
-    { id: "ex10", cat: "programacao", cima: "Achei o bug", baixo: "era um ponto e vírgula", emoji: "🔍", extra: "🐛", fundo: ["#118ab2", "#04202e"], autor: "CodigoLimpo", av: "💻", curtidas: 8700, coment: 198, horas: 30 },
-    { id: "ex11", cat: "bichos", cima: "O pato olhando", baixo: "você comer pão sozinho", emoji: "🦆", extra: "🥖", fundo: ["#90be6d", "#253b17"], autor: "PatoSincero", av: "🦆", curtidas: 14600, coment: 301, horas: 15 },
-    { id: "ex12", cat: "reacoes", cima: "Quando alguém fala", baixo: "\"rapidinho\"", emoji: "🤨", fundo: ["#577590", "#141f2b"], autor: "Desconfiado", av: "🤨", curtidas: 7600, coment: 98, horas: 40 },
+    { id: "ex1", cat: "engracados", foto: 0, estilo: "legenda", texto: "- Mãe, vou sair\n- Volta cedo, hein\n- Pode deixar, mãe...\n\nEu chegando às 4 da manhã:", autor: "ZoeiraTotal", av: "🦊", curtidas: 31200, coment: 890, horas: 1 },
+    { id: "ex2", cat: "reacoes", foto: 1, estilo: "classico", cima: "Eu quando acaba", baixo: "a última fatia de pizza", autor: "FomeEterna", av: "🍕", curtidas: 24300, coment: 573, horas: 2 },
+    { id: "ex3", cat: "trabalho", foto: 2, estilo: "legenda", texto: "Eu ouvindo meu chefe dizer que a reunião \"vai ser rapidinha\"", autor: "CafeComMeme", av: "☕", curtidas: 27800, coment: 640, horas: 3 },
+    { id: "ex4", cat: "bichos", foto: 3, estilo: "classico", cima: "Eu fingindo", baixo: "que entendi a explicação", autor: "Miau2000", av: "🐱", curtidas: 21000, coment: 512, horas: 4 },
+    { id: "ex5", cat: "reacoes", foto: 4, estilo: "legenda", texto: "Quando você tá falando mal da pessoa e ela aparece do nada", autor: "SemFiltro", av: "🙃", curtidas: 18900, coment: 421, horas: 5 },
+    { id: "ex6", cat: "escola", foto: 5, estilo: "classico", cima: "Eu quando o professor", baixo: "fala \"vale nota\"", autor: "Estudante", av: "📚", curtidas: 15400, coment: 260, horas: 6 },
+    { id: "ex7", cat: "engracados", foto: 6, estilo: "legenda", texto: "- Amor, ouvi um barulho no quintal\n- Solta o cavalo pra ele ver\n\nO cavalo:", autor: "RiDemais", av: "😂", curtidas: 26100, coment: 702, horas: 7 },
+    { id: "ex8", cat: "bichos", foto: 7, estilo: "classico", cima: "Dieta começa", baixo: "segunda-feira", autor: "DogLife", av: "🐶", curtidas: 12700, coment: 328, horas: 8 },
+    { id: "ex9", cat: "jogos", foto: 8, estilo: "legenda", texto: "Eu entrando na partida achando que sou o melhor do servidor", autor: "GamerRaiz", av: "👾", curtidas: 11300, coment: 233, horas: 10 },
+    { id: "ex10", cat: "engracados", foto: 9, estilo: "classico", cima: "Eu no domingo", baixo: "às 3 da tarde", autor: "PreguicaTotal", av: "🛌", curtidas: 19800, coment: 455, horas: 12 },
+    { id: "ex11", cat: "reacoes", foto: 10, estilo: "legenda", texto: "Minha amiga: \"agora é sério, nunca mais falo com ele\"\n\nEu:", autor: "Fofoqueira", av: "👀", curtidas: 22600, coment: 810, horas: 14 },
+    { id: "ex12", cat: "programacao", foto: 11, estilo: "classico", cima: "Funcionou na primeira", baixo: "e eu não sei por quê", autor: "DevCansado", av: "🤖", curtidas: 9800, coment: 198, horas: 16 },
+    { id: "ex13", cat: "trabalho", foto: 12, estilo: "legenda", texto: "Eu chegando no trabalho na sexta depois de receber o salário", autor: "Sextou", av: "😎", curtidas: 14600, coment: 301, horas: 20 },
+    { id: "ex14", cat: "bichos", foto: 13, estilo: "classico", cima: "Quando alguém fala", baixo: "\"é só um minutinho\"", autor: "Desconfiado", av: "🤨", curtidas: 8700, coment: 145, horas: 24 },
+    { id: "ex15", cat: "engracados", foto: 14, estilo: "legenda", texto: "Eu tentando entender o grupo da família às 7 da manhã", autor: "BomDiaGrupo", av: "🌻", curtidas: 17500, coment: 388, horas: 30 },
+    { id: "ex16", cat: "escola", foto: 15, estilo: "classico", cima: "Eu descobrindo", baixo: "que a prova era hoje", autor: "Desesperado", av: "😱", curtidas: 20400, coment: 533, horas: 36 },
   ];
 
-  // desenha um meme de exemplo e devolve a imagem
-  function desenharExemplo(m) {
+  // carrega uma foto liberando o uso no canvas (CORS)
+  const carregarFoto = (src) => new Promise((ok, erro) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => ok(img);
+    img.onerror = erro;
+    img.src = src;
+  });
+
+  function quebrar(x, texto, larguraMax) {
+    const linhas = [];
+    texto.split("\n").forEach((par) => {
+      let linha = "";
+      par.split(" ").forEach((p) => {
+        const teste = linha ? linha + " " + p : p;
+        if (x.measureText(teste).width > larguraMax && linha) { linhas.push(linha); linha = p; }
+        else linha = teste;
+      });
+      linhas.push(linha);
+    });
+    return linhas;
+  }
+
+  // desenha um meme de exemplo e devolve a imagem pronta
+  async function desenharExemplo(m) {
     const T = 640;
+    const foto = await carregarFoto(editor.urlFoto(editor.fotos[m.foto].id, T));
     const c = document.createElement("canvas");
-    c.width = c.height = T;
     const x = c.getContext("2d");
-    const g = x.createRadialGradient(T * 0.5, T * 0.45, T * 0.05, T * 0.5, T * 0.5, T * 0.75);
-    g.addColorStop(0, m.fundo[0]);
-    g.addColorStop(1, m.fundo[1]);
-    x.fillStyle = g;
-    x.fillRect(0, 0, T, T);
-    // raios de fundo
-    x.save();
-    x.translate(T / 2, T / 2);
-    x.fillStyle = "rgba(255,255,255,.06)";
-    for (let i = 0; i < 12; i++) { x.rotate(Math.PI / 6); x.beginPath(); x.moveTo(0, 0); x.lineTo(T, -60); x.lineTo(T, 60); x.fill(); }
-    x.restore();
-    x.textAlign = "center";
-    x.textBaseline = "middle";
-    x.font = `230px ${FONTE_EMOJI}`;
-    x.fillText(m.emoji, T / 2, T * 0.52);
-    if (m.extra) { x.font = `120px ${FONTE_EMOJI}`; x.fillText(m.extra, T * 0.78, T * 0.66); }
-    // textos no estilo meme
-    const escrever = (texto, y) => {
-      let tam = 58;
-      x.font = `${tam}px Anton, Impact, "Arial Black", sans-serif`;
-      const t = texto.toUpperCase();
-      while (x.measureText(t).width > T * 0.92 && tam > 30) { tam -= 2; x.font = `${tam}px Anton, Impact, "Arial Black", sans-serif`; }
-      x.lineJoin = "round";
-      x.lineWidth = tam * 0.14;
-      x.strokeStyle = "#000";
-      x.strokeText(t, T / 2, y);
+
+    if (m.estilo === "legenda") {
+      const tam = 30;
+      x.font = `${tam}px "Helvetica Neue", Arial, sans-serif`;
+      const linhas = quebrar(x, m.texto, T * 0.9);
+      const altLinha = tam * 1.3;
+      const faixa = Math.round(linhas.length * altLinha + tam * 1.6);
+      c.width = T;
+      c.height = T + faixa;
       x.fillStyle = "#fff";
-      x.fillText(t, T / 2, y);
-    };
-    escrever(m.cima, T * 0.1);
-    escrever(m.baixo, T * 0.9);
+      x.fillRect(0, 0, T, faixa);
+      x.fillStyle = "#111";
+      x.font = `${tam}px "Helvetica Neue", Arial, sans-serif`;
+      x.textBaseline = "top";
+      linhas.forEach((l, n) => x.fillText(l, T * 0.05, tam * 0.8 + n * altLinha));
+      x.drawImage(foto, 0, faixa, T, T);
+    } else {
+      c.width = c.height = T;
+      x.drawImage(foto, 0, 0, T, T);
+      x.textAlign = "center";
+      x.textBaseline = "middle";
+      const escrever = (texto, y) => {
+        let tam = 58;
+        const t = texto.toUpperCase();
+        x.font = `${tam}px Anton, Impact, "Arial Black", sans-serif`;
+        while (x.measureText(t).width > T * 0.92 && tam > 30) { tam -= 2; x.font = `${tam}px Anton, Impact, "Arial Black", sans-serif`; }
+        x.lineJoin = "round";
+        x.lineWidth = tam * 0.14;
+        x.strokeStyle = "#000";
+        x.strokeText(t, T / 2, y);
+        x.fillStyle = "#fff";
+        x.fillText(t, T / 2, y);
+      };
+      escrever(m.cima, T * 0.09);
+      escrever(m.baixo, T * 0.91);
+    }
     return c.toDataURL("image/jpeg", 0.85);
   }
 
@@ -80,7 +114,7 @@
 
   function montarPosts() {
     const exemplos = EXEMPLOS.map((m) => ({
-      id: m.id, cat: m.cat, titulo: `${m.cima} ${m.baixo}`, img: null, fonte: m,
+      id: m.id, cat: m.cat, titulo: m.texto ? m.texto.split("\n").filter(Boolean).join(" ") : `${m.cima} ${m.baixo}`, img: null, fonte: m,
       autor: m.autor, av: m.av, curtidas: m.curtidas, coment: m.coment, horas: m.horas, meu: false,
     }));
     const proprios = meus.map((m) => ({
@@ -94,7 +128,8 @@
   // número completo (12.701) para a curtida aparecer na hora
   const formatar = (n) => n.toLocaleString("pt-BR");
   const tempo = (h) => (h < 1 ? "agora" : h < 24 ? `há ${h} h` : `há ${Math.round(h / 24)} d`);
-  const imagemDe = (p) => p.img || (p.img = desenharExemplo(p.fonte));
+  const CARREGANDO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='10' height='10' fill='%231b1336'/%3E%3C/svg%3E";
+  const imagemDe = (p) => p.img || CARREGANDO;
 
   function filtrados() {
     const termo = busca.value.trim().toLowerCase();
@@ -158,6 +193,7 @@
   }
 
   async function baixar(p) {
+    if (!p.img) return;
     const blob = await (await fetch(imagemDe(p))).blob();
     editor.baixarBlob(blob, `meme-${p.id}.jpg`);
   }
@@ -183,7 +219,7 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !janela.hidden) fechar(); });
   document.getElementById("janela-baixar").addEventListener("click", () => abertoAgora && baixar(abertoAgora));
   document.getElementById("janela-editar").addEventListener("click", async () => {
-    if (!abertoAgora) return;
+    if (!abertoAgora || !abertoAgora.img) return;
     fechar();
     await editor.usarComoBase(imagemDe(abertoAgora));
     document.getElementById("criar").scrollIntoView({ behavior: "smooth" });
@@ -229,7 +265,13 @@
 
   // ---------- começa ----------
   montarPosts();
-  // espera a fonte de meme para os exemplos saírem com a letra certa
-  document.fonts.load('58px "Anton"').finally(() => { posts.forEach((p) => { if (!p.meu) p.img = null; }); mostrar(); });
   mostrar();
+  // espera a fonte de meme e as fotos; cada exemplo aparece assim que fica pronto
+  document.fonts.load('58px "Anton"').finally(() => {
+    posts.filter((p) => !p.meu).forEach((p) => {
+      desenharExemplo(p.fonte)
+        .then((img) => { p.img = img; mostrar(); })
+        .catch(() => { p.falhou = true; });
+    });
+  });
 })();
