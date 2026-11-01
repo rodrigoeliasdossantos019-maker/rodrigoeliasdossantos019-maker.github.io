@@ -339,6 +339,25 @@
   }
 
   campo("arquivo").addEventListener("change", (e) => { carregarArquivo(e.target.files[0]); e.target.value = ""; });
+
+  // colar o link de uma imagem da internet
+  campo("form-link").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const url = campo("link-imagem").value.trim();
+    if (!/^https?:\/\//i.test(url)) { avisar("Cole um link que comece com http ou https."); return; }
+    avisar("Carregando a imagem...");
+    try {
+      // baixa a imagem para o aparelho; assim o meme pode ser salvo depois
+      const resposta = await fetch(url, { mode: "cors" });
+      if (!resposta.ok) throw new Error("falhou");
+      const blob = await resposta.blob();
+      if (!blob.type.startsWith("image/")) throw new Error("não é imagem");
+      await usarImagem(URL.createObjectURL(blob), "Imagem carregada. Agora escreva o texto!");
+      campo("link-imagem").value = "";
+    } catch (erro) {
+      avisar("Esse site não deixa usar a imagem pelo link. Salve a imagem no aparelho e use Enviar foto.");
+    }
+  });
   ["dragenter", "dragover"].forEach((ev) => moldura.addEventListener(ev, (e) => { e.preventDefault(); moldura.classList.add("soltando"); }));
   ["dragleave", "drop"].forEach((ev) => moldura.addEventListener(ev, (e) => { e.preventDefault(); moldura.classList.remove("soltando"); }));
   moldura.addEventListener("drop", (e) => carregarArquivo(e.dataTransfer.files[0]));

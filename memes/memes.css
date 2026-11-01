@@ -244,6 +244,15 @@ main { max-width: 1240px; margin: 0 auto; }
 .campos .check { display: flex; align-items: center; gap: 8px; grid-column: 1 / -1; color: var(--texto); font-size: 0.85rem; cursor: pointer; }
 .campos .check input { width: 18px; height: 18px; accent-color: var(--roxo); }
 
+/* colar link de imagem */
+.link-imagem { display: flex; gap: 8px; margin-top: 10px; }
+.link-imagem input {
+  flex: 1; min-width: 0; font: inherit; font-size: 0.85rem; color: var(--texto);
+  background: var(--fundo-2); border: 1px solid var(--linha); border-radius: 999px; padding: 10px 14px;
+}
+.link-imagem input:focus { border-color: var(--roxo); outline: none; }
+.link-imagem .botao { padding: 10px 16px; }
+
 /* ===== Figurinhas ===== */
 .abas-fig { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; }
 .abas-fig button {
