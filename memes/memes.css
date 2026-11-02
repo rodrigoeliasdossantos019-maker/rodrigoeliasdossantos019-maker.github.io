@@ -656,3 +656,8 @@ body {
   .perfil-senha { margin: 8px 16px 18px; }
   .perfil-sucesso { margin: 4px 16px 16px; }
 }
+
+/* senha pedida de novo ao salvar dados importantes */
+.perfil-form .confirma-salvar { color: var(--roxo-claro); font-weight: 700; }
+.perfil-form input[type="password"] { font: inherit; font-size: 0.92rem; color: var(--texto); background: var(--cartao); border: 1px solid var(--roxo); border-radius: 10px; padding: 10px 12px; }
+.perfil-form input[type="password"]:focus { outline: none; border-color: var(--roxo-claro); }

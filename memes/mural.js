@@ -386,6 +386,8 @@
     $("campo-whats").value = perfil.whats;
     $("campo-insta").value = perfil.insta;
     $("campo-foto").value = "";
+    $("campo-senha-salvar").value = "";
+    $("salvar-msg").textContent = "";
     form.hidden = false;
     $("campo-nome").focus();
   }
@@ -500,6 +502,24 @@
     e.preventDefault();
     const email = $("campo-email").value.trim();
     if (email && !$("campo-email").checkValidity()) { alertaRapido("Esse e-mail parece estar errado."); return; }
+
+    // dados importantes mudaram? então a senha é pedida de novo para salvar
+    const msgSalvar = $("salvar-msg");
+    msgSalvar.textContent = "";
+    const mudouImportante =
+      ($("campo-nome").value.trim() || PERFIL_PADRAO.nome) !== perfil.nome ||
+      email !== perfil.email ||
+      $("campo-whats").value.trim() !== perfil.whats ||
+      $("campo-insta").value.trim() !== perfil.insta;
+    if (mudouImportante) {
+      const senhaSalvar = $("campo-senha-salvar").value;
+      if (!senhaSalvar) { msgSalvar.textContent = "🔑 Digite sua senha para salvar essas mudanças."; $("campo-senha-salvar").focus(); return; }
+      if ((await embaralhar(senhaSalvar)) !== ler("meme-senha", null)) {
+        msgSalvar.textContent = "❌ Senha errada. Nada foi salvo.";
+        $("campo-senha-salvar").select();
+        return;
+      }
+    }
     const novaFoto = await lerFoto($("campo-foto").files[0]);
     const novo = {
       ...perfil,

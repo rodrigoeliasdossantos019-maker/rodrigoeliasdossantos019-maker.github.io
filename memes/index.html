@@ -183,6 +183,10 @@
               <label>Instagram <input type="text" id="campo-insta" placeholder="@seuinstagram"></label>
               <label>Foto de perfil <input type="file" id="campo-foto" accept="image/*"></label>
               <p class="largo perfil-nota">🔒 Sua senha protege a edição e nunca aparece no perfil. Tudo aqui fica salvo só neste navegador.</p>
+              <label class="largo confirma-salvar">🔑 Digite sua senha para salvar
+                <input type="password" id="campo-senha-salvar" autocomplete="current-password" placeholder="Obrigatória ao mudar nome, Gmail, WhatsApp ou Instagram">
+              </label>
+              <p class="largo senha-msg" id="salvar-msg" role="alert" aria-live="assertive"></p>
               <div class="largo perfil-form-acoes">
                 <button type="submit" class="botao-roxo">Salvar</button>
                 <button type="button" class="botao" id="perfil-cancelar">Cancelar</button>
