@@ -375,6 +375,10 @@
     [3, 8, -12], [12, 62, 10], [42, 4, 8], [58, 70, -9], [86, 6, 12], [93, 58, -14],
     [27, 82, -6], [74, 30, 6], [50, 40, -4], [66, 88, 14],
   ];
+  // imagem do banner escolhida pela própria pessoa (guardada só no navegador dela)
+  let imagemBanner = ler("meme-banner", null);
+  const tigresaDoBanner = () => imagemBanner || (editor.personagens || [])[0];
+
   // só figurinhas desenhadas (sem emojis); a Tigresa Voadora (posição 0) aparece mais vezes
   const ORDEM = [0, 2, 0, 1, 0, 4, 0, 3, 0, 5];
 
@@ -393,7 +397,7 @@
         const qual = ORDEM[i % ORDEM.length];
         el.className = "enfeite-fig" + longe + (qual === 0 ? " tigresa" : "");
         el.style.setProperty("--tam", `${qual === 0 ? 70 + (i % 3) * 14 : 44 + (i % 3) * 10}px`);
-        el.innerHTML = `<img src="${figs[qual] || figs[0]}" alt="">`;
+        el.innerHTML = `<img src="${qual === 0 ? tigresaDoBanner() : figs[qual] || figs[0]}" alt="">`;
       }
       el.style.left = `${x}%`;
       el.style.top = `${y}%`;
@@ -423,6 +427,47 @@
     b.addEventListener("click", () => irPara(i, true));
     bolinhas.appendChild(b);
   });
+  // primeiro slide usa a imagem escolhida pela pessoa, se houver
+  const mascotePrincipal = slides[0]?.querySelector(".slide-mascote");
+  const bannerArquivo = document.getElementById("banner-arquivo");
+  const bannerVoltar = document.getElementById("banner-voltar");
+
+  function aplicarBanner() {
+    if (mascotePrincipal) mascotePrincipal.src = tigresaDoBanner();
+    bannerVoltar.hidden = !imagemBanner;
+    montarEnfeites();
+  }
+
+  bannerArquivo.addEventListener("change", (e) => {
+    const arquivo = e.target.files[0];
+    e.target.value = "";
+    if (!arquivo || !arquivo.type.startsWith("image/")) { alertaRapido("Escolha um arquivo de imagem."); return; }
+    const img = new Image();
+    img.onload = () => {
+      // reduz a imagem para caber no navegador sem ocupar muito espaço
+      const c = document.createElement("canvas");
+      const escala = Math.min(1, 600 / Math.max(img.width, img.height));
+      c.width = Math.round(img.width * escala);
+      c.height = Math.round(img.height * escala);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      const dados = c.toDataURL("image/png");
+      if (!guardar("meme-banner", dados)) { alertaRapido("Essa imagem é grande demais. Tente uma menor."); return; }
+      imagemBanner = dados;
+      aplicarBanner();
+      alertaRapido("Pronto! A imagem aparece no banner só neste aparelho.");
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = () => alertaRapido("Não consegui abrir essa imagem.");
+    img.src = URL.createObjectURL(arquivo);
+  });
+
+  bannerVoltar.addEventListener("click", () => {
+    try { localStorage.removeItem("meme-banner"); } catch (e) {}
+    imagemBanner = null;
+    aplicarBanner();
+    alertaRapido("O banner voltou ao padrão.");
+  });
+
   const logo = document.getElementById("logo-mascote");
   if (logo && mascotes[4]) logo.src = mascotes[4];
 

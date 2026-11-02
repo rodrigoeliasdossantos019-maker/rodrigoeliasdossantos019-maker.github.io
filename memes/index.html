@@ -85,6 +85,14 @@
         <button type="button" class="seta seta-esq" id="slide-ant" aria-label="Destaque anterior">‹</button>
         <button type="button" class="seta seta-dir" id="slide-prox" aria-label="Próximo destaque">›</button>
         <div class="bolinhas" id="bolinhas" role="group" aria-label="Escolher destaque"></div>
+        <!-- a pessoa escolhe a própria imagem; ela fica só no navegador dela -->
+        <div class="trocar-banner">
+          <label class="botao-trocar">
+            <input type="file" id="banner-arquivo" accept="image/*">
+            <span>🖼️ Trocar imagem do banner</span>
+          </label>
+          <button type="button" class="botao-trocar" id="banner-voltar" hidden>↩ Voltar ao padrão</button>
+        </div>
       </section>
 
       <!-- ===== Categorias ===== -->

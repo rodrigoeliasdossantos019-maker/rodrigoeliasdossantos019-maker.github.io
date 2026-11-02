@@ -530,3 +530,18 @@ body {
   0%, 100% { translate: 0 0; }
   50% { translate: 12px -12px; }
 }
+
+/* botão para trocar a imagem do banner (fica só no navegador da pessoa) */
+.trocar-banner { position: absolute; top: 12px; right: 14px; z-index: 3; display: flex; gap: 8px; }
+.botao-trocar {
+  display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; cursor: pointer;
+  background: rgba(11, 6, 32, 0.6); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff;
+  font: 700 0.72rem "Montserrat", sans-serif; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.botao-trocar:hover { border-color: var(--roxo-claro); }
+.botao-trocar input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.botao-trocar:focus-within { outline: 2px solid var(--roxo-claro); outline-offset: 2px; }
+.botao-trocar[hidden] { display: none; }
+@media (max-width: 760px) {
+  .trocar-banner { top: auto; bottom: 34px; right: 50%; transform: translateX(50%); }
+}
