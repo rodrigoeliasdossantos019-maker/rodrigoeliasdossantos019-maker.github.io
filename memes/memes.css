@@ -514,14 +514,6 @@ body {
   background: radial-gradient(ellipse at 40% 50%, rgba(18, 10, 43, 0.75), transparent 70%);
 }
 
-/* fundo de emojis bem clarinho no menu lateral */
-.menu-lateral { position: sticky; }
-.menu-lateral::before {
-  content: "😂  🤣  😎  🤡  💀  🔥  😭  👀  🐸  🗿  🤯  😹  🙃  💯";
-  position: absolute; inset: 0; z-index: -1; padding: 10px; overflow: hidden;
-  font-size: 1.6rem; line-height: 2.6; letter-spacing: 0.35em; word-break: break-all;
-  opacity: 0.06; pointer-events: none;
-}
 .menu-lateral > * { position: relative; }
 
 @media (max-width: 760px) {
@@ -530,4 +522,11 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .enfeite-meme, .enfeite-fig { animation: none; }
+}
+
+/* tigresa voadora atravessando o banner */
+.enfeite-fig.tigresa { animation: tigresa-voa var(--tempo, 6s) ease-in-out infinite; }
+@keyframes tigresa-voa {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 12px -12px; }
 }

@@ -70,6 +70,41 @@
   const lagrima = (c, x, y, s) => { c.fillStyle = "#5ec8ff"; c.beginPath(); c.moveTo(x, y); c.quadraticCurveTo(x + s, y + s * 1.6, x, y + s * 2); c.quadraticCurveTo(x - s, y + s * 1.6, x, y); c.fill(); };
 
   const PERSONAGENS = [
+    { nome: "Tigresa Voadora", desenhar(c) {
+      // rastro de arco-íris saindo de trás
+      const cores = ["#ff4d4d", "#ff9f1c", "#ffd23f", "#4cd964", "#2fa8ff", "#8b3dff"];
+      cores.forEach((cor, i) => { c.fillStyle = cor; c.fillRect(0, 196 + i * 11, 120, 11); });
+      // nuvenzinha no fim do arco-íris
+      c.fillStyle = "#f4f4ff";
+      [[22, 225, 26], [40, 205, 22], [44, 245, 22], [8, 205, 16], [10, 248, 16]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); });
+      // rabo
+      c.strokeStyle = "#f08a24"; c.lineWidth = 18; c.lineCap = "round";
+      c.beginPath(); c.moveTo(130, 200); c.quadraticCurveTo(95, 120, 135, 80); c.stroke();
+      c.strokeStyle = "#1a1a1a"; c.lineWidth = 6;
+      [[112, 150], [110, 120], [120, 96]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x - 10, y); c.lineTo(x + 10, y + 4); c.stroke(); });
+      // pernas esticadas (voando)
+      c.fillStyle = "#f08a24";
+      [[150, 255, -0.5], [185, 262, -0.3], [265, 262, 0.3], [300, 255, 0.5]].forEach(([x, y, a]) => { c.save(); c.translate(x, y); c.rotate(a); c.beginPath(); c.roundRect(-13, 0, 26, 52, 12); c.fill(); c.fillStyle = "#fff6e8"; c.beginPath(); c.ellipse(0, 50, 14, 9, 0, 0, 7); c.fill(); c.restore(); c.fillStyle = "#f08a24"; });
+      // corpo
+      c.fillStyle = "#f08a24"; c.beginPath(); c.ellipse(225, 225, 105, 58, -0.08, 0, 7); c.fill();
+      c.fillStyle = "#fff6e8"; c.beginPath(); c.ellipse(232, 252, 70, 26, -0.08, 0, 7); c.fill();
+      c.strokeStyle = "#1a1a1a"; c.lineWidth = 9; c.lineCap = "round";
+      [160, 195, 230, 265].forEach((x) => { c.beginPath(); c.moveTo(x, 172); c.quadraticCurveTo(x + 10, 195, x - 2, 214); c.stroke(); });
+      // cabeça
+      c.fillStyle = "#f08a24";
+      c.beginPath(); c.moveTo(292, 130); c.lineTo(300, 92); c.lineTo(325, 118); c.fill();
+      c.beginPath(); c.moveTo(352, 118); c.lineTo(378, 92); c.lineTo(382, 132); c.fill();
+      c.beginPath(); c.ellipse(337, 168, 60, 54, 0, 0, 7); c.fill();
+      c.fillStyle = "#fff6e8"; c.beginPath(); c.ellipse(337, 190, 38, 26, 0, 0, 7); c.fill();
+      c.strokeStyle = "#1a1a1a"; c.lineWidth = 6;
+      [[300, 150, 292, 162], [374, 150, 382, 162], [337, 118, 337, 136]].forEach(([a, b, d, e]) => { c.beginPath(); c.moveTo(a, b); c.lineTo(d, e); c.stroke(); });
+      olho(c, 318, 160, 13); olho(c, 356, 160, 13);
+      c.fillStyle = "#ff7a8a"; c.beginPath(); c.moveTo(329, 180); c.lineTo(345, 180); c.lineTo(337, 190); c.fill();
+      c.strokeStyle = "#1a1a1a"; c.lineWidth = 4; c.beginPath(); c.moveTo(322, 198); c.quadraticCurveTo(337, 212, 352, 198); c.stroke();
+      // risquinhos de velocidade
+      c.strokeStyle = "rgba(255,255,255,.7)"; c.lineWidth = 5;
+      [[150, 140], [175, 120], [140, 300]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x - 40, y); c.lineTo(x, y); c.stroke(); });
+    } },
     { nome: "Gato Debochado", desenhar(c) {
       c.fillStyle = "#e8913a";
       c.beginPath(); c.moveTo(70, 150); c.lineTo(95, 40); c.lineTo(165, 110); c.fill();

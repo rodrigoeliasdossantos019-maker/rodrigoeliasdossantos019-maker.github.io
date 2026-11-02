@@ -375,7 +375,8 @@
     [3, 8, -12], [12, 62, 10], [42, 4, 8], [58, 70, -9], [86, 6, 12], [93, 58, -14],
     [27, 82, -6], [74, 30, 6], [50, 40, -4], [66, 88, 14],
   ];
-  const EMOJIS = ["😂", "🤣", "😎", "🤡", "💀", "🔥", "😭", "👀", "🗿", "🤯", "😹", "💯"];
+  // só figurinhas desenhadas (sem emojis); a Tigresa Voadora (posição 0) aparece mais vezes
+  const ORDEM = [0, 2, 0, 1, 0, 4, 0, 3, 0, 5];
 
   function montarEnfeites() {
     if (!caixaEnfeites) return;
@@ -388,14 +389,11 @@
       if (i < proprios.length) {
         el.className = "enfeite-meme" + longe;
         el.innerHTML = `<img src="${proprios[i]}" alt="">`;
-      } else if (i % 2 === 0 && figs.length) {
-        el.className = "enfeite-fig" + longe;
-        el.style.setProperty("--tam", `${46 + (i % 3) * 12}px`);
-        el.innerHTML = `<img src="${figs[i % figs.length]}" alt="">`;
       } else {
-        el.className = "enfeite-fig" + longe;
-        el.style.setProperty("--tam", `${1.6 + (i % 3) * 0.5}rem`);
-        el.textContent = EMOJIS[i % EMOJIS.length];
+        const qual = ORDEM[i % ORDEM.length];
+        el.className = "enfeite-fig" + longe + (qual === 0 ? " tigresa" : "");
+        el.style.setProperty("--tam", `${qual === 0 ? 70 + (i % 3) * 14 : 44 + (i % 3) * 10}px`);
+        el.innerHTML = `<img src="${figs[qual] || figs[0]}" alt="">`;
       }
       el.style.left = `${x}%`;
       el.style.top = `${y}%`;
@@ -426,7 +424,7 @@
     bolinhas.appendChild(b);
   });
   const logo = document.getElementById("logo-mascote");
-  if (logo && mascotes[3]) logo.src = mascotes[3];
+  if (logo && mascotes[4]) logo.src = mascotes[4];
 
   function irPara(i, manual) {
     atual = (i + slides.length) % slides.length;
