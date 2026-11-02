@@ -515,7 +515,37 @@
   }
 
   const form = $("perfil-form");
+
+  // ----- galeria de avatares: figurinhas originais + fotos de bichos do site -----
+  let avatarEscolhido = null;
+  function montarAvatares() {
+    const caixa = $("avatares");
+    caixa.innerHTML = "";
+    const opcoes = [
+      ...(editor.personagens || []).map((src, i) => ({ src, nome: `Figurinha ${i + 1}` })),
+      ...(editor.fotos || []).map((f) => ({ src: editor.urlFoto(f.id, 160), nome: f.nome })),
+    ];
+    opcoes.forEach((o) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "radio");
+      b.setAttribute("aria-label", `Avatar: ${o.nome}`);
+      b.title = o.nome;
+      const marcado = (avatarEscolhido || perfil.foto) === o.src;
+      b.setAttribute("aria-checked", marcado);
+      b.innerHTML = `<img src="${o.src}" alt="" loading="lazy">`;
+      b.addEventListener("click", () => {
+        avatarEscolhido = o.src;
+        caixa.querySelectorAll("button").forEach((x) => x.setAttribute("aria-checked", x === b));
+        $("campo-foto").value = "";
+      });
+      caixa.appendChild(b);
+    });
+  }
+
   function abrirEdicao() {
+    avatarEscolhido = null;
+    montarAvatares();
     $("campo-nome").value = perfil.nome;
     $("campo-usuario").value = perfil.usuario;
     $("campo-bio").value = perfil.bio;
@@ -666,7 +696,7 @@
       email,
       whats: $("campo-whats").value.trim(),
       insta: $("campo-insta").value.trim(),
-      foto: novaFoto || perfil.foto,
+      foto: novaFoto || avatarEscolhido || perfil.foto,
     };
     if (!guardar("meme-perfil", novo)) { alertaRapido("Não deu para salvar. Tente uma foto menor."); return; }
     perfil = novo;

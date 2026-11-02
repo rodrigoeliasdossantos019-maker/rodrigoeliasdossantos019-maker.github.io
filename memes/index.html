@@ -185,7 +185,11 @@
               <label>Gmail <input type="email" id="campo-email" placeholder="seuemail@gmail.com" autocomplete="email"></label>
               <label>WhatsApp <input type="tel" id="campo-whats" placeholder="(19) 99999-9999" autocomplete="tel"></label>
               <label>Instagram <input type="text" id="campo-insta" placeholder="@seuinstagram"></label>
-              <label>Foto de perfil <input type="file" id="campo-foto" accept="image/*"></label>
+              <div class="largo escolher-avatar">
+                <span class="rotulo-avatar">😎 Escolha seu avatar</span>
+                <div class="avatares" id="avatares" role="radiogroup" aria-label="Avatares de meme"></div>
+              </div>
+              <label>Ou envie uma foto sua <input type="file" id="campo-foto" accept="image/*"></label>
               <p class="largo perfil-nota">🔒 Sua senha protege a edição e nunca aparece no perfil. Tudo aqui fica salvo só neste navegador.</p>
               <label class="largo confirma-salvar">🔑 Digite sua senha para salvar
                 <input type="password" id="campo-senha-salvar" autocomplete="current-password" placeholder="Obrigatória ao mudar nome, Gmail, WhatsApp ou Instagram">
