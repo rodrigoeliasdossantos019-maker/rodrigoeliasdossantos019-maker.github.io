@@ -581,6 +581,8 @@
     campoConfirma.required = criando;
     campoSenha.autocomplete = criando ? "new-password" : "current-password";
     $("senha-entrar").textContent = criando ? "Criar senha" : "Entrar";
+    $("senha-entrar").disabled = criando;
+    msgSenha.classList.remove("ok");
     $("senha-esqueci").hidden = criando;
     campoSenha.value = "";
     campoConfirma.value = "";
@@ -606,7 +608,7 @@
     if (senha.length < 4) { erroSenha("A senha precisa ter pelo menos 4 caracteres."); return; }
 
     if (!temSenha()) {
-      if (senha !== campoConfirma.value) { erroSenha("As duas senhas não são iguais."); return; }
+      if (senha !== campoConfirma.value) { erroSenha("❌ As senhas não coincidem"); return; }
       guardar("meme-senha", await embaralhar(senha));
       telaSenha.hidden = true;
       alertaRapido("Senha criada!");
@@ -618,6 +620,18 @@
     telaSenha.hidden = true;
     abrirEdicao();
   });
+
+  function conferirIguais() {
+    if (temSenha()) return;
+    const iguais = campoSenha.value === campoConfirma.value;
+    const digitou = campoConfirma.value.length > 0;
+    msgSenha.textContent = digitou && !iguais ? "❌ As senhas não coincidem" : "";
+    msgSenha.classList.toggle("ok", digitou && iguais);
+    if (digitou && iguais) msgSenha.textContent = "✅ As senhas coincidem";
+    $("senha-entrar").disabled = !digitou || !iguais;
+  }
+  campoSenha.addEventListener("input", conferirIguais);
+  campoConfirma.addEventListener("input", conferirIguais);
 
   $("senha-cancelar").addEventListener("click", () => { telaSenha.hidden = true; });
 
