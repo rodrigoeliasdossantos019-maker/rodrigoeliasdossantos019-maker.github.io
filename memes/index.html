@@ -22,8 +22,8 @@
     </a>
     <nav class="menu-itens" aria-label="Menu principal">
       <button type="button" class="item ativo" data-aba="inicio"><span aria-hidden="true">🏠</span> Início</button>
-      <a class="item" href="#novos"><span aria-hidden="true">🧭</span> Explorar</a>
-      <a class="item" href="#categorias"><span aria-hidden="true">🗂️</span> Categorias</a>
+      <button type="button" class="item" data-aba="explorar"><span aria-hidden="true">🧭</span> Explorar</button>
+      <button type="button" class="item" data-aba="categorias"><span aria-hidden="true">🗂️</span> Categorias</button>
       <button type="button" class="item" data-aba="curtidos"><span aria-hidden="true">🏆</span> Top Memes</button>
       <button type="button" class="item" data-aba="favoritos"><span aria-hidden="true">❤️</span> Favoritos</button>
       <button type="button" class="item" data-aba="meus"><span aria-hidden="true">👤</span> Perfil</button>
@@ -50,7 +50,7 @@
 
     <main id="inicio">
       <!-- ===== Banner em slides ===== -->
-      <section class="carrossel" aria-roledescription="carrossel" aria-label="Destaques">
+      <section class="carrossel" id="carrossel" aria-roledescription="carrossel" aria-label="Destaques">
         <div class="estrelas" aria-hidden="true"></div>
         <!-- enfeites: mini memes do site e figurinhas flutuando (preenchidos pelo mural.js) -->
         <div class="enfeites" id="enfeites" aria-hidden="true"></div>
@@ -110,6 +110,9 @@
       <!-- ===== Memes + lateral ===== -->
       <div class="conteudo">
         <div class="coluna-memes">
+          <!-- ===== Telas Explorar, Categorias, Top Memes e Favoritos (montadas pelo mural.js) ===== -->
+          <section class="vista" id="vista" aria-live="polite" hidden></section>
+
           <section aria-labelledby="titulo-alta" id="secao-alta">
             <div class="cabecalho-secao">
               <h2 class="titulo-secao" id="titulo-alta"><span aria-hidden="true">🔥</span> <span id="texto-alta">Memes em alta</span></h2>

@@ -179,39 +179,176 @@
     return card;
   }
 
-  // ---------- desenha o mural ----------
+  // ---------- telas: Início, Explorar, Categorias, Top Memes, Favoritos e Perfil ----------
+  const vista = document.getElementById("vista");
+  const secaoNovos = document.getElementById("novos");
+  const carrosselEl = document.getElementById("carrossel");
+  const chipsEl = document.getElementById("categorias");
+  const CATEGORIAS = {
+    engracados: { nome: "Engraçados", emoji: "😂", cor: "#ffbe0b" },
+    bichos: { nome: "Bichos", emoji: "🐾", cor: "#06d6a0" },
+    jogos: { nome: "Games", emoji: "🎮", cor: "#8338ec" },
+    escola: { nome: "Escola", emoji: "📚", cor: "#3a86ff" },
+    trabalho: { nome: "Trabalho", emoji: "💼", cor: "#f4a261" },
+    programacao: { nome: "Programação", emoji: "💻", cor: "#118ab2" },
+    reacoes: { nome: "Reações", emoji: "🔥", cor: "#ef476f" },
+  };
+  let categoriaAberta = null; // categoria escolhida na tela Categorias
+  let abaPerfil = "memes";    // "memes" ou "seguindo" na tela Perfil
+  let ordemExplorar = null;   // ordem misturada da tela Explorar
+
+  const ordenarPorCurtidas = (lista) => [...lista].sort((a, b) => totalCurtidas(b) - totalCurtidas(a));
+  const el = (html) => { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+  const cabecalho = (emoji, titulo, sub) => el(`<div class="vista-topo"><span class="vista-emoji">${emoji}</span><div><h2>${titulo}</h2>${sub ? `<p>${sub}</p>` : ""}</div></div>`);
+
   function mostrar() {
     const lista = filtrados();
-    const nomes = { curtidos: "Top Memes", meus: "Meu perfil", favoritos: "Favoritos" };
-    textoMural.textContent = nomes[aba] || "Novos Memes";
+    const nomes = { curtidos: "Ranking completo", meus: "Meu perfil", favoritos: "Meus favoritos", explorar: "Descubra memes", categorias: "" };
+    textoMural.textContent = nomes[aba] ?? "Novos Memes";
 
-    // cartão de perfil só na aba Perfil
+    // o que aparece em cada tela
+    carrosselEl.hidden = aba !== "inicio";
+    chipsEl.hidden = !["inicio", "explorar"].includes(aba);
+    secaoAlta.hidden = aba !== "inicio";
+    vista.hidden = aba === "inicio";
+    secaoNovos.hidden = ["categorias", "curtidos"].includes(aba) || (aba === "meus" && abaPerfil === "seguindo");
     const cartaoPerfil = document.getElementById("perfil-card");
     if (cartaoPerfil) {
       cartaoPerfil.hidden = aba !== "meus";
       if (aba === "meus" && typeof mostrarPerfil === "function") mostrarPerfil();
     }
 
-    // "Memes em alta" só aparece no Início: os 3 mais curtidos
-    const mostrarAlta = aba === "inicio";
-    secaoAlta.hidden = !mostrarAlta;
+    vista.innerHTML = "";
     alta.innerHTML = "";
-    let resto = lista;
-    if (mostrarAlta) {
-      const top = [...lista].sort((a, b) => totalCurtidas(b) - totalCurtidas(a)).slice(0, 3);
+    let grade = lista;
+
+    if (aba === "inicio") {
+      const top = ordenarPorCurtidas(lista).slice(0, 3);
       top.forEach((p, i) => alta.appendChild(cartao(p, i + 1)));
       textoAlta.textContent = categoria === "todos" ? "Memes em alta" : "Em alta nesta categoria";
-      resto = lista.filter((p) => !top.includes(p));
+      grade = lista.filter((p) => !top.includes(p));
+    } else if (aba === "explorar") {
+      telaExplorar();
+      if (!ordemExplorar) ordemExplorar = posts.map((p) => p.id).sort(() => Math.random() - 0.5);
+      grade = [...lista].sort((a, b) => ordemExplorar.indexOf(a.id) - ordemExplorar.indexOf(b.id));
+    } else if (aba === "categorias") {
+      telaCategorias();
+    } else if (aba === "curtidos") {
+      telaTop();
+    } else if (aba === "favoritos") {
+      vista.appendChild(cabecalho("❤️", "Favoritos", `${grade.length} ${grade.length === 1 ? "meme curtido" : "memes curtidos"}. Toque no 🤍 de qualquer meme para guardar aqui.`));
+    } else if (aba === "meus") {
+      telaPerfil();
+      if (abaPerfil === "seguindo") grade = [];
     }
 
     mural.innerHTML = "";
-    resto.forEach((p) => mural.appendChild(cartao(p)));
-    vazio.hidden = resto.length > 0 || (mostrarAlta && alta.children.length > 0);
+    grade.forEach((p) => mural.appendChild(cartao(p)));
+    vazio.hidden = secaoNovos.hidden || grade.length > 0 || (aba === "inicio" && alta.children.length > 0);
     vazio.textContent =
       aba === "meus" ? "Você ainda não publicou nenhum meme. Crie o primeiro lá embaixo!" :
-      aba === "favoritos" ? "Você ainda não curtiu nenhum meme. Toque no 🤍 para guardar aqui." :
+      aba === "favoritos" ? "Nenhum favorito ainda. Curta um meme com o 🤍 e ele aparece aqui." :
       "Nenhum meme encontrado. Que tal criar um?";
     mostrarRanking();
+  }
+
+  // ----- Explorar -----
+  function telaExplorar() {
+    const topo = cabecalho("🧭", "Explorar", "Descubra memes de todas as categorias, numa ordem diferente a cada visita.");
+    const acoes = el(`<div class="vista-acoes">
+      <button type="button" class="botao-roxo" data-acao="surpresa">🎲 Me surpreenda</button>
+      <button type="button" class="botao" data-acao="misturar">🔀 Misturar de novo</button>
+      <button type="button" class="botao" data-acao="buscar">🔍 Buscar</button>
+    </div>`);
+    acoes.querySelector('[data-acao="surpresa"]').addEventListener("click", () => {
+      const prontos = posts.filter((p) => p.img);
+      if (prontos.length) abrir(prontos[Math.floor(Math.random() * prontos.length)]);
+    });
+    acoes.querySelector('[data-acao="misturar"]').addEventListener("click", () => { ordemExplorar = null; mostrar(); });
+    acoes.querySelector('[data-acao="buscar"]').addEventListener("click", () => busca.focus());
+    topo.appendChild(acoes);
+    vista.appendChild(topo);
+  }
+
+  // ----- Categorias -----
+  function telaCategorias() {
+    if (categoriaAberta) {
+      const c = CATEGORIAS[categoriaAberta];
+      const lista = ordenarPorCurtidas(posts.filter((p) => p.cat === categoriaAberta));
+      const topo = cabecalho(c.emoji, c.nome, `${lista.length} ${lista.length === 1 ? "meme" : "memes"} nesta categoria`);
+      const voltar = el('<button type="button" class="botao voltar-cat">← Todas as categorias</button>');
+      voltar.addEventListener("click", () => { categoriaAberta = null; mostrar(); });
+      topo.appendChild(voltar);
+      vista.appendChild(topo);
+      const grade = el('<div class="mural"></div>');
+      lista.forEach((p) => grade.appendChild(cartao(p)));
+      if (!lista.length) grade.appendChild(el('<p class="vazio">Ainda não tem memes aqui. Crie o primeiro!</p>'));
+      vista.appendChild(grade);
+      return;
+    }
+    vista.appendChild(cabecalho("🗂️", "Categorias", "Escolha um assunto e veja só os memes dele."));
+    const grade = el('<div class="grade-categorias"></div>');
+    Object.entries(CATEGORIAS).forEach(([id, c]) => {
+      const lista = ordenarPorCurtidas(posts.filter((p) => p.cat === id));
+      const capas = lista.slice(0, 3).map((p) => `<img src="${imagemDe(p)}" alt="">`).join("");
+      const tile = el(`<button type="button" class="tile-cat" style="--cor:${c.cor}">
+        <span class="tile-capas">${capas}</span>
+        <span class="tile-info"><span class="tile-emoji">${c.emoji}</span><b>${c.nome}</b><small>${lista.length} ${lista.length === 1 ? "meme" : "memes"}</small></span>
+      </button>`);
+      tile.addEventListener("click", () => { categoriaAberta = id; mostrar(); vista.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      grade.appendChild(tile);
+    });
+    vista.appendChild(grade);
+  }
+
+  // ----- Top Memes: pódio + ranking -----
+  function telaTop() {
+    const lista = ordenarPorCurtidas(filtrados());
+    vista.appendChild(cabecalho("🏆", "Top Memes", "Os memes mais curtidos do Rodrigo Memes."));
+    const [primeiro, segundo, terceiro] = lista;
+    const degrau = (p, lugar, medalha) => p ? `
+      <div class="degrau lugar-${lugar}">
+        ${lugar === 1 ? '<span class="coroa-top">👑</span>' : ""}
+        <button type="button" class="degrau-img" data-id="${p.id}" aria-label="Ver meme em ${lugar}º lugar"><img src="${imagemDe(p)}" alt="Meme: ${p.titulo}"></button>
+        <span class="medalha">${medalha}</span>
+        <b>${p.autor}</b>
+        <small>❤ ${formatar(totalCurtidas(p))}</small>
+        <span class="base">${lugar}º</span>
+      </div>` : "";
+    const podio = el(`<div class="podio">${degrau(segundo, 2, "🥈")}${degrau(primeiro, 1, "🥇")}${degrau(terceiro, 3, "🥉")}</div>`);
+    podio.querySelectorAll("[data-id]").forEach((b) => b.addEventListener("click", () => abrir(posts.find((p) => p.id === b.dataset.id))));
+    vista.appendChild(podio);
+
+    const rank = el('<ol class="ranking-completo" start="4"></ol>');
+    lista.slice(3).forEach((p, i) => {
+      const li = el(`<li><span class="pos">${i + 4}º</span><img src="${imagemDe(p)}" alt=""><span class="info"><b>${p.titulo}</b><small>${p.autor} · ${CATEGORIAS[p.cat]?.nome || ""}</small></span><span class="likes">❤ ${formatar(totalCurtidas(p))}</span></li>`);
+      li.tabIndex = 0;
+      li.addEventListener("click", () => abrir(p));
+      li.addEventListener("keydown", (e) => { if (e.key === "Enter") abrir(p); });
+      rank.appendChild(li);
+    });
+    vista.appendChild(rank);
+  }
+
+  // ----- Perfil: abas Meus memes e Seguindo -----
+  function telaPerfil() {
+    const abas = el(`<div class="abas-perfil" role="tablist">
+      <button type="button" role="tab" data-p="memes" aria-selected="${abaPerfil === "memes"}">🖼️ Meus memes (${meus.length})</button>
+      <button type="button" role="tab" data-p="seguindo" aria-selected="${abaPerfil === "seguindo"}">👥 Seguindo (${seguindo.size})</button>
+    </div>`);
+    abas.querySelectorAll("[data-p]").forEach((b) => b.addEventListener("click", () => { abaPerfil = b.dataset.p; mostrar(); }));
+    vista.appendChild(abas);
+    if (abaPerfil === "seguindo") {
+      const caixa = el('<div class="lista-seguindo"></div>');
+      if (!seguindo.size) caixa.appendChild(el('<p class="vazio">Você ainda não segue ninguém. Toque em "Seguir" nos memes que você gostar.</p>'));
+      [...seguindo].forEach((autor) => {
+        const deles = posts.filter((p) => p.autor === autor);
+        const item = el(`<div class="pessoa"><span class="avatar">${deles[0]?.av || "🙂"}</span><span class="info"><b>${autor}</b><small>${deles.length} ${deles.length === 1 ? "meme" : "memes"}</small></span><button type="button" class="seguir" aria-pressed="true">Seguindo</button></div>`);
+        item.querySelector(".seguir").addEventListener("click", () => seguir(autor));
+        caixa.appendChild(item);
+      });
+      vista.appendChild(caixa);
+    }
   }
 
   function mostrarRanking() {
@@ -555,16 +692,23 @@
     abrirMenu.setAttribute("aria-expanded", "false");
   }
 
-  document.querySelectorAll("[data-aba]").forEach((b) =>
-    b.addEventListener("click", () => {
-      aba = b.dataset.aba;
-      atualizarAbas();
-      mostrar();
-      fecharMenu();
-      const alvo = aba === "inicio" ? "inicio" : "novos";
-      document.getElementById(alvo).scrollIntoView({ behavior: "smooth", block: "start" });
-    })
-  );
+  const ENDERECOS = { inicio: "", explorar: "explorar", categorias: "categorias", curtidos: "top", favoritos: "favoritos", meus: "perfil" };
+  const abaDoEndereco = () => Object.keys(ENDERECOS).find((k) => ENDERECOS[k] === location.hash.slice(1)) || "inicio";
+
+  function irParaTela(nova, mudarEndereco = true) {
+    aba = nova;
+    if (nova !== "categorias") categoriaAberta = null;
+    if (nova !== "explorar") ordemExplorar = null;
+    if (nova !== "inicio" && nova !== "explorar") categoria = "todos";
+    atualizarAbas();
+    mostrar();
+    fecharMenu();
+    if (mudarEndereco) history.pushState(null, "", ENDERECOS[nova] ? "#" + ENDERECOS[nova] : location.pathname + location.search);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll("[data-aba]").forEach((b) => b.addEventListener("click", () => irParaTela(b.dataset.aba)));
+  window.addEventListener("popstate", () => irParaTela(abaDoEndereco(), false));
   // links do menu (Explorar, Categorias, Criar) também fecham a gaveta no celular
   menuLateral.querySelectorAll("a").forEach((a) => a.addEventListener("click", fecharMenu));
 
@@ -713,6 +857,8 @@
 
   // ---------- começa ----------
   montarPosts();
+  aba = abaDoEndereco();
+  atualizarAbas();
   mostrar();
   // espera a fonte de meme e as fotos; cada exemplo aparece assim que fica pronto
   document.fonts.load('58px "Anton"').finally(() => {
