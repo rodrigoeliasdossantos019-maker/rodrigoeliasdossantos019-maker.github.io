@@ -118,6 +118,58 @@
             <div class="mural alta" id="alta"></div>
           </section>
 
+          <!-- ===== Perfil (aparece na aba Perfil) ===== -->
+          <section class="perfil-card" id="perfil-card" aria-label="Meu perfil" hidden>
+            <div class="perfil-capa" aria-hidden="true"></div>
+            <div class="perfil-topo">
+              <div class="perfil-avatar" id="perfil-avatar">R</div>
+              <div class="perfil-dados">
+                <h2 id="perfil-nome">Rodrigo Elias</h2>
+                <p class="perfil-usuario" id="perfil-usuario">@rodrigomemes</p>
+                <p class="perfil-bio" id="perfil-bio">Criador do Rodrigo Memes. Aqui o humor nunca acaba! 😂</p>
+              </div>
+              <button type="button" class="botao" id="perfil-editar">✏️ Editar perfil</button>
+            </div>
+
+            <ul class="perfil-numeros">
+              <li><b id="num-memes">0</b><span>memes</span></li>
+              <li><b id="num-curtidas">0</b><span>curtidas</span></li>
+              <li><b id="num-seguindo">0</b><span>seguindo</span></li>
+            </ul>
+
+            <div class="perfil-contatos">
+              <a class="contato contato-whats" id="perfil-whats" href="https://wa.me/5519992932822" target="_blank" rel="noopener">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2.1 7L3 29l6.4-2a13.2 13.2 0 0 0 6.6 1.7c7.2 0 13-5.7 13-12.9S23.2 3 16 3zm0 23.5c-2.1 0-4.1-.6-5.9-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.5 10.5 0 0 1-1.7-5.9C5.1 9.9 10 5.2 16 5.2s10.9 4.7 10.9 10.6S22 26.5 16 26.5zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.7 5.9 5.1 2.2.9 3 1 4.1.8.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
+                <span><small>WhatsApp</small><b id="perfil-whats-num">(19) 99293-2822</b></span>
+              </a>
+              <a class="contato contato-email" id="perfil-email" href="#" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                <span><small>E-mail</small><b id="perfil-email-txt"></b></span>
+              </a>
+              <a class="contato contato-insta" id="perfil-insta" href="https://www.instagram.com/its.rodrigoelias/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+                <span><small>Instagram</small><b id="perfil-insta-txt">@its.rodrigoelias</b></span>
+              </a>
+            </div>
+            <p class="perfil-aviso" id="perfil-sem-email">📧 Adicione seu Gmail em <b>Editar perfil</b>.</p>
+
+            <!-- formulário de edição (fica guardado só neste navegador) -->
+            <form class="perfil-form" id="perfil-form" hidden>
+              <label>Nome <input type="text" id="campo-nome" maxlength="40" autocomplete="name"></label>
+              <label>Usuário <input type="text" id="campo-usuario" maxlength="30" placeholder="@seuusuario"></label>
+              <label class="largo">Bio <input type="text" id="campo-bio" maxlength="120"></label>
+              <label>Gmail <input type="email" id="campo-email" placeholder="seuemail@gmail.com" autocomplete="email"></label>
+              <label>WhatsApp <input type="tel" id="campo-whats" placeholder="(19) 99999-9999" autocomplete="tel"></label>
+              <label>Instagram <input type="text" id="campo-insta" placeholder="@seuinstagram"></label>
+              <label>Foto de perfil <input type="file" id="campo-foto" accept="image/*"></label>
+              <p class="largo perfil-nota">🔒 Senha não aparece em perfil: ela ficaria visível para qualquer pessoa. Tudo aqui fica salvo só neste navegador.</p>
+              <div class="largo perfil-form-acoes">
+                <button type="submit" class="botao-roxo">Salvar</button>
+                <button type="button" class="botao" id="perfil-cancelar">Cancelar</button>
+              </div>
+            </form>
+          </section>
+
           <section aria-labelledby="titulo-mural" id="novos">
             <div class="cabecalho-secao">
               <h2 class="titulo-secao" id="titulo-mural"><span aria-hidden="true">⭐</span> <span id="texto-mural">Novos Memes</span></h2>

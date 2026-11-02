@@ -185,6 +185,13 @@
     const nomes = { curtidos: "Top Memes", meus: "Meu perfil", favoritos: "Favoritos" };
     textoMural.textContent = nomes[aba] || "Novos Memes";
 
+    // cartão de perfil só na aba Perfil
+    const cartaoPerfil = document.getElementById("perfil-card");
+    if (cartaoPerfil) {
+      cartaoPerfil.hidden = aba !== "meus";
+      if (aba === "meus" && typeof mostrarPerfil === "function") mostrarPerfil();
+    }
+
     // "Memes em alta" só aparece no Início: os 3 mais curtidos
     const mostrarAlta = aba === "inicio";
     secaoAlta.hidden = !mostrarAlta;
@@ -314,6 +321,115 @@
     mostrar();
     editor.avisar("Publicado! Ele aparece no seu Perfil, aqui no seu aparelho.");
     document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+  });
+
+  // ---------- perfil (salvo só neste navegador; senha nunca é guardada nem mostrada) ----------
+  const PERFIL_PADRAO = {
+    nome: "Rodrigo Elias",
+    usuario: "@rodrigomemes",
+    bio: "Criador do Rodrigo Memes. Aqui o humor nunca acaba! 😂",
+    email: "",
+    whats: "(19) 99293-2822",
+    insta: "@its.rodrigoelias",
+    foto: null,
+  };
+  let perfil = { ...PERFIL_PADRAO, ...ler("meme-perfil", {}) };
+  const $ = (id) => document.getElementById(id);
+  const soNumeros = (t) => (t || "").replace(/\D/g, "");
+
+  function mostrarPerfil() {
+    $("perfil-nome").textContent = perfil.nome || "Sem nome";
+    $("perfil-usuario").textContent = perfil.usuario ? (perfil.usuario.startsWith("@") ? perfil.usuario : "@" + perfil.usuario) : "";
+    $("perfil-bio").textContent = perfil.bio || "";
+
+    const avatar = $("perfil-avatar");
+    avatar.innerHTML = "";
+    if (perfil.foto) {
+      const img = document.createElement("img");
+      img.src = perfil.foto;
+      img.alt = `Foto de ${perfil.nome}`;
+      avatar.appendChild(img);
+    } else {
+      avatar.textContent = (perfil.nome || "R").trim().charAt(0).toUpperCase();
+    }
+
+    // WhatsApp: número com DDI 55 do Brasil
+    const numero = soNumeros(perfil.whats);
+    const whats = $("perfil-whats");
+    whats.hidden = !numero;
+    whats.href = `https://wa.me/${numero.startsWith("55") ? numero : "55" + numero}`;
+    $("perfil-whats-num").textContent = perfil.whats;
+
+    const email = $("perfil-email");
+    email.hidden = !perfil.email;
+    email.href = `mailto:${perfil.email}`;
+    $("perfil-email-txt").textContent = perfil.email;
+    $("perfil-sem-email").hidden = !!perfil.email;
+
+    const insta = $("perfil-insta");
+    const user = (perfil.insta || "").replace(/^@/, "").trim();
+    insta.hidden = !user;
+    insta.href = `https://www.instagram.com/${encodeURIComponent(user)}/`;
+    $("perfil-insta-txt").textContent = "@" + user;
+
+    $("num-memes").textContent = meus.length;
+    $("num-curtidas").textContent = curtidos.size;
+    $("num-seguindo").textContent = seguindo.size;
+  }
+
+  const form = $("perfil-form");
+  function abrirEdicao() {
+    $("campo-nome").value = perfil.nome;
+    $("campo-usuario").value = perfil.usuario;
+    $("campo-bio").value = perfil.bio;
+    $("campo-email").value = perfil.email;
+    $("campo-whats").value = perfil.whats;
+    $("campo-insta").value = perfil.insta;
+    $("campo-foto").value = "";
+    form.hidden = false;
+    $("campo-nome").focus();
+  }
+  $("perfil-editar").addEventListener("click", () => (form.hidden ? abrirEdicao() : (form.hidden = true)));
+  $("perfil-cancelar").addEventListener("click", () => { form.hidden = true; });
+
+  // foto de perfil reduzida para caber no navegador
+  function lerFoto(arquivo) {
+    return new Promise((ok) => {
+      if (!arquivo || !arquivo.type.startsWith("image/")) return ok(null);
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement("canvas");
+        c.width = c.height = 240;
+        const lado = Math.min(img.width, img.height);
+        c.getContext("2d").drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 240, 240);
+        URL.revokeObjectURL(img.src);
+        ok(c.toDataURL("image/jpeg", 0.85));
+      };
+      img.onerror = () => ok(null);
+      img.src = URL.createObjectURL(arquivo);
+    });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = $("campo-email").value.trim();
+    if (email && !$("campo-email").checkValidity()) { alertaRapido("Esse e-mail parece estar errado."); return; }
+    const novaFoto = await lerFoto($("campo-foto").files[0]);
+    const novo = {
+      ...perfil,
+      nome: $("campo-nome").value.trim() || PERFIL_PADRAO.nome,
+      usuario: $("campo-usuario").value.trim(),
+      bio: $("campo-bio").value.trim(),
+      email,
+      whats: $("campo-whats").value.trim(),
+      insta: $("campo-insta").value.trim(),
+      foto: novaFoto || perfil.foto,
+    };
+    if (!guardar("meme-perfil", novo)) { alertaRapido("Não deu para salvar. Tente uma foto menor."); return; }
+    perfil = novo;
+    form.hidden = true;
+    mostrarPerfil();
+    alertaRapido("Perfil salvo!");
   });
 
   // ---------- menu lateral, categorias e busca ----------

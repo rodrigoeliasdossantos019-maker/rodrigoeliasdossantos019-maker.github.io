@@ -545,3 +545,81 @@ body {
 @media (max-width: 760px) {
   .trocar-banner { top: auto; bottom: 34px; right: 50%; transform: translateX(50%); }
 }
+
+/* ===== Cartão de perfil ===== */
+.perfil-card {
+  position: relative; overflow: hidden; border-radius: 20px;
+  background: var(--cartao); border: 1px solid var(--linha);
+}
+.perfil-card[hidden] { display: none; }
+.perfil-capa {
+  height: 120px;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255, 77, 141, 0.45), transparent 45%),
+    linear-gradient(110deg, #2a1170, #8b3dff);
+}
+.perfil-topo { display: flex; align-items: flex-end; gap: 18px; padding: 0 24px; margin-top: -48px; flex-wrap: wrap; }
+.perfil-avatar {
+  width: 104px; height: 104px; flex-shrink: 0; border-radius: 50%;
+  display: grid; place-items: center; overflow: hidden;
+  font: 400 2.6rem "Lilita One", sans-serif; color: #fff;
+  background: linear-gradient(140deg, var(--roxo-claro), var(--roxo-escuro));
+  border: 4px solid var(--cartao); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+.perfil-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.perfil-dados { flex: 1; min-width: 200px; padding-bottom: 4px; }
+.perfil-dados h2 { font-size: 1.5rem; line-height: 1.2; }
+.perfil-usuario { color: var(--roxo-claro); font-weight: 700; font-size: 0.88rem; }
+.perfil-bio { color: var(--suave); font-size: 0.9rem; margin-top: 4px; }
+.perfil-topo .botao { margin-bottom: 6px; }
+
+.perfil-numeros { list-style: none; display: flex; gap: 10px; padding: 18px 24px 4px; }
+.perfil-numeros li {
+  flex: 1; text-align: center; padding: 12px 8px; border-radius: 14px;
+  background: var(--fundo-2); border: 1px solid var(--linha);
+}
+.perfil-numeros b { display: block; font-size: 1.4rem; }
+.perfil-numeros span { font-size: 0.75rem; color: var(--suave); }
+
+.perfil-contatos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; padding: 18px 24px 8px; }
+.contato {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 14px;
+  text-decoration: none; color: #fff; transition: transform 0.2s, box-shadow 0.2s;
+}
+.contato[hidden] { display: none; }
+.contato:hover { transform: translateY(-2px); }
+.contato svg { width: 30px; height: 30px; flex-shrink: 0; }
+.contato span { display: grid; line-height: 1.25; min-width: 0; }
+.contato small { font-size: 0.7rem; opacity: 0.85; font-weight: 600; }
+.contato b { font-size: 0.92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.contato-whats { background: #25d366; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
+.contato-whats:hover { box-shadow: 0 12px 26px rgba(37, 211, 102, 0.45); }
+.contato-email { background: #ea4335; box-shadow: 0 8px 20px rgba(234, 67, 53, 0.3); }
+.contato-insta { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); box-shadow: 0 8px 20px rgba(221, 42, 123, 0.3); }
+.perfil-aviso { padding: 4px 24px 18px; font-size: 0.8rem; color: var(--suave); }
+.perfil-aviso[hidden] { display: none; }
+
+.perfil-form {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin: 8px 24px 22px; padding: 18px; border-radius: 14px;
+  background: var(--fundo-2); border: 1px solid var(--roxo);
+}
+.perfil-form[hidden] { display: none; }
+.perfil-form label { display: grid; gap: 6px; font-size: 0.78rem; color: var(--suave); }
+.perfil-form .largo { grid-column: 1 / -1; }
+.perfil-form input[type="text"], .perfil-form input[type="email"], .perfil-form input[type="tel"] {
+  font: inherit; font-size: 0.92rem; color: var(--texto); background: var(--cartao);
+  border: 1px solid var(--linha); border-radius: 10px; padding: 10px 12px;
+}
+.perfil-form input:focus { border-color: var(--roxo); outline: none; }
+.perfil-form input[type="file"] { font-size: 0.78rem; color: var(--suave); }
+.perfil-nota { font-size: 0.75rem; color: var(--suave); }
+.perfil-form-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 620px) {
+  .perfil-topo { padding: 0 16px; }
+  .perfil-topo .botao { width: 100%; }
+  .perfil-numeros, .perfil-contatos { padding-left: 16px; padding-right: 16px; }
+  .perfil-form { grid-template-columns: 1fr; margin: 8px 16px 18px; }
+  .perfil-aviso { padding-left: 16px; padding-right: 16px; }
+}
