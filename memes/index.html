@@ -22,6 +22,7 @@
     </a>
     <nav class="menu-itens" aria-label="Menu principal">
       <button type="button" class="item ativo" data-aba="inicio"><span aria-hidden="true">🏠</span> Início</button>
+      <button type="button" class="item" data-aba="criar"><span aria-hidden="true">✏️</span> Criar meme</button>
       <button type="button" class="item" data-aba="explorar"><span aria-hidden="true">🧭</span> Explorar</button>
       <button type="button" class="item" data-aba="categorias"><span aria-hidden="true">🗂️</span> Categorias</button>
       <button type="button" class="item" data-aba="curtidos"><span aria-hidden="true">🏆</span> Top Memes</button>
@@ -108,7 +109,7 @@
       </div>
 
       <!-- ===== Memes + lateral ===== -->
-      <div class="conteudo">
+      <div class="conteudo" id="conteudo">
         <div class="coluna-memes">
           <!-- ===== Telas Explorar, Categorias, Top Memes e Favoritos (montadas pelo mural.js) ===== -->
           <section class="vista" id="vista" aria-live="polite" hidden></section>
@@ -224,7 +225,7 @@
       </div>
 
     <!-- ===== Editor ===== -->
-    <section class="editor" id="criar" aria-labelledby="titulo-editor">
+    <section class="editor" id="criar" aria-labelledby="titulo-editor" hidden>
       <h2 class="titulo-secao" id="titulo-editor"><span aria-hidden="true">🎨</span> Criar meme</h2>
       <div class="app">
         <div class="palco">

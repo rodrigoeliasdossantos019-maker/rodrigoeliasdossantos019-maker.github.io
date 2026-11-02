@@ -750,3 +750,6 @@ body {
   .ranking-completo .likes { grid-column: 3; }
   .voltar-cat { margin-left: 0; }
 }
+
+/* telas: o que está escondido fica escondido de verdade (o display do layout não pode passar por cima) */
+.conteudo[hidden], .editor[hidden], #secao-alta[hidden], .perfil-card[hidden] { display: none !important; }

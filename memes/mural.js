@@ -207,6 +207,10 @@
     textoMural.textContent = nomes[aba] ?? "Novos Memes";
 
     // o que aparece em cada tela
+    const editorEl = document.getElementById("criar");
+    const conteudoEl = document.getElementById("conteudo");
+    editorEl.hidden = aba !== "criar";
+    conteudoEl.hidden = aba === "criar";
     carrosselEl.hidden = aba !== "inicio";
     chipsEl.hidden = !["inicio", "explorar"].includes(aba);
     secaoAlta.hidden = aba !== "inicio";
@@ -437,7 +441,7 @@
     if (!abertoAgora || !abertoAgora.img) return;
     fechar();
     await editor.usarComoBase(imagemDe(abertoAgora));
-    document.getElementById("criar").scrollIntoView({ behavior: "smooth" });
+    irParaTela("criar");
   });
 
   // ---------- publicar ----------
@@ -452,12 +456,8 @@
     meus = lista;
     montarPosts();
     montarEnfeites();
-    aba = "meus";
-    categoria = "todos";
-    atualizarAbas();
-    mostrar();
+    irParaTela("meus");
     editor.avisar("Publicado! Ele aparece no seu Perfil, aqui no seu aparelho.");
-    document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
   });
 
   // ---------- perfil (salvo só neste navegador; senha nunca é guardada nem mostrada) ----------
@@ -692,7 +692,7 @@
     abrirMenu.setAttribute("aria-expanded", "false");
   }
 
-  const ENDERECOS = { inicio: "", explorar: "explorar", categorias: "categorias", curtidos: "top", favoritos: "favoritos", meus: "perfil" };
+  const ENDERECOS = { inicio: "", criar: "criar", explorar: "explorar", categorias: "categorias", curtidos: "top", favoritos: "favoritos", meus: "perfil" };
   const abaDoEndereco = () => Object.keys(ENDERECOS).find((k) => ENDERECOS[k] === location.hash.slice(1)) || "inicio";
 
   function irParaTela(nova, mudarEndereco = true) {
@@ -709,6 +709,8 @@
 
   document.querySelectorAll("[data-aba]").forEach((b) => b.addEventListener("click", () => irParaTela(b.dataset.aba)));
   window.addEventListener("popstate", () => irParaTela(abaDoEndereco(), false));
+  window.addEventListener("hashchange", () => { if (abaDoEndereco() !== aba) irParaTela(abaDoEndereco(), false); });
+  document.querySelectorAll('a[href="#criar"]').forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); irParaTela("criar"); }));
   // links do menu (Explorar, Categorias, Criar) também fecham a gaveta no celular
   menuLateral.querySelectorAll("a").forEach((a) => a.addEventListener("click", fecharMenu));
 
