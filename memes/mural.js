@@ -1,4 +1,4 @@
-// ===== MemesLab — mural de memes =====
+// ===== Rodrigo Memes — mural de memes =====
 // Os memes de exemplo usam fotos de bichos do Unsplash (licença gratuita) e piadas originais.
 // Curtidas e memes publicados ficam guardados só no aparelho de quem usa (localStorage).
 (() => {
@@ -131,6 +131,11 @@
   const CARREGANDO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='10' height='10' fill='%231b1336'/%3E%3C/svg%3E";
   const imagemDe = (p) => p.img || CARREGANDO;
 
+  let seguindo = new Set(ler("meme-seguindo", []));
+  const alta = document.getElementById("alta");
+  const textoAlta = document.getElementById("texto-alta");
+  const secaoAlta = document.getElementById("secao-alta");
+
   function filtrados() {
     const termo = busca.value.trim().toLowerCase();
     let lista = posts.filter((p) =>
@@ -138,39 +143,67 @@
       (!termo || p.titulo.toLowerCase().includes(termo) || p.autor.toLowerCase().includes(termo))
     );
     if (aba === "meus") lista = lista.filter((p) => p.meu);
+    if (aba === "favoritos") lista = lista.filter((p) => curtidos.has(p.id));
     if (aba === "curtidos") lista = [...lista].sort((a, b) => totalCurtidas(b) - totalCurtidas(a));
     return lista;
+  }
+
+  // monta o cartão de um meme (com selo de ranking quando for "em alta")
+  function cartao(p, posicao) {
+    const card = document.createElement("article");
+    card.className = "post";
+    const curtido = curtidos.has(p.id);
+    const segue = seguindo.has(p.autor);
+    card.innerHTML = `
+      ${posicao ? `<span class="selo">🔥 ${posicao}</span>` : ""}
+      <button type="button" class="post-img" aria-label="Ver meme maior: ${p.titulo}">
+        <img src="${imagemDe(p)}" alt="Meme: ${p.titulo}" loading="lazy" width="640" height="640">
+      </button>
+      <div class="post-barra">
+        <button type="button" class="curtir ${curtido ? "curtido" : ""}" aria-pressed="${curtido}" aria-label="Curtir">
+          <span class="coracao">${curtido ? "❤️" : "🤍"}</span> <span class="num">${formatar(totalCurtidas(p))}</span>
+        </button>
+        <span>💬 ${formatar(p.coment)}</span>
+        <button type="button" class="baixar-post" aria-label="Baixar meme" title="Baixar">⬇️</button>
+        <button type="button" class="compartilhar-post" aria-label="Compartilhar meme" title="Compartilhar">↗</button>
+      </div>
+      <div class="post-autor">
+        <div class="quem"><span class="avatar">${p.av}</span><div>${p.autor}<small>${tempo(p.horas)}</small></div></div>
+        ${p.meu ? "" : `<button type="button" class="seguir" aria-pressed="${segue}">${segue ? "Seguindo" : "Seguir"}</button>`}
+      </div>`;
+    card.querySelector(".post-img").addEventListener("click", () => abrir(p));
+    card.querySelector(".curtir").addEventListener("click", () => curtir(p));
+    card.querySelector(".baixar-post").addEventListener("click", () => baixar(p));
+    card.querySelector(".compartilhar-post").addEventListener("click", () => compartilhar(p));
+    card.querySelector(".seguir")?.addEventListener("click", () => seguir(p.autor));
+    return card;
   }
 
   // ---------- desenha o mural ----------
   function mostrar() {
     const lista = filtrados();
-    textoMural.textContent = aba === "curtidos" ? "Mais curtidos" : aba === "meus" ? "Meus memes" : "Novos memes";
-    mural.innerHTML = "";
-    vazio.hidden = lista.length > 0;
-    vazio.textContent = aba === "meus" ? "Você ainda não publicou nenhum meme. Crie o primeiro lá embaixo!" : "Nenhum meme encontrado. Que tal criar um?";
+    const nomes = { curtidos: "Top Memes", meus: "Meu perfil", favoritos: "Favoritos" };
+    textoMural.textContent = nomes[aba] || "Novos Memes";
 
-    lista.forEach((p) => {
-      const card = document.createElement("article");
-      card.className = "post";
-      const curtido = curtidos.has(p.id);
-      card.innerHTML = `
-        <button type="button" class="post-img" aria-label="Ver meme maior: ${p.titulo}">
-          <img src="${imagemDe(p)}" alt="Meme: ${p.titulo}" loading="lazy" width="640" height="640">
-        </button>
-        <div class="post-barra">
-          <button type="button" class="curtir ${curtido ? "curtido" : ""}" aria-pressed="${curtido}" aria-label="Curtir">
-            <span class="coracao">${curtido ? "❤️" : "🤍"}</span> <span class="num">${formatar(totalCurtidas(p))}</span>
-          </button>
-          <span>💬 ${formatar(p.coment)}</span>
-          <button type="button" class="baixar-post" aria-label="Baixar meme" title="Baixar">⬇️</button>
-        </div>
-        <div class="post-autor"><span class="avatar">${p.av}</span><div>${p.autor}<small>${tempo(p.horas)}</small></div></div>`;
-      card.querySelector(".post-img").addEventListener("click", () => abrir(p));
-      card.querySelector(".curtir").addEventListener("click", () => curtir(p));
-      card.querySelector(".baixar-post").addEventListener("click", () => baixar(p));
-      mural.appendChild(card);
-    });
+    // "Memes em alta" só aparece no Início: os 3 mais curtidos
+    const mostrarAlta = aba === "inicio";
+    secaoAlta.hidden = !mostrarAlta;
+    alta.innerHTML = "";
+    let resto = lista;
+    if (mostrarAlta) {
+      const top = [...lista].sort((a, b) => totalCurtidas(b) - totalCurtidas(a)).slice(0, 3);
+      top.forEach((p, i) => alta.appendChild(cartao(p, i + 1)));
+      textoAlta.textContent = categoria === "todos" ? "Memes em alta" : "Em alta nesta categoria";
+      resto = lista.filter((p) => !top.includes(p));
+    }
+
+    mural.innerHTML = "";
+    resto.forEach((p) => mural.appendChild(cartao(p)));
+    vazio.hidden = resto.length > 0 || (mostrarAlta && alta.children.length > 0);
+    vazio.textContent =
+      aba === "meus" ? "Você ainda não publicou nenhum meme. Crie o primeiro lá embaixo!" :
+      aba === "favoritos" ? "Você ainda não curtiu nenhum meme. Toque no 🤍 para guardar aqui." :
+      "Nenhum meme encontrado. Que tal criar um?";
     mostrarRanking();
   }
 
@@ -190,6 +223,44 @@
     if (curtidos.has(p.id)) curtidos.delete(p.id); else curtidos.add(p.id);
     guardar("meme-curtidos", [...curtidos]);
     mostrar();
+  }
+
+  function seguir(autor) {
+    if (seguindo.has(autor)) seguindo.delete(autor); else seguindo.add(autor);
+    guardar("meme-seguindo", [...seguindo]);
+    editor.avisar(seguindo.has(autor) ? `Agora você segue ${autor}!` : `Você deixou de seguir ${autor}.`);
+    mostrar();
+  }
+
+  // compartilha a imagem (celular) ou copia o link do site
+  async function compartilhar(p) {
+    try {
+      if (p.img && navigator.canShare) {
+        const blob = await (await fetch(p.img)).blob();
+        const arquivo = new File([blob], `meme-${p.id}.jpg`, { type: blob.type || "image/jpeg" });
+        if (navigator.canShare({ files: [arquivo] })) { await navigator.share({ files: [arquivo], title: "Rodrigo Memes" }); return; }
+      }
+      await navigator.clipboard.writeText(location.href.split("#")[0]);
+      alertaRapido("Link do site copiado! Cole no WhatsApp para mandar.");
+    } catch (e) {
+      if (e.name !== "AbortError") alertaRapido("Não deu para compartilhar. Use o botão de baixar.");
+    }
+  }
+
+  // aviso curto no canto (usado fora do editor)
+  function alertaRapido(msg) {
+    let caixa = document.getElementById("alerta-rapido");
+    if (!caixa) {
+      caixa = document.createElement("div");
+      caixa.id = "alerta-rapido";
+      caixa.setAttribute("role", "status");
+      caixa.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:120;background:#8b3dff;color:#fff;padding:12px 20px;border-radius:999px;font:700 .85rem Montserrat,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90vw;text-align:center";
+      document.body.appendChild(caixa);
+    }
+    caixa.textContent = msg;
+    caixa.hidden = false;
+    clearTimeout(alertaRapido.t);
+    alertaRapido.t = setTimeout(() => (caixa.hidden = true), 3000);
   }
 
   async function baixar(p) {
@@ -236,18 +307,27 @@
     }
     meus = lista;
     montarPosts();
+    montarEnfeites();
     aba = "meus";
     categoria = "todos";
     atualizarAbas();
     mostrar();
-    editor.avisar("Publicado! Ele aparece em Meus memes, aqui no seu aparelho.");
+    editor.avisar("Publicado! Ele aparece no seu Perfil, aqui no seu aparelho.");
     document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
   });
 
-  // ---------- abas, categorias e busca ----------
+  // ---------- menu lateral, categorias e busca ----------
+  const menuLateral = document.getElementById("menu-lateral");
+  const abrirMenu = document.getElementById("abrir-menu");
+
   function atualizarAbas() {
-    document.querySelectorAll("[data-aba]").forEach((b) => b.classList.toggle("ativa", b.dataset.aba === aba));
+    document.querySelectorAll(".menu-itens [data-aba]").forEach((b) => b.classList.toggle("ativo", b.dataset.aba === aba));
     document.querySelectorAll("[data-cat]").forEach((b) => b.classList.toggle("ativo", b.dataset.cat === categoria));
+  }
+
+  function fecharMenu() {
+    menuLateral.classList.remove("aberto");
+    abrirMenu.setAttribute("aria-expanded", "false");
   }
 
   document.querySelectorAll("[data-aba]").forEach((b) =>
@@ -255,13 +335,113 @@
       aba = b.dataset.aba;
       atualizarAbas();
       mostrar();
-      document.getElementById("titulo-mural").scrollIntoView({ behavior: "smooth", block: "start" });
+      fecharMenu();
+      const alvo = aba === "inicio" ? "inicio" : "novos";
+      document.getElementById(alvo).scrollIntoView({ behavior: "smooth", block: "start" });
     })
   );
+  // links do menu (Explorar, Categorias, Criar) também fecham a gaveta no celular
+  menuLateral.querySelectorAll("a").forEach((a) => a.addEventListener("click", fecharMenu));
+
   document.querySelectorAll("[data-cat]").forEach((b) =>
     b.addEventListener("click", () => { categoria = b.dataset.cat; atualizarAbas(); mostrar(); })
   );
   busca.addEventListener("input", mostrar);
+
+  // menu em gaveta no celular
+  abrirMenu.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const aberto = menuLateral.classList.toggle("aberto");
+    abrirMenu.setAttribute("aria-expanded", aberto);
+  });
+  document.addEventListener("click", (e) => {
+    if (menuLateral.classList.contains("aberto") && !menuLateral.contains(e.target)) fecharMenu();
+  });
+
+  // Ctrl + K (ou Cmd + K) vai para a busca; Esc fecha o menu
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); busca.focus(); busca.select(); }
+    if (e.key === "Escape") fecharMenu();
+  });
+
+  document.getElementById("sino").addEventListener("click", () =>
+    alertaRapido("Novidade: fotos de bichos, legenda estilo conversa e figurinhas exclusivas!")
+  );
+
+  // ---------- enfeites do banner ----------
+  // figurinhas originais + emojis; os memes que a própria pessoa publicou também entram
+  const caixaEnfeites = document.getElementById("enfeites");
+  const LUGARES = [
+    [3, 8, -12], [12, 62, 10], [42, 4, 8], [58, 70, -9], [86, 6, 12], [93, 58, -14],
+    [27, 82, -6], [74, 30, 6], [50, 40, -4], [66, 88, 14],
+  ];
+  const EMOJIS = ["😂", "🤣", "😎", "🤡", "💀", "🔥", "😭", "👀", "🗿", "🤯", "😹", "💯"];
+
+  function montarEnfeites() {
+    if (!caixaEnfeites) return;
+    caixaEnfeites.innerHTML = "";
+    const proprios = meus.slice(0, 4).map((m) => m.img);
+    const figs = editor.personagens || [];
+    LUGARES.forEach(([x, y, giro], i) => {
+      const el = document.createElement("span");
+      const longe = i >= 6 ? " longe" : "";
+      if (i < proprios.length) {
+        el.className = "enfeite-meme" + longe;
+        el.innerHTML = `<img src="${proprios[i]}" alt="">`;
+      } else if (i % 2 === 0 && figs.length) {
+        el.className = "enfeite-fig" + longe;
+        el.style.setProperty("--tam", `${46 + (i % 3) * 12}px`);
+        el.innerHTML = `<img src="${figs[i % figs.length]}" alt="">`;
+      } else {
+        el.className = "enfeite-fig" + longe;
+        el.style.setProperty("--tam", `${1.6 + (i % 3) * 0.5}rem`);
+        el.textContent = EMOJIS[i % EMOJIS.length];
+      }
+      el.style.left = `${x}%`;
+      el.style.top = `${y}%`;
+      el.style.setProperty("--giro", `${giro}deg`);
+      el.style.setProperty("--tempo", `${4 + (i % 4)}s`);
+      el.style.animationDelay = `${-i * 0.7}s`;
+      caixaEnfeites.appendChild(el);
+    });
+  }
+  montarEnfeites();
+
+  // ---------- banner em slides (mascotes originais do site) ----------
+  const slides = [...document.querySelectorAll(".slide")];
+  const bolinhas = document.getElementById("bolinhas");
+  const mascotes = editor.personagens || [];
+  let atual = 0;
+  let timer = null;
+  const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  slides.forEach((s, i) => {
+    const img = s.querySelector(".slide-mascote");
+    const m = mascotes[+s.dataset.mascote];
+    if (img && m) img.src = m;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", `Destaque ${i + 1}`);
+    b.addEventListener("click", () => irPara(i, true));
+    bolinhas.appendChild(b);
+  });
+  const logo = document.getElementById("logo-mascote");
+  if (logo && mascotes[3]) logo.src = mascotes[3];
+
+  function irPara(i, manual) {
+    atual = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => { s.classList.toggle("ativo", n === atual); s.setAttribute("aria-hidden", n !== atual); });
+    [...bolinhas.children].forEach((b, n) => b.setAttribute("aria-current", n === atual));
+    if (manual) reiniciar();
+  }
+  function reiniciar() {
+    clearInterval(timer);
+    if (!semMovimento) timer = setInterval(() => irPara(atual + 1), 6000);
+  }
+  document.getElementById("slide-ant").addEventListener("click", () => irPara(atual - 1, true));
+  document.getElementById("slide-prox").addEventListener("click", () => irPara(atual + 1, true));
+  irPara(0);
+  reiniciar();
 
   // ---------- começa ----------
   montarPosts();

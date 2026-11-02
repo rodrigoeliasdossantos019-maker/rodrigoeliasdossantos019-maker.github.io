@@ -1,4 +1,4 @@
-// ===== MemesLab — editor de memes =====
+// ===== Rodrigo Memes — editor de memes =====
 // Tudo acontece no navegador: a foto nunca sai do aparelho da pessoa.
 (() => {
   const tela = document.getElementById("tela");
@@ -58,7 +58,7 @@
     "⚽ Vida": "⚽ 🎮 📱 💻 📚 ✏️ 💼 🏠 🚗 🛌 🚿 📉 📈 ⏰ 🧾 💰",
   };
 
-  // ---------- personagens originais do MemesLab (desenhados aqui, criação própria) ----------
+  // ---------- personagens originais do Rodrigo Memes (desenhados aqui, criação própria) ----------
   const olho = (c, x, y, r, tipo = "normal") => {
     c.fillStyle = "#fff"; c.beginPath(); c.ellipse(x, y, r, r * 1.1, 0, 0, 7); c.fill();
     c.fillStyle = "#1a1a1a";
@@ -437,7 +437,7 @@
   const gradeFig = campo("figurinhas");
   const controleFig = campo("fig-controle");
 
-  const GRUPO_PERSONAGENS = "⭐ MemesLab";
+  const GRUPO_PERSONAGENS = "⭐ Exclusivas";
 
   function mostrarGrupo(nome) {
     [...abasFig.children].forEach((b) => b.setAttribute("aria-pressed", b.dataset.grupo === nome));
@@ -761,6 +761,7 @@
     avisar,
     baixarBlob,
     fotos: FOTOS,
+    personagens: PERSONAGENS.map((p) => p.src),
     urlFoto: (id, largura = 640) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${largura}&h=${largura}&q=75`,
   };
 

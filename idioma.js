@@ -202,8 +202,8 @@ Object.assign(TEXTOS.pt, { "menu.historia": "Minha história", "menu.processo": 
 Object.assign(TEXTOS.en, { "menu.historia": "My story", "menu.processo": "How I work", "menu.faq": "FAQ" });
 
 // link do projeto MemesLab
-Object.assign(TEXTOS.pt, { "hist.memes": "Ver meu projeto MemesLab" });
-Object.assign(TEXTOS.en, { "hist.memes": "See my MemesLab project" });
+Object.assign(TEXTOS.pt, { "hist.memes": "Ver meu projeto Rodrigo Memes" });
+Object.assign(TEXTOS.en, { "hist.memes": "See my Rodrigo Memes project" });
 
 // idioma atual e tradução de uma chave
 function idiomaAtual() {

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MemesLab | Ria, crie e compartilhe memes</title>
-  <meta name="description" content="MemesLab: veja memes, crie os seus com qualquer foto, escreva o texto, arraste e baixe a imagem pronta. Grátis.">
-  <meta name="theme-color" content="#0f0a1f">
+  <title>Rodrigo Memes | Aqui o humor nunca acaba</title>
+  <meta name="description" content="Rodrigo Memes: veja memes, crie os seus com qualquer foto, escreva o texto, arraste e baixe a imagem pronta. Grátis.">
+  <meta name="theme-color" content="#0b0620">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%238b3dff'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle'%3E%F0%9F%98%82%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,74 +13,128 @@
   <link rel="stylesheet" href="memes.css">
 </head>
 <body>
-  <!-- ===== Topo ===== -->
-  <header class="barra">
-    <a class="marca" href="#inicio" aria-label="MemesLab, início">
-      <span class="mascote" aria-hidden="true">😂</span>
-      <span class="marca-texto"><b>Memes<i>Lab</i></b><small>Ria. Crie. Compartilhe.</small></span>
+<div class="layout">
+  <!-- ===== Menu lateral ===== -->
+  <aside class="menu-lateral" id="menu-lateral">
+    <a class="logo" href="#inicio" aria-label="Rodrigo Memes, início">
+      <img class="logo-mascote" id="logo-mascote" alt="" width="64" height="64">
+      <span class="logo-texto"><b>Rodrigo <i>Memes</i></b><small>Ria. Compartilhe. Repita.</small></span>
     </a>
-    <nav class="abas" aria-label="Navegação">
-      <button type="button" class="aba ativa" data-aba="inicio"><span aria-hidden="true">🏠</span> Início</button>
-      <button type="button" class="aba" data-aba="curtidos"><span aria-hidden="true">🔥</span> Mais curtidos</button>
-      <button type="button" class="aba" data-aba="meus"><span aria-hidden="true">⭐</span> Meus memes</button>
-      <a class="aba" href="#criar"><span aria-hidden="true">＋</span> Criar meme</a>
+    <nav class="menu-itens" aria-label="Menu principal">
+      <button type="button" class="item ativo" data-aba="inicio"><span aria-hidden="true">🏠</span> Início</button>
+      <a class="item" href="#novos"><span aria-hidden="true">🧭</span> Explorar</a>
+      <a class="item" href="#categorias"><span aria-hidden="true">🗂️</span> Categorias</a>
+      <button type="button" class="item" data-aba="curtidos"><span aria-hidden="true">🏆</span> Top Memes</button>
+      <button type="button" class="item" data-aba="favoritos"><span aria-hidden="true">❤️</span> Favoritos</button>
+      <button type="button" class="item" data-aba="meus"><span aria-hidden="true">👤</span> Perfil</button>
     </nav>
-    <label class="busca">
-      <span aria-hidden="true">🔍</span>
-      <input type="search" id="busca" placeholder="Pesquisar memes..." aria-label="Pesquisar memes">
-    </label>
-    <a class="perfil" href="../" title="Feito por Rodrigo Elias" aria-label="Site do Rodrigo Elias">R</a>
-  </header>
-
-  <main id="inicio">
-    <!-- ===== Banner ===== -->
-    <section class="banner">
-      <div class="banner-texto">
-        <h1>Bem-vindo ao <span>Memes<b>Lab</b>!</span></h1>
-        <p>Aqui a zoeira nunca acaba! <span aria-hidden="true">😂</span></p>
-        <a class="botao-roxo" href="#criar">Criar meu meme</a>
-      </div>
-      <div class="banner-arte" aria-hidden="true">
-        <span class="raio r1"></span><span class="raio r2"></span><span class="raio r3"></span>
-        <span class="mascote-grande">😎</span>
-        <span class="balao">São memes,<br><em>é claro!</em></span>
-        <span class="coroa">👑</span>
-      </div>
-    </section>
-
-    <!-- ===== Categorias ===== -->
-    <div class="categorias" role="group" aria-label="Categorias">
-      <button type="button" class="chip ativo" data-cat="todos">🏠 Todos</button>
-      <button type="button" class="chip" data-cat="engracados">😂 Engraçados</button>
-      <button type="button" class="chip" data-cat="escola">📚 Escola</button>
-      <button type="button" class="chip" data-cat="trabalho">💼 Trabalho</button>
-      <button type="button" class="chip" data-cat="programacao">💻 Programação</button>
-      <button type="button" class="chip" data-cat="jogos">🎮 Jogos</button>
-      <button type="button" class="chip" data-cat="bichos">🐾 Bichos</button>
-      <button type="button" class="chip" data-cat="reacoes">😮 Reações</button>
+    <div class="galaxia-card">
+      <span class="foguete" aria-hidden="true">🚀</span>
+      <p>Entre na galáxia<br>do humor!</p>
+      <a class="botao-roxo" href="#criar">Criar meme</a>
     </div>
+  </aside>
 
-    <!-- ===== Mural + lateral ===== -->
-    <div class="conteudo">
-      <section aria-labelledby="titulo-mural">
-        <h2 class="titulo-secao" id="titulo-mural"><span aria-hidden="true">✨</span> <span id="texto-mural">Novos memes</span></h2>
-        <div class="mural" id="mural"></div>
-        <p class="vazio" id="vazio" hidden>Nenhum meme encontrado. Que tal criar um?</p>
+  <div class="principal">
+    <!-- ===== Barra de cima ===== -->
+    <header class="barra">
+      <button type="button" class="abrir-menu" id="abrir-menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <label class="busca">
+        <span aria-hidden="true">🔍</span>
+        <input type="search" id="busca" placeholder="Buscar memes..." aria-label="Buscar memes">
+        <kbd aria-hidden="true">Ctrl + K</kbd>
+      </label>
+      <button type="button" class="icone-barra" id="sino" aria-label="Novidades">🔔<span class="ponto" aria-hidden="true"></span></button>
+      <a class="perfil" href="../" title="Feito por Rodrigo Elias" aria-label="Site do Rodrigo Elias">R</a>
+    </header>
+
+    <main id="inicio">
+      <!-- ===== Banner em slides ===== -->
+      <section class="carrossel" aria-roledescription="carrossel" aria-label="Destaques">
+        <div class="estrelas" aria-hidden="true"></div>
+        <!-- enfeites: mini memes do site e figurinhas flutuando (preenchidos pelo mural.js) -->
+        <div class="enfeites" id="enfeites" aria-hidden="true"></div>
+        <div class="slides" id="slides">
+          <div class="slide ativo" data-mascote="1">
+            <div class="slide-texto">
+              <h1><span class="t1">Rodrigo</span> <span class="t2">Memes</span></h1>
+              <p class="slogan">Aqui o humor nunca acaba!</p>
+            </div>
+            <img class="slide-mascote" alt="" width="400" height="400">
+            <p class="frase-lado">Ria mais,<br>viva melhor!</p>
+          </div>
+          <div class="slide" data-mascote="0">
+            <div class="slide-texto">
+              <h2><span class="t1">Crie seu</span> <span class="t2">meme</span></h2>
+              <p class="slogan">Foto, texto e figurinha em segundos!</p>
+              <a class="botao-roxo" href="#criar">Criar agora</a>
+            </div>
+            <img class="slide-mascote" alt="" width="400" height="400">
+            <p class="frase-lado">É grátis<br>e é rapidinho!</p>
+          </div>
+          <div class="slide" data-mascote="3">
+            <div class="slide-texto">
+              <h2><span class="t1">Figurinhas</span> <span class="t2">exclusivas</span></h2>
+              <p class="slogan">Personagens que só tem aqui!</p>
+              <a class="botao-roxo" href="#criar">Ver figurinhas</a>
+            </div>
+            <img class="slide-mascote" alt="" width="400" height="400">
+            <p class="frase-lado">Zoeira<br>garantida!</p>
+          </div>
+        </div>
+        <button type="button" class="seta seta-esq" id="slide-ant" aria-label="Destaque anterior">‹</button>
+        <button type="button" class="seta seta-dir" id="slide-prox" aria-label="Próximo destaque">›</button>
+        <div class="bolinhas" id="bolinhas" role="group" aria-label="Escolher destaque"></div>
       </section>
 
-      <aside class="lateral">
-        <div class="publique">
-          <span class="nuvem" aria-hidden="true">☁️</span>
-          <h3>Publique seu meme!</h3>
-          <p>Mostre sua criatividade: envie uma foto, escreva e publique no mural.</p>
-          <a class="botao-branco" href="#criar">✏️ Criar meme</a>
+      <!-- ===== Categorias ===== -->
+      <div class="categorias" id="categorias" role="group" aria-label="Categorias">
+        <button type="button" class="chip ativo" data-cat="todos">🏠 Todos</button>
+        <button type="button" class="chip" data-cat="engracados">😂 Engraçados</button>
+        <button type="button" class="chip" data-cat="bichos">🐾 Bichos</button>
+        <button type="button" class="chip" data-cat="jogos">🎮 Games</button>
+        <button type="button" class="chip" data-cat="escola">📚 Escola</button>
+        <button type="button" class="chip" data-cat="trabalho">💼 Trabalho</button>
+        <button type="button" class="chip" data-cat="programacao">💻 Programação</button>
+        <button type="button" class="chip" data-cat="reacoes">🔥 Reações</button>
+      </div>
+
+      <!-- ===== Memes + lateral ===== -->
+      <div class="conteudo">
+        <div class="coluna-memes">
+          <section aria-labelledby="titulo-alta" id="secao-alta">
+            <div class="cabecalho-secao">
+              <h2 class="titulo-secao" id="titulo-alta"><span aria-hidden="true">🔥</span> <span id="texto-alta">Memes em alta</span></h2>
+              <button type="button" class="ver-mais" data-aba="curtidos">Ver mais →</button>
+            </div>
+            <div class="mural alta" id="alta"></div>
+          </section>
+
+          <section aria-labelledby="titulo-mural" id="novos">
+            <div class="cabecalho-secao">
+              <h2 class="titulo-secao" id="titulo-mural"><span aria-hidden="true">⭐</span> <span id="texto-mural">Novos Memes</span></h2>
+            </div>
+            <div class="mural" id="mural"></div>
+            <p class="vazio" id="vazio" hidden>Nenhum meme encontrado. Que tal criar um?</p>
+          </section>
         </div>
-        <div class="ranking">
-          <h3>🔥 Mais curtidos</h3>
-          <ol id="ranking"></ol>
-        </div>
-      </aside>
-    </div>
+
+        <aside class="lateral">
+          <div class="publique">
+            <span class="nuvem" aria-hidden="true">☁️</span>
+            <h3>Publique seu meme!</h3>
+            <p>Compartilhe sua criatividade com a comunidade!</p>
+            <a class="botao-branco" href="#criar">✏️ Criar Meme</a>
+          </div>
+          <div class="ranking">
+            <div class="cabecalho-secao">
+              <h3>🏆 Top 5 da Semana</h3>
+              <button type="button" class="ver-mais" data-aba="curtidos">Ver mais →</button>
+            </div>
+            <ol id="ranking"></ol>
+          </div>
+        </aside>
+      </div>
 
     <!-- ===== Editor ===== -->
     <section class="editor" id="criar" aria-labelledby="titulo-editor">
@@ -189,9 +243,11 @@
   </main>
 
   <footer class="rodape">
-    <p>Memes deixam a vida melhor! 💜</p>
+    <p>Rodrigo Memes · Ria mais, viva melhor! 💜</p>
     <p>Feito por <a href="../">Rodrigo Elias</a> · Fotos dos bichos: <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a> (licença gratuita). Os textos e figurinhas são criações originais. Suas fotos, curtidas e publicações ficam só no seu aparelho.</p>
   </footer>
+  </div>
+</div>
 
   <!-- ver meme do mural em tamanho grande -->
   <div class="janela" id="janela" role="dialog" aria-modal="true" aria-label="Meme ampliado" hidden>
