@@ -623,3 +623,36 @@ body {
   .perfil-form { grid-template-columns: 1fr; margin: 8px 16px 18px; }
   .perfil-aviso { padding-left: 16px; padding-right: 16px; }
 }
+
+/* ===== Senha para editar o perfil ===== */
+.perfil-senha {
+  display: grid; gap: 12px; margin: 8px 24px 22px; padding: 18px; border-radius: 14px;
+  background: var(--fundo-2); border: 1px solid var(--roxo); max-width: 460px;
+}
+.perfil-senha[hidden] { display: none; }
+.senha-titulo { font-weight: 800; font-size: 0.95rem; }
+.perfil-senha label { display: grid; gap: 6px; font-size: 0.78rem; color: var(--suave); }
+.perfil-senha label[hidden] { display: none; }
+.perfil-senha input {
+  font: inherit; font-size: 1rem; color: var(--texto); background: var(--cartao);
+  border: 1px solid var(--linha); border-radius: 10px; padding: 11px 12px; letter-spacing: 0.15em;
+}
+.perfil-senha input:focus { border-color: var(--roxo); outline: none; }
+.perfil-senha.erro input { border-color: #ff5c6c; animation: tremer 0.35s; }
+@keyframes tremer { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.senha-msg { min-height: 1.2em; font-size: 0.85rem; font-weight: 700; color: #ff5c6c; }
+.link-esqueci { background: none; border: 0; color: var(--suave); font: 600 0.78rem "Montserrat", sans-serif; text-decoration: underline; cursor: pointer; margin-left: auto; }
+.link-esqueci:hover { color: var(--roxo-claro); }
+
+.perfil-sucesso {
+  margin: 4px 24px 18px; padding: 12px 16px; border-radius: 12px;
+  background: rgba(37, 211, 102, 0.14); border: 1px solid #25d366; color: #5cf09a;
+  font-weight: 800; font-size: 0.92rem; animation: aparecer-ok 0.35s ease;
+}
+.perfil-sucesso[hidden] { display: none; }
+@keyframes aparecer-ok { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 620px) {
+  .perfil-senha { margin: 8px 16px 18px; }
+  .perfil-sucesso { margin: 4px 16px 16px; }
+}

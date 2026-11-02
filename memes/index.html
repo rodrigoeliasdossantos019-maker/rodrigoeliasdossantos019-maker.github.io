@@ -153,6 +153,26 @@
             </div>
             <p class="perfil-aviso" id="perfil-sem-email">📧 Adicione seu Gmail em <b>Editar perfil</b>.</p>
 
+            <!-- senha para editar o perfil (só o código embaralhado é guardado) -->
+            <form class="perfil-senha" id="perfil-senha" hidden>
+              <p class="senha-titulo" id="senha-titulo">🔒 Digite sua senha para editar o perfil</p>
+              <label>Senha
+                <input type="password" id="senha-campo" autocomplete="current-password" minlength="4" required>
+              </label>
+              <label id="senha-confirma-rotulo" hidden>Repita a senha
+                <input type="password" id="senha-confirma" autocomplete="new-password" minlength="4">
+              </label>
+              <p class="senha-msg" id="senha-msg" role="alert" aria-live="assertive"></p>
+              <div class="perfil-form-acoes">
+                <button type="submit" class="botao-roxo" id="senha-entrar">Entrar</button>
+                <button type="button" class="botao" id="senha-cancelar">Cancelar</button>
+                <button type="button" class="link-esqueci" id="senha-esqueci">Esqueci a senha</button>
+              </div>
+            </form>
+
+            <!-- aviso de sucesso -->
+            <p class="perfil-sucesso" id="perfil-sucesso" role="status" aria-live="polite" hidden>✅ Salvo com sucesso!</p>
+
             <!-- formulário de edição (fica guardado só neste navegador) -->
             <form class="perfil-form" id="perfil-form" hidden>
               <label>Nome <input type="text" id="campo-nome" maxlength="40" autocomplete="name"></label>
@@ -162,7 +182,7 @@
               <label>WhatsApp <input type="tel" id="campo-whats" placeholder="(19) 99999-9999" autocomplete="tel"></label>
               <label>Instagram <input type="text" id="campo-insta" placeholder="@seuinstagram"></label>
               <label>Foto de perfil <input type="file" id="campo-foto" accept="image/*"></label>
-              <p class="largo perfil-nota">🔒 Senha não aparece em perfil: ela ficaria visível para qualquer pessoa. Tudo aqui fica salvo só neste navegador.</p>
+              <p class="largo perfil-nota">🔒 Sua senha protege a edição e nunca aparece no perfil. Tudo aqui fica salvo só neste navegador.</p>
               <div class="largo perfil-form-acoes">
                 <button type="submit" class="botao-roxo">Salvar</button>
                 <button type="button" class="botao" id="perfil-cancelar">Cancelar</button>

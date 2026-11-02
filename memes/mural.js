@@ -389,7 +389,93 @@
     form.hidden = false;
     $("campo-nome").focus();
   }
-  $("perfil-editar").addEventListener("click", () => (form.hidden ? abrirEdicao() : (form.hidden = true)));
+  // ----- senha: só o código embaralhado (hash) é guardado, nunca a senha -----
+  const telaSenha = $("perfil-senha");
+  const campoSenha = $("senha-campo");
+  const campoConfirma = $("senha-confirma");
+  const msgSenha = $("senha-msg");
+  const sucesso = $("perfil-sucesso");
+  const temSenha = () => !!ler("meme-senha", null);
+
+  async function embaralhar(texto) {
+    const dados = new TextEncoder().encode("rodrigo-memes::" + texto);
+    const hash = await crypto.subtle.digest("SHA-256", dados);
+    return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  function pedirSenha() {
+    const criando = !temSenha();
+    $("senha-titulo").textContent = criando
+      ? "🔒 Crie uma senha para proteger o seu perfil"
+      : "🔒 Digite sua senha para editar o perfil";
+    $("senha-confirma-rotulo").hidden = !criando;
+    campoConfirma.required = criando;
+    campoSenha.autocomplete = criando ? "new-password" : "current-password";
+    $("senha-entrar").textContent = criando ? "Criar senha" : "Entrar";
+    $("senha-esqueci").hidden = criando;
+    campoSenha.value = "";
+    campoConfirma.value = "";
+    msgSenha.textContent = "";
+    telaSenha.classList.remove("erro");
+    sucesso.hidden = true;
+    form.hidden = true;
+    telaSenha.hidden = false;
+    campoSenha.focus();
+  }
+
+  function erroSenha(texto) {
+    msgSenha.textContent = texto;
+    telaSenha.classList.remove("erro");
+    void telaSenha.offsetWidth; // reinicia a animação de tremer
+    telaSenha.classList.add("erro");
+    campoSenha.select();
+  }
+
+  telaSenha.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const senha = campoSenha.value;
+    if (senha.length < 4) { erroSenha("A senha precisa ter pelo menos 4 caracteres."); return; }
+
+    if (!temSenha()) {
+      if (senha !== campoConfirma.value) { erroSenha("As duas senhas não são iguais."); return; }
+      guardar("meme-senha", await embaralhar(senha));
+      telaSenha.hidden = true;
+      alertaRapido("Senha criada!");
+      abrirEdicao();
+      return;
+    }
+
+    if ((await embaralhar(senha)) !== ler("meme-senha", null)) { erroSenha("❌ Senha errada"); return; }
+    telaSenha.hidden = true;
+    abrirEdicao();
+  });
+
+  $("senha-cancelar").addEventListener("click", () => { telaSenha.hidden = true; });
+
+  // esqueceu: apaga a senha e volta o perfil ao padrão (os memes continuam)
+  $("senha-esqueci").addEventListener("click", () => {
+    msgSenha.innerHTML = "";
+    const aviso = document.createElement("span");
+    aviso.textContent = "Isso apaga a senha e volta o perfil ao padrão. ";
+    const confirmar = document.createElement("button");
+    confirmar.type = "button";
+    confirmar.className = "link-esqueci";
+    confirmar.textContent = "Sim, apagar";
+    confirmar.addEventListener("click", () => {
+      try { localStorage.removeItem("meme-senha"); localStorage.removeItem("meme-perfil"); } catch (err) {}
+      perfil = { ...PERFIL_PADRAO };
+      mostrarPerfil();
+      pedirSenha();
+      alertaRapido("Senha apagada. Crie uma nova.");
+    });
+    msgSenha.append(aviso, confirmar);
+  });
+
+  // editar perfil sempre pede a senha primeiro
+  $("perfil-editar").addEventListener("click", () => {
+    if (!form.hidden || !telaSenha.hidden) { form.hidden = true; telaSenha.hidden = true; return; }
+    pedirSenha();
+  });
   $("perfil-cancelar").addEventListener("click", () => { form.hidden = true; });
 
   // foto de perfil reduzida para caber no navegador
@@ -429,7 +515,10 @@
     perfil = novo;
     form.hidden = true;
     mostrarPerfil();
-    alertaRapido("Perfil salvo!");
+    sucesso.hidden = false;
+    clearTimeout(sucesso.t);
+    sucesso.t = setTimeout(() => (sucesso.hidden = true), 4000);
+    alertaRapido("✅ Salvo com sucesso!");
   });
 
   // ---------- menu lateral, categorias e busca ----------
