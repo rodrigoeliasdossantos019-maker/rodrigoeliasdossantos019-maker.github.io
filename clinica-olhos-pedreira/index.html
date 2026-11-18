@@ -467,7 +467,7 @@ header{animation:sobe .8s ease both}
 .c-tag{display:inline-flex;align-items:center;gap:8px;font:600 .78rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
 .c-tag i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
 .c-niv{font:700 .85rem var(--sans);color:var(--blue);background:#eef4fe;padding:6px 12px;border-radius:999px}
-.c-prog{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:18px 0 8px}
+.c-prog{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:18px 0 8px}
 .c-prog i{height:6px;border-radius:6px;background:#e8eef8;transition:background .4s}
 .c-prog i.feito{background:#22c55e}.c-prog i.atual{background:var(--blue)}.c-prog i.errou{background:#ef4444}
 .c-arena{display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:64px 170px 64px;gap:10px;align-items:center;justify-items:center;max-width:360px;margin:12px auto 0}
@@ -642,6 +642,35 @@ html{scroll-padding-top:96px}
 .cv-unimed{background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDE2NyIgd2lkdGg9IjUwMCIgaGVpZ2h0PSIxNjciIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KIDxwYXRoIGQ9Im00OTUuNjEgMTYyLjQ4aC00NTYuMTRjLTE5LjM3MiAwLTM1LjA4Mi0xNS43MTEtMzUuMDgyLTM1LjA4MnYtODcuNzkzYzAtMTkuMzcyIDE1LjcxMS0zNS4wODIgMzUuMDgyLTM1LjA4Mmg0MjEuMDVjMTkuMzggMCAzNS4wOSAxNS43MTEgMzUuMDkgMzUuMDgyeiIgZmlsbD0iIzAwOTk1ZCIvPgogPGcgZmlsbD0iI2ZmZiI+CiAgPHBhdGggZD0ibTQ2MC41MiAwLjEzNjE1aC00MjEuMDVjLTIxLjc2NyAwLTM5LjQ3NSAxNy43LTM5LjQ3NSAzOS40Njd2ODcuNzkzYzAgMjEuNzY3IDE3LjcwOCAzOS40NjcgMzkuNDc1IDM5LjQ2N2g0NjAuNTJ2LTEyNy4yNmMwLTIxLjc2Ny0xNy43MDgtMzkuNDY3LTM5LjQ3NS0zOS40NjdtMCA0LjM4NTNjMTkuMzggMCAzNS4wOSAxNS43MTEgMzUuMDkgMzUuMDgydjEyMi44OGgtNDU2LjE0Yy0xOS4zOCAwLTM1LjA5LTE1LjcxMS0zNS4wOS0zNS4wODJ2LTg3Ljc5M2MwLTE5LjM3MiAxNS43MTEtMzUuMDgyIDM1LjA5LTM1LjA4MnoiLz4KICA8cGF0aCBkPSJtMzI2LjE4IDk5LjQ0N2MzLjUzMzcgMCA1LjAzNzktMS41NzU4IDUuMDM3OS0zLjYwNTN2LTEyLjc3NGMwLTIuMTA5MS0xLjk1NzgtMy4xNTk2LTUuMDM3OS0zLjE1OTYtNC40MzMgMC02LjIzOTYgMy4wOC02LjIzOTYgOS43NjU0IDAgNi42OTMzIDEuODA2NiA5Ljc3MzMgNi4yMzk2IDkuNzczM20tNy41OTI2LTMwLjQzNGM2LjA4ODQgMCAxMC4yMjcgMi45Mjg4IDEyLjYzMSA3LjgxNTV2LTE4Ljc0M2MwLTAuNTk2OTEgMC41MjUyNy0xLjEyMjIgMS4xMjIyLTEuMTIyMmgxMi43ODJjMC41OTY5IDAgMS4xMjIyIDAuNTI1MjggMS4xMjIyIDEuMTIyMnY1MC4zNzljMCAwLjU5NjktMC41MjUyOCAxLjEyMjItMS4xMjIyIDEuMTIyMmgtMTIuNzgyYy0wLjU5NjkxIDAtMS4xMjIyLTAuNTI1MjgtMS4xMjIyLTEuMTIyMnYtNS45MzcyYy0yLjQwMzUgNC44ODY3LTYuNTQyMSA3LjgxNTUtMTIuNjMxIDcuODE1NS0xMC4zNyAwLTE0LjQyOS04LjU3MTYtMTQuNDI5LTIwLjY2OSAwLTEyLjA5NyA0LjA1OS0yMC42NjkgMTQuNDI5LTIwLjY2OXptLTMzLjUyMiAxNy4yMDdjMC00LjY2MzgtMS4zNTMtNy41OTI2LTUuOTM3Mi03LjU5MjYtMy44MzYxIDAtNi4wMTY4IDEuNzk4Ny02LjU0MjEgNy41OTI2em0tNi4xNjAxLTE3LjIwN2MxMy45MDQgMCAxOS45OTIgNy42NjQzIDE5Ljk5MiAxOS41MzkgMCAyLjU1NDggMC4wNzk2IDUuMDI5OS0yLjkyODggNS4wMjk5aC0yMy4yMjRjMC43NDgxMyA0LjczNTUgMy40NTQxIDYuNDcwNSAxMi40MDggNi40NzA1aDExLjQyMWMwLjc0ODEyIDAgMS4zNTMgMC42Njg1NCAxLjIwMTggMS40MjQ2bC0xLjIwMTggNi4wODg0Yy0wLjA3MTYgMC4zNzQwOC0wLjIyMjgyIDAuNTk2OS0wLjQ1MzY0IDAuNjc2NDktMy42MDUzIDEuNTA0Mi04LjkzNzcgMi4xMDExLTE1LjE3NyAyLjEwMTEtMTYuMzg3IDAtMjMuNzU3LTcuODg3MS0yMy43NTctMjAuODEyIDAtMTIuOTI1IDcuMTQ3LTIwLjUxOCAyMS43MjctMjAuNTE4em0tOTMuOTUzIDEuODc4M2MwLTAuNjA0ODYgMC41MjUyOC0xLjEzMDEgMS4xMjIyLTEuMTMwMWgxMi43NzRjMC42MDQ4NyAwIDEuMTMwMSAwLjUyNTI4IDEuMTMwMSAxLjEzMDF2Ni44MzY2YzEuODA2Ni01LjQxMTkgNy43NDM5LTguNzE0OCAxMy42ODEtOC43MTQ4czkuOTE2NiAyLjQ4MzEgMTEuNDIxIDguMjYxMmMyLjAzNzQtNS4xODExIDguMDQ2My04LjI2MTIgMTMuOTg0LTguMjYxMiA3LjQ0OTQgMCAxMi4zMjggMy45MDc3IDEyLjMyOCAxMy41M3YyNS45MjJjMCAwLjU5NjktMC41MjUyOCAxLjEyMjItMS4xMjIyIDEuMTIyMmgtMTIuNzc0Yy0wLjYwNDg2IDAtMS4xMzAxLTAuNTI1MjgtMS4xMzAxLTEuMTIyMnYtMjIuMjQ1YzAtMy42MTMzLTEuMjAxOC01Ljc5NC01LjE4MTEtNS43OTQtMy45ODczIDAtNS40OTE1IDAuODM1NjctNS40OTE1IDIuMTgwN3YyNS44NWMwIDAuNjA0ODYtMC41MjUyOCAxLjEzMDEtMS4xMzAyIDEuMTMwMWgtMTIuNzc0Yy0wLjU5NjkgMC0xLjEyMjItMC41MjUyOC0xLjEyMjItMS4xMzAxdi0yMi4yNDVjMC0zLjYwNTMtMS4yMDE4LTUuNzg2LTUuMTg5MS01Ljc4Ni0zLjk3OTQgMC01LjQ4MzYgMC44Mjc3MS01LjQ4MzYgMi4xODA3djI1Ljg1YzAgMC41OTY5LTAuNTI1MjcgMS4xMjIyLTEuMTMwMSAxLjEyMjJoLTEyLjc3NGMtMC42MDQ4NyAwLTEuMTMwMS0wLjUyNTI4LTEuMTMwMS0xLjEyMjJ2LTM3LjU3M3ptLTIyLjU1NSAwYzAtMC42MDQ4NiAwLjUzMzIyLTEuMTMwMSAxLjEzMDEtMS4xMzAxaDEyLjc3NGMwLjYwNDg3IDAgMS4xMzAyIDAuNTI1MjggMS4xMzAyIDEuMTMwMXYzNy41NzNjMCAwLjU5NjktMC41MjUyOCAxLjEyMjItMS4xMzAyIDEuMTIyMmgtMTIuNzc0Yy0wLjU5NjkgMC0xLjEzMDEtMC41MjUyOC0xLjEzMDEtMS4xMjIyem03LjQ0OTQtMTYuOTg0YzYuNTM0MSAwIDguMzQwOCAwLjU5NjkxIDguMzQwOCA1LjkzNzIgMCA1LjMzMjQtMS44MDY2IDYuMDA4OS04LjM0MDggNi4wMDg5LTYuNTQyMSAwLTguNDIwNC0wLjUyNTI4LTguNDIwNC02LjAwODkgMC01LjQ4MzYgMS44NzgzLTUuOTM3MiA4LjQyMDQtNS45MzcybS01Ni4wNzcgNTQuNTU3di0zNy41NzNjMC0wLjYwNDg2IDAuNTI1MjgtMS4xMzAxIDEuMTMwMS0xLjEzMDFoMTIuNzc0YzAuNTk2OTEgMCAxLjEzMDEgMC41MjUyOCAxLjEzMDEgMS4xMzAxdjYuODM2NmMxLjc5ODctNS40MTE5IDcuODE1NS04LjcxNDggMTQuMjA2LTguNzE0OCA3LjUxMyAwIDEyLjI0OCAzLjkwNzcgMTIuMjQ4IDE0LjI3OHYyNS4xNzRjMCAwLjU5NjktMC41MjUyNyAxLjEyMjItMS4xMzAxIDEuMTIyMmgtMTIuNzc0Yy0wLjYwNDg3IDAtMS4xMzAxLTAuNTI1MjgtMS4xMzAxLTEuMTIyMnYtMjIuMjQ1YzAtMy42MTMzLTEuMjAxOC01Ljc5NC01LjU2MzItNS43OTQtNC4zNTM0IDAtNS44NTc2IDAuODM1NjctNS44NTc2IDIuMTgwN3YyNS44NWMwIDAuNjA0ODYtMC41MzMyMSAxLjEzMDEtMS4xMzAxIDEuMTMwMWgtMTIuNzc0Yy0wLjYwNDg2IDAtMS4xMzAxLTAuNTI1MjgtMS4xMzAxLTEuMTMwMXptLTU2Ljc0Ni01MC4zNDdjMC0wLjYwNDg2IDAuNTI1MjgtMS4xMzAxIDEuMTIyMi0xLjEzMDFoMTMuNTNjMC42MDQ4NiAwIDEuMTMwMSAwLjUyNTI4IDEuMTMwMSAxLjEzMDF2MzAuMzYzYzAgNS42MjY4IDIuNzA2IDkuMDg4OSA4Ljg2NiA5LjA4ODkgNi4xNjAxIDAgOC43OTQ0LTMuNDU0MSA4Ljc5NDQtOS4wODg5di0zMC4zNjNjMC0wLjYwNDg2IDAuNTI1MjgtMS4xMzAxIDEuMTMwMS0xLjEzMDFoMTMuNTNjMC41OTY5IDAgMS4xMjIyIDAuNTI1MjggMS4xMjIyIDEuMTMwMXYyOS40NTVjMCAxMy4yMjctNi42MDU4IDIyLjc3LTI0LjU3NyAyMi43Ny0xNy45NjMgMC0yNC42NDgtOS41NDI1LTI0LjY0OC0yMi43N3oiLz4KICA8cGF0aCBkPSJtMzc0LjU5IDEwOS42aDE2LjY4MmMwLjk3ODkzIDAgMS41MDQyLTAuMzAyNDUgMi4wMjk1LTAuOTc4OTNsMTAuODMyLTE0LjY5MmMwLjIyMjgyLTAuMzAyNDUgMC40NDU3MS0wLjY3NjUgMC40NDU3MS0xLjA1MDYgMC0wLjUyNTI4LTAuNTI1MjgtMC44MzU2Ny0xLjQyNDYtMC44MzU2N2gtNi4yMzE3Yy0wLjk3ODkzIDAtMS41MDQyLTAuNDQ1NzEtMS41MDQyLTEuMDUwNiAwLTAuMzc0MDggMC4yMjI4My0wLjc0ODEyIDAuNDUzNjUtMS4wNTA2bDkuOTI0Ni0xMy4zMjNjMC4yMjI4Mi0wLjMwMjQ1IDAuNDUzNjQtMC42NzY1IDAuNDUzNjQtMS4wNTA2IDAtMC42MDQ4Ny0wLjUyNTI3LTEuMDUwNi0xLjUwNDItMS4wNTA2aC03LjM4NTdjLTAuOTc4OTIgMC0xLjUwNDItMC4zODIwMi0xLjUwNDItMC45Nzg5MiAwLTAuMzgyMDIgMC4yMjI4Mi0wLjgyNzcxIDAuNDUzNjUtMS4xMzAxbDkuNjM4LTEyLjc5OGMwLjUyNTI4LTAuNjc2NSAxLjI3MzQtMC45MDczIDEuOTQ5OS0wLjkwNzMgMC42ODQ0NiAwIDEuNDMyNiAwLjIyMjgyIDEuOTU3OCAwLjkwNzNsOS42MzggMTIuNzk4YzAuMjIyODIgMC4zMDI0NSAwLjQ1MzY1IDAuNzQ4MTIgMC40NTM2NSAxLjEzMDEgMCAwLjU5NjkxLTAuNTI1MjggMC45Nzg5Mi0xLjUwNDIgMC45Nzg5MmgtNy4zODU3Yy0wLjk3ODkyIDAtMS41MDQyIDAuNDQ1NzEtMS41MDQyIDEuMDUwNiAwIDAuMzc0MDggMC4yMjI4MyAwLjc0ODEyIDAuNDUzNjUgMS4wNTA2bDkuOTI0NiAxMy4zMjNjMC4yMjI4MyAwLjMwMjQ1IDAuNDUzNjUgMC42NzY0OSAwLjQ1MzY1IDEuMDUwNiAwIDAuNjA0ODYtMC41MjUyOCAxLjA1MDYtMS41MDQyIDEuMDUwNmgtNi4yMzE3Yy0wLjg5OTM0IDAtMS40MjQ2IDAuMzEwMzktMS40MjQ2IDAuODM1NjcgMCAwLjM3NDA4IDAuMjIyODIgMC43NDgxMiAwLjQ0NTcxIDEuMDUwNmwxMC44MzIgMTQuNjkyYzAuNTI1MjggMC42NzY0OSAxLjEzMDIgMC45Nzg5MyAyLjAyOTUgMC45Nzg5M2gxNi42ODJjMS4yMDE4IDAgMS44NzgzLTAuNDUzNjUgMS44NzgzLTEuMjAxOCAwLTAuNDUzNjUtMC4yMjI4Mi0wLjg5OTM0LTAuNDQ1NzEtMS4yMDE4bC05Ljc4MTMtMTMuMjY3Yy0wLjIyMjgzLTAuMzAyNDUtMC40NDU3MS0wLjY2ODUzLTAuNDQ1NzEtMS4wNTA2IDAtMC41MjUyOCAwLjUyNTI3LTAuODI3NzEgMS40MjQ2LTAuODI3NzFoMTEuNzMxYzEuMjAxOCAwIDEuNzk4Ny0wLjQ1MzY1IDEuNzk4Ny0xLjIwMTggMC0wLjQ1MzY1LTAuMjIyODItMC44OTkzNC0wLjQ1MzY0LTEuMjAxOGwtMjMuOTgtMzEuNzYzYy0wLjQ1MzY1LTAuNTk2OTEtMC45MDczLTAuODk5MzMtMS45NTc4LTAuODk5MzNoLTI2LjkxNmMtMC42NzY0OSAwLTEuNDMyNiAwLjE1MTItMS45NTc4IDAuODk5MzNsLTIzLjIzMiAzMS43NjNjLTAuMzAyNDUgMC40NTM2NS0wLjQ1MzY0IDAuODI3NzEtMC40NTM2NCAxLjIwMTggMCAwLjc0ODEyIDAuNjA0ODYgMS4yMDE4IDEuODA2NiAxLjIwMThoMTEuNzIzYzAuOTA3MyAwIDEuNDMyNiAwLjMwMjQ1IDEuNDMyNiAwLjgyNzcxIDAgMC4zODIwMi0wLjIyMjgzIDAuNzQ4MTItMC40NTM2NSAxLjA1MDZsLTkuNzczMyAxMy4yNjdjLTAuMjIyODMgMC4zMDI0NS0wLjQ1MzY1IDAuNzQ4MTItMC40NTM2NSAxLjIwMTggMCAwLjc0ODEyIDAuNjc2NDkgMS4yMDE4IDEuODc4MyAxLjIwMTh6Ii8+CiA8L2c+Cjwvc3ZnPgo=")}
 .cv-marca small{font-size:.8rem}
 @media(max-width:960px){.cv-logo{width:128px;height:43px}}
+
+/* ===== ajustes do Lucas ===== */
+/* primeira seção ocupa exatamente a altura da tela */
+.hero{min-height:100vh;min-height:100svh;height:auto;padding:0!important}
+.hero .wrap{width:100%;padding-top:clamp(100px,14vh,140px);padding-bottom:clamp(28px,6vh,72px)}
+.hero h1{font-size:clamp(2.6rem,min(6.2vw,8.6vh),5.4rem);max-width:16ch;margin:clamp(10px,2.2vh,22px) 0 clamp(12px,2.6vh,24px)}
+.hero .lead{max-width:56ch}
+.hero .acoes{margin-top:clamp(18px,4vh,36px)}
+.hero .info{margin-top:clamp(18px,4.4vh,44px)}
+@media(max-width:960px){
+  .hero{min-height:100vh;min-height:100svh}
+  .hero .wrap{padding-top:104px;padding-bottom:28px}
+  .hero h1{font-size:clamp(2.1rem,9.6vw,2.6rem);max-width:none;margin:12px 0 14px}
+  .hero .lead{font-size:1rem}
+  .hero .acoes{margin-top:24px}.hero .info{margin-top:18px}
+}
+/* destaques do topo no celular: cartões alinhados e letras padronizadas */
+@media(max-width:960px){
+  .confianca{background:var(--bg,#f7f9fb);border-bottom:0}
+  .confianca .wrap{grid-template-columns:1fr 1fr;gap:10px;padding:18px 20px 6px}
+  .confianca div.it{flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px;border:1px solid var(--line)!important;border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(11,37,69,.04)}
+  .confianca i{width:38px;height:38px;border-radius:11px}
+  .confianca i svg{width:19px;height:19px}
+  .confianca b{font-size:.9rem;line-height:1.25;font-weight:700}
+  .confianca small{display:block;margin-top:3px;font-size:.78rem;line-height:1.35}
+}
+/* espaço entre a imagem da clínica e os cartões (celular) */
+@media(max-width:960px){.pilares{margin-top:28px!important}}
+@media(min-width:961px){.hero .foto-aviso{right:118px!important}}
 </style>
 </head>
 <body>
@@ -771,8 +800,8 @@ html{scroll-padding-top:96px}
     </div>
     <div class="rev">
       <div class="cartela" id="cartela">
-        <div class="c-top"><span class="c-tag"><i></i>Teste de acuidade visual</span><span class="c-niv" id="tNivel">1/6</span></div>
-        <div class="c-prog" id="tProg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="c-top"><span class="c-tag"><i></i>Teste de acuidade visual</span><span class="c-niv" id="tNivel">1/8</span></div>
+        <div class="c-prog" id="tProg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="c-jogo" id="tJogo">
           <div class="c-arena">
             <button type="button" class="b-up" data-d="-90" aria-label="Para cima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -784,7 +813,7 @@ html{scroll-padding-top:96px}
           <p class="c-dica">Para que lado as “pernas” do <b>E</b> estão apontando?</p>
         </div>
         <div class="c-fim" id="tRes" hidden>
-          <div class="c-placar"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#e8eef8" stroke-width="10"/><circle id="tArco" cx="60" cy="60" r="52" fill="none" stroke="#3b8ff0" stroke-width="10" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"/></svg><b id="tPts">0/6</b></div>
+          <div class="c-placar"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#e8eef8" stroke-width="10"/><circle id="tArco" cx="60" cy="60" r="52" fill="none" stroke="#3b8ff0" stroke-width="10" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"/></svg><b id="tPts">0/8</b></div>
           <h3 id="tResT"></h3>
           <p id="tResP"></p>
           <div class="c-acoes"><a class="btn btn-wa" href="#agendar">Agendar consulta</a><button class="btn c-denovo" type="button" id="tDeNovo">Refazer teste</button></div>
@@ -985,7 +1014,7 @@ html{scroll-padding-top:96px}
 <script>
 (function(){
   /* teste de visão */
-  var tam=[110,82,60,44,32,22],nivel=0,dir=0,acertos=0,erros=0,trava=false;
+  var tam=[64,44,30,21,15,11,8,6],nivel=0,dir=0,acertos=0,erros=0,trava=false;
   var L=document.getElementById('tLetra'),N=document.getElementById('tNivel'),P=document.querySelectorAll('#tProg i'),jogo=document.getElementById('tJogo'),res=document.getElementById('tRes'),car=document.getElementById('cartela');
   function prog(){P.forEach(function(b,k){b.className=k<nivel?'feito':(k===nivel?'atual':'')})}
   function nova(){var ds=[0,180,-90,90],d;do{d=ds[Math.floor(Math.random()*4)]}while(d===dir);dir=d;
@@ -995,7 +1024,7 @@ html{scroll-padding-top:96px}
     document.getElementById('tPts').textContent=acertos+'/'+tot;
     setTimeout(function(){document.getElementById('tArco').style.strokeDashoffset=327*(1-acertos/tot)},60);
     var t,p;if(acertos>=tot){t='Excelente!';p='Você chegou ao último nível. Mesmo enxergando bem, o ideal é fazer uma consulta por ano.'}
-    else if(acertos>=4){t='Bom resultado!';p='Vale fazer um exame completo para conferir se o seu grau está em dia.'}
+    else if(acertos>=6){t='Bom resultado!';p='Vale fazer um exame completo para conferir se o seu grau está em dia.'}
     else{t='Hora de um exame de vista';p='Seu resultado sugere que vale avaliar a sua visão com o oftalmologista.'}
     document.getElementById('tResT').textContent=t;document.getElementById('tResP').textContent=p}
   car.querySelectorAll('.c-arena button').forEach(function(b){b.addEventListener('click',function(){
