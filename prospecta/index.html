@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospecta AI</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1110;--surface:#121a19;--surface-2:#172220;--ink:#e8efed;--ink-2:#9fb0ac;--line:#24322f;--accent:#2dd4a7;--accent-2:#22b8cf;--accent-ink:#04201a;--good:#6fd79c;--good-bg:#173a27;--warn:#f0c060;--warn-bg:#3d3010;--bad:#f09a92;--bad-bg:#44201d;--info:#7fd0e2;--info-bg:#143640;--mute-bg:#26312f;--wa:#25d366;--r:14px;--sh:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);--fd:"Bricolage Grotesque",system-ui,sans-serif;--fb:"IBM Plex Sans",system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 500px at 10% -10%,rgba(45,212,167,.14),transparent 60%),var(--bg);color:var(--ink);font:400 15px/1.5 var(--fb)}
+h1,h2,h3{font-family:var(--fd);margin:0;line-height:1.15}p{margin:0}a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1500px;margin:0 auto;padding:28px 16px 48px;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+h1{font-size:2rem;display:flex;align-items:center;gap:12px}
+h1::before{content:"";width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(45,212,167,.4)}
+header p{color:var(--ink-2);margin-top:6px}
+.selo{padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:.85rem;color:var(--ink-2);display:inline-flex;gap:8px;align-items:center}
+.selo::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.busca{padding:20px;display:grid;grid-template-columns:2fr 1fr 1fr 2fr auto;gap:12px;align-items:end}
+label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;font-weight:500;color:var(--ink-2)}
+label.linha{flex-direction:row;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);font-weight:400}
+input[type=text],input[type=search],input[type=date],input[type=tel],input[type=email],select,textarea{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(45,212,167,.22)}
+textarea{min-height:84px;resize:vertical}
+.opcoes{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+#estado{grid-column:1/-1;font-size:.9rem;color:var(--ink-2)}
+#estado.erro{color:var(--bad)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap;color:var(--ink)}
+.btn:hover{border-color:var(--ink-2)}
+.btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:var(--accent-ink);font-weight:600;box-shadow:0 6px 16px rgba(45,212,167,.3)}
+.btn.grande{padding:11px 22px;font-size:1rem}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#052e16;font-weight:600}
+.btn.peq{padding:6px 10px;font-size:.82rem;border-radius:8px}
+.btn[disabled]{opacity:.55;cursor:wait}
+.resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{padding:16px 18px;position:relative;overflow:hidden}
+.tile::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.tile:nth-child(2)::before{background:var(--warn)}.tile:nth-child(4)::before{background:var(--wa)}
+.tile b{display:block;font:700 2.1rem/1.1 var(--fd)}.tile span{font-size:.85rem;color:var(--ink-2)}
+.funil{display:flex;flex-wrap:wrap;gap:8px}
+.funil button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:.84rem;cursor:pointer}
+.funil button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:16px 18px;border-bottom:1px solid var(--line)}
+.filtros label{flex:1 1 150px;max-width:240px}.filtros .acoes{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.rolagem{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1380px;font-size:.88rem}
+th{text-align:left;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);padding:10px;background:var(--surface-2);position:sticky;top:0;white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+tbody tr:hover{background:rgba(45,212,167,.05)}
+tbody tr{content-visibility:auto;contain-intrinsic-size:auto 96px}
+.mais{display:flex;justify-content:center;padding:16px}
+td.nome{min-width:180px}td.nome button{background:none;border:0;padding:0;font-weight:600;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+td.tel{min-width:190px}
+.sub{display:block;font-size:.76rem;color:var(--ink-2);margin-top:2px}.nada{color:var(--ink-2);font-style:italic}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.76rem;font-weight:600;white-space:nowrap}
+.p-good{background:var(--good-bg);color:var(--good)}.p-warn{background:var(--warn-bg);color:var(--warn)}.p-mute{background:var(--mute-bg);color:var(--ink-2)}
+.pri-alta{border-left:4px solid var(--good)}.pri-media{border-left:4px solid var(--warn)}.pri-baixa{border-left:4px solid var(--line)}
+.cel-acoes{display:flex;flex-direction:column;gap:6px;min-width:190px}
+td select{padding:5px 7px;font-size:.84rem;min-width:150px}
+.vazio{padding:48px 16px;text-align:center;color:var(--ink-2)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:0;width:min(680px,calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(5,10,9,.6)}
+.ficha{padding:20px;display:flex;flex-direction:column;gap:14px}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grade .largo{grid-column:1/-1}
+.ficha footer{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.ficha footer div{display:flex;gap:8px}
+.dica{font-size:.84rem;color:var(--ink-2)}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:10px;display:flex;gap:12px;align-items:center;z-index:50}
+#toast[hidden]{display:none}#toast button{background:var(--bg);color:var(--ink);border:0;border-radius:6px;padding:5px 10px;font-weight:600;cursor:pointer}
+@media(max-width:1000px){.busca{grid-template-columns:1fr 1fr}.busca .btn.grande{grid-column:1/-1}.resumo{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.busca,.grade{grid-template-columns:1fr}}
+
+/* ===== Novo visual ===== */
+:root{--fd:"Plus Jakarta Sans",system-ui,sans-serif;--fb:"Plus Jakarta Sans",system-ui,sans-serif;--bg:#07100e;--surface:#0c1715;--surface-2:#0f1d1a;--line:#1c2e2a;--accent:#3ee0b5;--accent-2:#2bb3d9}
+body{background:
+  linear-gradient(rgba(62,224,181,.035) 1px,transparent 1px) 0 0/48px 48px,
+  linear-gradient(90deg,rgba(62,224,181,.035) 1px,transparent 1px) 0 0/48px 48px,
+  radial-gradient(900px 600px at 0% 0%,rgba(30,120,95,.35),transparent 60%),
+  radial-gradient(800px 600px at 100% 100%,rgba(20,90,110,.25),transparent 60%),var(--bg)}
+.wrap{max-width:1360px;padding:0 16px 56px;gap:28px}
+.topo{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.marca{display:flex;align-items:center;gap:12px;font:700 1.3rem var(--fd);letter-spacing:-.02em}
+.marca i{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#3ee0b5,#1fa7c9);display:grid;place-items:center;box-shadow:0 8px 24px rgba(62,224,181,.35);font-style:normal}
+.marca i svg{width:22px;height:22px;color:#04201a}
+.marca em{font-style:normal;color:var(--accent)}
+.topo .dir{display:flex;gap:14px;align-items:center}
+.selo{padding:9px 16px;font-size:.9rem;background:rgba(12,23,21,.7)}
+.avatar{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface-2);display:grid;place-items:center;font-weight:700;color:var(--accent);font-size:.9rem}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;padding:60px 0 20px}
+.tag{display:flex;gap:10px;align-items:center;color:var(--accent);font-weight:700;letter-spacing:.14em;font-size:.82rem;text-transform:uppercase}
+.hero h2{font:800 clamp(2.6rem,6vw,4.6rem)/1.02 var(--fd);letter-spacing:-.045em;margin:22px 0 26px}
+.hero h2 span{background:linear-gradient(90deg,#3ee0b5,#c9f5e8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:1.2rem;color:var(--ink-2);max-width:40ch;line-height:1.6}
+.fatos{display:flex;margin-top:48px}
+.fatos div{padding-right:36px;margin-right:36px;border-right:1px solid var(--line)}
+.fatos div:last-child{border:0}
+.fatos b{display:block;font-weight:700}.fatos span{font-size:.88rem;color:var(--ink-2)}
+.painel{position:relative;transform:perspective(1400px) rotateY(-8deg) rotateX(3deg);contain:layout paint;background:rgba(12,23,21,.85);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 24px 50px rgba(0,0,0,.45)}
+.painel .bar{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--ink-2);margin-bottom:16px}
+.painel .bar .pts{display:flex;gap:5px;align-items:center}.painel .bar .pts i{width:6px;height:6px;border-radius:50%;background:#2a3d39}.painel .bar .pts i:first-child{background:var(--accent)}
+.painel .vivo{padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink);font-weight:600;display:flex;gap:6px;align-items:center}
+.painel .vivo::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.op{display:flex;align-items:end;gap:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(5,12,11,.6)}
+.op small{display:block;font-size:.72rem;color:var(--ink-2)}.op b{font-size:1.8rem}
+.barras{flex:1;display:flex;align-items:end;gap:6px;height:48px}
+.barras i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(#3ee0b5,rgba(62,224,181,.2))}
+.op .pct{color:var(--accent);font-weight:700;font-size:.8rem}
+.mini{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.mini div{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(5,12,11,.5);font-size:.82rem}
+.mini .ini{width:32px;height:32px;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;color:var(--accent);font-weight:700;font-size:.72rem;flex:none}
+.mini p{flex:1;min-width:0}.mini p b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini p span{font-size:.7rem;color:var(--ink-2)}
+.mini .sc{color:var(--accent);font-weight:700}
+.notif{position:absolute;right:-30px;bottom:-26px;display:flex;gap:12px;align-items:center;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:#0c1916;box-shadow:0 20px 50px rgba(0,0,0,.5);font-size:.82rem;transform:rotateY(8deg)}
+.notif b{display:block}.notif span{font-size:.72rem;color:var(--ink-2)}.notif svg{color:var(--accent);width:20px}
+.fluxo{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+.prog{padding:24px;border-radius:22px;background:rgba(12,23,21,.75);position:sticky;top:16px}
+.prog .t{display:flex;justify-content:space-between;font-weight:500}.prog .t b{color:var(--accent)}
+.trilho{height:6px;border-radius:9px;background:#1a2a27;margin:14px 0 20px}.trilho i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#2bb3d9,#3ee0b5);transition:width .4s}
+.etapa{display:flex;gap:14px;align-items:center;padding:12px;border-radius:16px;border:1px solid transparent;margin-bottom:8px;opacity:.6}
+.etapa .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);color:var(--ink-2);flex:none}
+.etapa b{display:block;font-size:.98rem}.etapa span{font-size:.82rem;color:var(--ink-2)}
+.etapa.on{opacity:1;border-color:var(--line);background:rgba(62,224,181,.05)}
+.etapa.on .ic{background:linear-gradient(135deg,#3ee0b5,#1fa7c9);color:#04201a}.etapa.on b{color:var(--accent)}
+.etapa.ok{opacity:1}.etapa.ok .ic{color:var(--accent)}
+.passo1{border-radius:22px;padding:34px;background:linear-gradient(135deg,rgba(22,70,58,.55),rgba(12,23,21,.8) 55%);border:1px solid #1e3a33}
+.passo1 header{display:flex;gap:20px;align-items:flex-start;justify-content:flex-start;margin-bottom:26px}
+.passo1 .busca{grid-template-columns:1fr 1fr!important}
+.passo1 .n{width:50px;height:50px;border-radius:12px;border:1px solid #23463d;background:rgba(5,12,11,.5);display:grid;place-items:center;color:var(--accent);font-weight:700;flex:none}
+.passo1 h3{font-size:1.6rem;font-weight:700;letter-spacing:-.02em}.passo1 header p{color:var(--ink-2);margin-top:8px}
+.passo1 .busca{padding:0;grid-template-columns:1fr 1fr 1fr}
+.passo1 .busca label:first-child,.passo1 .busca label:nth-child(4){grid-column:1/-1}
+.passo1 .busca .btn.grande{grid-column:1/-1;padding:15px;font-size:1.05rem;border-radius:14px}
+.passo1 label{font-size:.9rem;color:var(--ink);font-weight:600}
+.passo1 input[type=text],.passo1 select{background:rgba(5,12,11,.7);padding:13px 14px;border-radius:12px}
+.card{background:rgba(12,23,21,.8);border-radius:20px}
+.catbox{grid-column:1/-1;display:flex;flex-direction:column;gap:8px}
+.catrot{font-size:.9rem;font-weight:600}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.cats button{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(5,12,11,.6);cursor:pointer;font-size:.88rem;font-weight:600;line-height:1.25;transition:border-color .15s,background .15s,transform .1s}
+.cats button:hover{border-color:#2b5a4e;background:rgba(62,224,181,.05)}
+.cats button:active{transform:scale(.98)}
+.cats button .ce{width:36px;height:36px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:1.1rem;flex:none}
+.cats button small{display:block;font-weight:400;font-size:.74rem;color:var(--ink-2);margin-top:2px}
+.cats button[aria-checked=true]{border-color:var(--accent);background:linear-gradient(135deg,rgba(62,224,181,.16),rgba(43,179,217,.06));box-shadow:0 0 0 3px rgba(62,224,181,.15)}
+.cats button[aria-checked=true] .ce{background:linear-gradient(135deg,#3ee0b5,#1fa7c9)}
+.tile{border-radius:18px}
+@media(max-width:1000px){.hero,.fluxo{grid-template-columns:1fr}.painel{transform:none}.notif{right:10px}.prog{position:static}}
+@media(max-width:600px){.fatos{flex-direction:column;gap:14px}.fatos div{border:0;margin:0}.passo1{padding:20px}.passo1 .busca{grid-template-columns:1fr}}
+.okcard{padding:26px}
+.okcard h3{font-size:1.4rem;font-weight:700;display:flex;align-items:center;gap:12px}
+.okcard h3 .qt{font-size:.85rem;padding:3px 11px;border-radius:999px;background:var(--good-bg);color:var(--good)}
+.okcard>p{color:var(--ink-2);margin:6px 0 18px;font-size:.9rem}
+.oklista{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.okit{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(5,12,11,.55)}
+.okit .ck{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#3ee0b5,#1fa7c9);color:#04201a;display:grid;place-items:center;font-weight:800;flex:none}
+.okit div{flex:1;min-width:0}.okit b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.okit .fone{font-variant-numeric:tabular-nums;color:var(--ink)}.okit small{display:block;color:var(--ink-2);font-size:.76rem}
+.okit .st{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--accent);white-space:nowrap}
+.okvazio{color:var(--ink-2);font-style:italic;padding:8px 0}
+#bOkTopo{background:var(--surface);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topo">
+    <div class="marca"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2l1.8 5.2L17 9l-5.2 1.8L10 16l-1.8-5.2L3 9l5.2-1.8zM18 13l.9 2.6 2.6.9-2.6.9L18 20l-.9-2.6-2.6-.9 2.6-.9z"/></svg></i><span>Prospecta <em>AI</em></span></div>
+    <div class="dir"><a class="btn" id="bOkTopo" href="#contatados">✓ Contatados <b id="okQt2">0</b></a><span class="selo">Sessão salva</span><span class="avatar" id="avatar">DR</span></div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="tag">✦ Prospecção inteligente</div>
+      <h2>Encontre novos clientes <span>antes da</span> concorrência.</h2>
+      <p class="lead">Descubra estabelecimentos sem site, encontre contatos públicos e inicie conversas em poucos minutos.</p>
+      <div class="fatos"><div><b>3 etapas</b><span>Fluxo simples</span></div><div><b>Dados públicos</b><span>Fonte OpenStreetMap</span></div><div><b>Sem mensalidade</b><span>Busca gratuita</span></div></div>
+    </div>
+    <div class="painel" aria-hidden="true">
+      <div class="bar"><span class="pts"><i></i><i></i><i></i>&nbsp; Prospecção ao vivo</span><span class="vivo" id="pvStatus">Pronto</span></div>
+      <div class="op"><div><small>Oportunidades</small><b id="pvNum">0</b></div><div class="barras" id="pvBarras"></div><span class="pct" id="pvPct">0%</span></div>
+      <div class="mini" id="pvLista"></div>
+      <div class="notif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2l1.8 5.2L17 9l-5.2 1.8L10 16l-1.8-5.2L3 9l5.2-1.8z"/></svg><div><b id="pvNotif">Faça sua primeira busca</b><span id="pvNotif2">Os leads aparecem aqui</span></div></div>
+    </div>
+  </section>
+
+  <section class="fluxo">
+    <aside class="card prog">
+      <div class="t"><span>Seu progresso</span><b id="pgPct">33%</b></div>
+      <div class="trilho"><i id="pgBarra" style="width:33%"></i></div>
+      <div class="etapa on" id="et1"><span class="ic"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span><div><b>Defina a busca</b><span>Escolha região e segmento</span></div></div>
+      <div class="etapa" id="et2"><span class="ic"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><div><b>Revise os leads</b><span>Veja quem não tem site</span></div></div>
+      <div class="etapa" id="et3"><span class="ic"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg></span><div><b>Inicie a conversa</b><span>Fale pelo WhatsApp</span></div></div>
+    </aside>
+  <section class="passo1">
+    <header><span class="n">01</span><div><h3>Defina sua busca</h3><p>Escolha a cidade e o tipo de negócio que deseja prospectar.</p></div></header>
+    <form class="busca" id="formBusca">
+      <label>Cidade (nome oficial, com acentos)<input type="text" id="bCidade" value="Campinas" list="cidadesRMC" autocomplete="off"><datalist id="cidadesRMC"><option value="Campinas"><option value="Sumaré"><option value="Hortolândia"><option value="Paulínia"><option value="Valinhos"><option value="Vinhedo"><option value="Louveira"><option value="Indaiatuba"><option value="Americana"><option value="Nova Odessa"><option value="Santa Bárbara d'Oeste"><option value="Jaguariúna"><option value="Pedreira"><option value="Itatiba"><option value="Monte Mor"><option value="Cosmópolis"><option value="Artur Nogueira"><option value="Holambra"><option value="Amparo"><option value="Jundiaí"></datalist></label>
+      <label>Estado<select id="bUf"></select></label>
+      <label>DDD<input type="text" id="bDdd" value="19" maxlength="2" inputmode="numeric"></label>
+      <div class="catbox"><span class="catrot">Categorias <small style="font-weight:400;color:var(--ink-2)">— escolha uma ou várias</small></span><select id="bCat" hidden></select><div class="cats" id="catGrid" role="group" aria-label="Categorias"></div></div>
+      <button class="btn pri grande" id="bBuscar" type="submit">Buscar estabelecimentos</button>
+      <div class="opcoes">
+        <label class="linha"><input type="checkbox" id="soSemSite" checked> Só quem não tem site próprio</label>
+        <label class="linha"><input type="checkbox" id="soComTel" checked> Só quem tem telefone público</label>
+        <button class="btn peq" type="button" id="bNovo2">Cadastrar lead à mão</button>
+      </div>
+      <p id="estado">Escolha a cidade e a categoria e clique em Buscar. Fonte: OpenStreetMap (gratuito). Nenhum telefone é inventado.</p>
+    </form>
+  </section>
+  </section>
+
+  <section class="card okcard" id="contatados">
+    <h3>Contatados ✓ <span class="qt" id="okQt">0</span></h3>
+    <p>Estabelecimentos para os quais você já mandou mensagem. Entram aqui automaticamente quando você clica em “Conversar no WhatsApp”.</p>
+    <div class="oklista" id="okLista"></div>
+  </section>
+
+  <section class="resumo">
+    <div class="card tile"><b id="tTotal">0</b><span>leads na tabela</span></div>
+    <div class="card tile"><b id="tSemSite">0</b><span>sem site próprio</span></div>
+    <div class="card tile"><b id="tTel">0</b><span>com telefone público</span></div>
+    <div class="card tile"><b id="tWa">0</b><span>com WhatsApp confirmado</span></div>
+  </section>
+
+  <div class="funil" id="funil"></div>
+
+  <section class="card">
+    <div class="filtros">
+      <label>Procurar<input type="search" id="fTexto" placeholder="Nome, bairro, telefone…"></label>
+      <label>Status do site<select id="fSite"><option value="">Todos</option><option value="semsite">Sem site próprio</option><option value="sem">Sem site identificado</option><option value="social">Só redes sociais</option><option value="tem">Tem site</option></select></label>
+      <label>Contato<select id="fTel"><option value="tel" selected>Com telefone</option><option value="wa">WhatsApp confirmado</option><option value="sem">Telefone não encontrado</option><option value="">Todos (inclui sem telefone)</option></select></label>
+      <label>Cidade<select id="fCidade"><option value="">Todas</option></select></label>
+      <label>Ordenar<select id="fOrdem"><option value="pri">Prioridade</option><option value="nome">Nome</option><option value="contato">Último contato</option></select></label>
+      <div class="acoes">
+        <button class="btn" id="bMsg" type="button">Mensagens</button>
+        <button class="btn" id="bCsv" type="button">Baixar planilha (CSV)</button>
+        <button class="btn" id="bImp" type="button">Importar lista</button>
+        <button class="btn pri" id="bNovo" type="button">Novo lead</button>
+      </div>
+    </div>
+    <div class="rolagem"><table>
+      <thead><tr><th>Estabelecimento</th><th>Categoria</th><th>Cidade</th><th>Endereço</th><th>Telefone</th><th>WhatsApp</th><th>Link para conversar</th><th>E-mail</th><th>Instagram</th><th>Site</th><th>Status do site</th><th>Status do contato</th></tr></thead>
+      <tbody id="corpo"></tbody>
+    </table></div>
+    <div class="vazio" id="vazio" hidden></div>
+  </section>
+</div>
+
+<dialog id="dlg"><form class="ficha" id="ficha" method="dialog">
+  <h2 id="dlgTitulo">Lead</h2>
+  <div class="grade">
+    <label class="largo">Nome do estabelecimento<input type="text" id="eNome" required></label>
+    <label>Categoria<input type="text" id="eCat"></label><label>Cidade<input type="text" id="eCidade"></label>
+    <label class="largo">Endereço<input type="text" id="eEnd"></label>
+    <label>Telefone<input type="tel" id="eTel" placeholder="(19) 99999-9999"></label>
+    <label>Fonte do telefone<input type="text" id="eFonte" placeholder="site oficial, fachada, Instagram…"></label>
+    <label class="linha largo"><input type="checkbox" id="eWa"> Confirmei que este número tem WhatsApp</label>
+    <label>E-mail<input type="email" id="eEmail"></label><label>Instagram<input type="text" id="eInsta" placeholder="@perfil"></label>
+    <label>Facebook<input type="text" id="eFace"></label><label>Site<input type="text" id="eSite"></label>
+    <label>Status do site<select id="eSiteSt"><option value="sem">Sem site identificado</option><option value="social">Só redes sociais</option><option value="tem">Tem site</option></select></label>
+    <label>Status do contato<select id="eStatus"></select></label>
+    <label>Data do último contato<input type="date" id="eData"></label>
+    <label class="largo">Observações<textarea id="eObs"></textarea></label>
+  </div>
+  <p class="dica" id="eInfo"></p>
+  <footer><div><button class="btn" id="eExcluir" type="button" style="color:var(--bad)">Excluir lead</button></div>
+  <div><button class="btn" id="eCancelar" type="button">Cancelar</button><button class="btn pri" type="submit">Salvar</button></div></footer>
+</form></dialog>
+
+<dialog id="dlgMsg"><form class="ficha" id="fMsg" method="dialog">
+  <h2>Mensagens do WhatsApp</h2>
+  <p class="dica">A 1ª mensagem já vem escrita quando a conversa abre; as outras você copia na tela Contatados (botão “Roteiro”). Nada é enviado sozinho. Use {nome}, {ramo}, {cidade}, {eu} e {empresa}.</p>
+  <div class="grade"><label>Seu nome<input type="text" id="mEu" placeholder="Rodrigo"></label><label>Nome da sua empresa<input type="text" id="mEmp" placeholder="Ex.: Nexo Sites"></label></div>
+  <label>1ª mensagem — abordagem<textarea id="mT0" rows="4"></textarea></label>
+  <label>2ª — quando responder “pode falar”<textarea id="mT1" rows="4"></textarea></label>
+  <label>3ª — mostrar exemplo<textarea id="mT2" rows="3"></textarea></label>
+  <label>4ª — como funciona / valores<textarea id="mT3" rows="3"></textarea></label>
+  <footer><div><button class="btn peq" id="mPadrao" type="button">Restaurar modelo</button></div><div><button class="btn" id="mCancelar" type="button">Cancelar</button><button class="btn pri" type="submit">Salvar</button></div></footer>
+</form></dialog>
+
+<dialog id="dlgImp"><form class="ficha" id="fImp" method="dialog">
+  <h2>Importar lista de estabelecimentos</h2>
+  <p class="dica">Aceita a planilha baixada pelo próprio Prospecta (mantém status e contatos) ou uma lista simples, por exemplo do Google Maps. Um por linha: <b>Nome; Telefone; Endereço; Cidade; Categoria; Site</b> (só nome e telefone são obrigatórios; separe com ponto e vírgula, barra | ou tabulação).</p>
+  <label>Arquivo (.csv ou .txt)<input type="file" id="impArq" multiple accept=".csv,.txt,text/csv,text/plain"></label>
+  <label>Ou cole aqui<textarea id="impTxt" rows="8" placeholder="Andressa Martins Advocacia; (19) 3873-5839; R. Ipiranga, 234; Sumaré; Advocacia"></textarea></label>
+  <label>Fonte dos dados<input type="text" id="impFonte" value="Google Maps"></label>
+  <footer><div><button class="btn" type="button" id="impFechar">Cancelar</button></div><div><button class="btn pri" type="submit">Importar</button></div></footer>
+</form></dialog>
+<dialog id="dlgAn"><div class="ficha">
+  <h2 id="anTit">Análise</h2>
+  <div id="anPontos" style="display:flex;flex-direction:column;gap:6px"></div>
+  <label>Mensagem (pode editar antes de abrir)<textarea id="anMsg" rows="6"></textarea></label>
+  <p class="dica">Abre o WhatsApp Web com a mensagem já escrita. Você confere e aperta enviar.</p>
+  <footer><div><button class="btn" id="anFechar" type="button">Cancelar</button></div><div><a class="btn wa" id="anAbrir" href="#" target="_blank" rel="noopener">Abrir no WhatsApp Web</a></div></footer>
+</div></dialog>
+<dialog id="dlgRot"><div class="ficha">
+  <h2 id="rotTit">Roteiro</h2>
+  <p class="dica">Copie a próxima mensagem e cole na conversa do WhatsApp.</p>
+  <div id="rotLista" style="display:flex;flex-direction:column;gap:12px"></div>
+  <footer><div></div><div><button class="btn pri" id="rotFechar" type="button">Fechar</button></div></footer>
+</div></dialog>
+
+<div id="toast" hidden><span id="toastTxt"></span><button id="toastBtn" type="button" hidden></button></div>
+
+<script>
+(function(){'use strict';
+var ORIGINAL='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+var NO_CLAUDE=!(location.protocol==='file:'||/(^|\.)github\.io$/.test(location.hostname)||/^(localhost|127\.0\.0\.1)$/.test(location.hostname));
+function baixarArquivo(){
+  var dl=window.claude&&window.claude.use?window.claude.use('downloads'):Promise.resolve(null);
+  Promise.resolve(dl).then(function(d){
+    if(!d){toast('Não foi possível baixar daqui.');return}
+    return d.save({filename:'prospecta-ai.html',data:ORIGINAL}).then(function(){toast('Baixado! Aperte Ctrl+J no Chrome e clique em prospecta-ai.html.')},function(e){if(!e||e.code!=='declined')toast('Não foi possível baixar agora.')});
+  });
+}
+var STATUS=['Novo lead','Ainda não contatado','Mensagem enviada','Respondeu','Interessado','Não interessado','Cliente fechado'];
+var CONTATADO=['Mensagem enviada','Respondeu','Interessado','Não interessado','Cliente fechado'];
+var UFS=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+var CATS=[
+{nome:'Salões, barbearias e estética',f:{shop:'hairdresser|beauty|cosmetics|massage|tattoo'}},
+{nome:'Restaurantes, lanchonetes e bares',f:{amenity:'restaurant|fast_food|cafe|bar|pub|ice_cream'}},
+{nome:'Padarias e confeitarias',f:{shop:'bakery|pastry|confectionery'}},
+{nome:'Oficinas, autopeças e lava-rápidos',f:{shop:'car_repair|car_parts|tyres|motorcycle|motorcycle_repair',amenity:'car_wash'}},
+{nome:'Pet shops e veterinários',f:{shop:'pet|pet_grooming',amenity:'veterinary'}},
+{nome:'Clínicas, dentistas e consultórios',f:{amenity:'dentist|clinic|doctors',healthcare:'physiotherapist|psychotherapist|laboratory|optometrist|alternative|speech_therapist'}},
+{nome:'Academias e esportes',f:{leisure:'fitness_centre|sports_centre|dance',amenity:'dojo'}},
+{nome:'Roupas, calçados e acessórios',f:{shop:'clothes|shoes|boutique|jewelry|bag|fashion_accessories'}},
+{nome:'Mercados, açougues e hortifrútis',f:{shop:'supermarket|convenience|greengrocer|butcher|beverages|deli'}},
+{nome:'Materiais de construção e ferragens',f:{shop:'doityourself|hardware|paint|trade|glaziery|locksmith|electrical'}},
+{nome:'Prestadores de serviço (eletricista, marceneiro…)',f:{craft:''}},
+{nome:'Hotéis e pousadas',f:{tourism:'hotel|guest_house|motel|hostel'}},
+{nome:'Escritórios (advocacia, contabilidade, imobiliária…)',f:{office:'lawyer|accountant|estate_agent|insurance|architect|tax_advisor|company'}},
+{nome:'Escolas e cursos',f:{amenity:'language_school|driving_school|kindergarten|music_school|prep_school'}},
+{nome:'Lojas diversas (floricultura, ótica, móveis…)',f:{shop:'florist|gift|furniture|optician|electronics|mobile_phone|bicycle|toys|books|stationery'}}];
+var ROT={hairdresser:'Salão / barbearia',beauty:'Estética',cosmetics:'Cosméticos',massage:'Massagem',tattoo:'Tatuagem',restaurant:'Restaurante',fast_food:'Lanchonete',cafe:'Cafeteria',bar:'Bar',pub:'Bar',ice_cream:'Sorveteria',bakery:'Padaria',pastry:'Confeitaria',confectionery:'Doceria',car_repair:'Oficina mecânica',car_parts:'Autopeças',tyres:'Pneus',motorcycle:'Motos',motorcycle_repair:'Oficina de motos',car_wash:'Lava-rápido',pet:'Pet shop',pet_grooming:'Banho e tosa',veterinary:'Veterinário',dentist:'Dentista',clinic:'Clínica',doctors:'Consultório',physiotherapist:'Fisioterapia',psychotherapist:'Psicologia',laboratory:'Laboratório',fitness_centre:'Academia',sports_centre:'Centro esportivo',dance:'Escola de dança',dojo:'Artes marciais',clothes:'Loja de roupas',shoes:'Calçados',boutique:'Boutique',jewelry:'Joalheria',supermarket:'Supermercado',convenience:'Mercearia',greengrocer:'Hortifrúti',butcher:'Açougue',beverages:'Bebidas',deli:'Empório',doityourself:'Materiais de construção',hardware:'Ferragens',paint:'Tintas',glaziery:'Vidraçaria',locksmith:'Chaveiro',hotel:'Hotel',guest_house:'Pousada',motel:'Motel',lawyer:'Advocacia',company:'Empresa',tax_advisor:'Consultoria tributária',accountant:'Contabilidade',estate_agent:'Imobiliária',insurance:'Seguros',architect:'Arquitetura',language_school:'Escola de idiomas',driving_school:'Autoescola',kindergarten:'Escola infantil',florist:'Floricultura',gift:'Presentes',furniture:'Móveis',optician:'Ótica',electronics:'Eletrônicos',mobile_phone:'Celulares',bicycle:'Bicicletaria',electrician:'Eletricista',plumber:'Encanador',carpenter:'Marceneiro',painter:'Pintor',tailor:'Costura',photographer:'Fotógrafo',metal_construction:'Serralheria'};
+var REDES=/(instagram\.com|facebook\.com|fb\.com|fb\.me|linktr\.ee|wa\.me|whatsapp\.com|ifood\.com|tiktok\.com|goo\.gl|maps\.app|bit\.ly|beacons\.ai)/i;
+var SERVIDORES=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter','https://maps.mail.ru/osm/tools/overpass/api/interpreter'];
+var CHAVE='prospecta-ai-v1';
+
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function hoje(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function dataBr(i){if(!i)return'';var p=String(i).slice(0,10).split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:i}
+function urlSegura(u){if(!u)return'';u=String(u).trim();if(!/^https?:\/\//i.test(u))u='https://'+u;try{var x=new URL(u);return/^https?:$/.test(x.protocol)?x.href:''}catch(e){return''}}
+function semAc(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+
+function normTel(bruto,ddd){
+  if(!bruto)return null;var d=String(bruto).replace(/\D/g,'');if(!d)return null;
+  if(d.indexOf('00')===0)d=d.slice(2);
+  if(/^0?800\d{6,7}$/.test(d)){d=d.replace(/^0/,'');return{e164:'',tipo:'0800',ex:'0'+d.slice(0,3)+' '+d.slice(3,6)+' '+d.slice(6),dddA:false}}
+  if(/^(400\d|300\d)\d{4}$/.test(d))return{e164:'',tipo:'central',ex:d.slice(0,4)+'-'+d.slice(4),dddA:false};
+  var nac=null,a=false;
+  if(d.indexOf('55')===0&&(d.length===12||d.length===13))nac=d.slice(2);
+  else{if(d[0]==='0')d=d.slice(1);if(d.length===10||d.length===11)nac=d;else if((d.length===8||d.length===9)&&/^\d{2}$/.test(ddd||'')){nac=ddd+d;a=true}}
+  if(!nac||!/^[1-9][1-9]/.test(nac))return{e164:'',tipo:'invalido',ex:String(bruto).trim(),dddA:false};
+  var dd=nac.slice(0,2),n=nac.slice(2),t=(n.length===9&&n[0]==='9')?'celular':(n.length===8&&/[2-5]/.test(n[0]))?'fixo':'outro';
+  return{e164:'55'+nac,tipo:t,ex:'+55 ('+dd+') '+(n.length===9?n.slice(0,5)+'-'+n.slice(5):n.slice(0,4)+'-'+n.slice(4)),dddA:a};
+}
+function separar(v){return String(v||'').split(/[;,|]|\s\/\s|\s+ou\s+/i).map(function(s){return s.trim()}).filter(Boolean)}
+function insta(v){if(!v)return'';v=String(v).trim();var m=v.match(/instagram\.com\/([A-Za-z0-9._]+)/i);if(m)return m[1];v=v.replace(/^@/,'');return/^[A-Za-z0-9._]{1,30}$/.test(v)?v:''}
+function face(v){if(!v)return'';v=String(v).trim();if(/facebook\.com|fb\.com|fb\.me/i.test(v))return urlSegura(v);return/^[A-Za-z0-9.\-]{2,80}$/.test(v)?'https://www.facebook.com/'+v:''}
+
+var UFNOME={AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
+// 1) acha o retângulo da cidade (Nominatim, gratuito); 2) busca os estabelecimentos dentro dele (consulta leve).
+function areaCidade(){
+  // retângulo para a consulta + contorno real do município, para descartar o que fica fora da cidade
+  var c=$('bCidade').value.trim(),uf=$('bUf').value,k='area2:'+semAc(c)+':'+uf;
+  try{var m=JSON.parse(localStorage.getItem(k)||'null');if(m&&m.bb)return Promise.resolve(m)}catch(e){}
+  return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&polygon_geojson=1&polygon_threshold=0.0003&country=Brasil&city='+encodeURIComponent(c)+'&state='+encodeURIComponent(UFNOME[uf]||uf))
+    .then(function(r){return r.json()}).then(function(n){
+      if(!n||!n.length)throw new Error('cidade');
+      var r=n.filter(function(x){return x.geojson&&/Polygon/.test(x.geojson.type)})[0]||n[0];
+      var b=r.boundingbox,v={bb:b[0]+','+b[2]+','+b[1]+','+b[3],geo:(r.geojson&&/Polygon/.test(r.geojson.type))?r.geojson:null,nome:(r.display_name||'').split(',')[0]};
+      try{localStorage.setItem(k,JSON.stringify(v))}catch(e){try{localStorage.setItem(k,JSON.stringify({bb:v.bb,geo:null,nome:v.nome}))}catch(e2){}}
+      return v});
+}
+function dentroAnel(x,y,a){var d=false;for(var i=0,j=a.length-1;i<a.length;j=i++){var xi=a[i][0],yi=a[i][1],xj=a[j][0],yj=a[j][1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))d=!d}return d}
+function dentroPoli(p,x,y){if(!dentroAnel(x,y,p[0]))return false;for(var h=1;h<p.length;h++)if(dentroAnel(x,y,p[h]))return false;return true}
+function naCidade(el,area,cid){
+  var lat=el.lat!=null?el.lat:(el.center&&el.center.lat),lon=el.lon!=null?el.lon:(el.center&&el.center.lon);
+  if(area&&area.geo&&lat!=null){var g=area.geo;return g.type==='Polygon'?dentroPoli(g.coordinates,lon,lat):g.coordinates.some(function(p){return dentroPoli(p,lon,lat)})}
+  var ac=el.tags&&el.tags['addr:city'];return !ac||semAc(ac)===semAc(cid);
+}
+function consulta(bbox){
+  var p=selCats.map(function(i){var cat=CATS[i];return Object.keys(cat.f).map(function(k){return cat.f[k]?'nwr["name"]["'+k+'"~"^('+cat.f[k]+')$"]('+bbox+');':'nwr["name"]["'+k+'"]('+bbox+');'}).join('')}).join('');
+  return '[out:json][timeout:60];('+p+');out tags center 800;';
+}
+
+function leadOsm(el,cid,ddd){
+  var t=el.tags||{};if(!t.name)return null;
+  var ck=t.shop||t.amenity||t.craft||t.office||t.healthcare||t.tourism||t.leisure||'';
+  var wa=null;separar(t['contact:whatsapp']||t.whatsapp).some(function(b){var n=normTel(b,ddd);if(n&&n.e164){wa=n;return true}return false});
+  var nums=[];['contact:mobile','mobile','phone:mobile','contact:phone','phone'].forEach(function(k){separar(t[k]).forEach(function(b){var n=normTel(b,ddd);if(n&&!nums.some(function(x){return x.ex===n.ex}))nums.push(n)})});
+  var o={celular:0,fixo:1,outro:2,'0800':3,central:3,invalido:4};nums.sort(function(a,b){return o[a.tipo]-o[b.tipo]});
+  var pr=wa||nums[0]||null;
+  var site=t.website||t['contact:website']||t.url||'',ig=insta(t['contact:instagram']||t.instagram),fb=face(t['contact:facebook']||t.facebook),st;
+  if(site&&REDES.test(site)){if(!ig)ig=insta(site);if(!fb&&/facebook|fb\./i.test(site))fb=face(site);site='';st='social'}
+  else if(site)st='tem';else st=(ig||fb)?'social':'sem';
+  var end=[t['addr:street'],t['addr:housenumber']].filter(Boolean).join(', ');
+  if(t['addr:suburb']||t['addr:neighbourhood'])end+=(end?' · ':'')+(t['addr:suburb']||t['addr:neighbourhood']);
+  return{id:'osm-'+el.type+'-'+el.id,nome:t.name,categoria:ROT[ck]||ck.replace(/_/g,' ')||'Estabelecimento',cidade:t['addr:city']||cid,endereco:end,
+    telefone:pr?pr.e164:'',telEx:pr?pr.ex:'',telTipo:pr?pr.tipo:'',dddA:!!(pr&&pr.dddA),
+    outros:nums.filter(function(n){return!pr||n.ex!==pr.ex}).map(function(n){return n.ex}).slice(0,3),
+    waStatus:wa?'fonte':'',email:t['contact:email']||t.email||'',instagram:ig,facebook:fb,site:urlSegura(site),siteStatus:st,
+    fonte:'OpenStreetMap',fonteUrl:'https://www.openstreetmap.org/'+el.type+'/'+el.id,verificadoEm:hoje(),
+    status:'Novo lead',obs:'',ultimoContato:'',
+    extra:{cuisine:t.cuisine||'',beauty:t.beauty||'',esp:t['healthcare:speciality']||'',desc:t.description||'',horario:t.opening_hours||'',delivery:t.delivery||'',takeaway:t.takeaway||'',craft:t.craft||'',sport:t.sport||''}};
+}
+
+function numWa(l){return(l.telefone&&(['celular','fixo','outro'].indexOf(l.telTipo)>=0||l.waStatus))?l.telefone:''}
+var ROT_PADRAO=[
+'Olá, tudo bem? Falo com a {nome}?',
+'Claro! Eu crio sites profissionais para {ramo}, com tudo o que vocês precisam: apresentação dos serviços, contato direto pelo WhatsApp, localização e muito mais. É uma ótima forma de passar mais confiança e facilitar para novos clientes encontrarem vocês no Google.',
+'Posso te mostrar um exemplo de como ficaria o site de vocês, personalizado com a identidade visual e as fotos de vocês?',
+'Perfeito! Funciona assim: eu monto o site com as informações e fotos de vocês, vocês aprovam e eu coloco no ar. Posso te passar os valores e as formas de pagamento?'];
+function roteiro(){if(cfg.roteiro&&cfg.roteiro.length===4){if(/^Olá, \{nome\}, tudo bem\? Sou \{eu\}/.test(cfg.roteiro[0]))cfg.roteiro[0]=ROT_PADRAO[0];return cfg.roteiro}return ROT_PADRAO}
+var RAMO={'Salão / barbearia':'salão e barbearia','Estética':'estética','Restaurante':'gastronomia','Lanchonete':'lanchonete','Padaria':'padaria','Pet shop':'pet shop','Veterinário':'veterinária','Dentista':'odontologia','Clínica':'saúde','Fisioterapia':'fisioterapia','Psicologia':'psicologia','Academia':'academia','Oficina mecânica':'mecânica automotiva','Advocacia':'advocacia','Contabilidade':'contabilidade','Imobiliária':'imóveis'};
+function preencher(t,l){var an=analise(l),ramo=an.faz;var eu=(cfg.eu||'Rodrigo').trim(),em=(cfg.empresa||'').trim();
+  return String(t||'').replace(/\{nome\}/g,l.nome||'').replace(/\{cidade\}/g,l.cidade||'sua cidade').replace(/\{ramo\}/g,ramo).replace(/\{gancho\}/g,an.gancho)
+    .replace(/\{eu\}/g,eu||'o responsável').replace(/\{empresa\}/g,em?(eu?', da '+em:em):'').trim()}
+var COZ={pizza:'pizzaria',burger:'hamburgueria',japanese:'comida japonesa',sushi:'comida japonesa',brazilian:'comida brasileira',regional:'comida regional',italian:'comida italiana',chinese:'comida chinesa',arab:'comida árabe',barbecue:'churrascaria',steak_house:'churrascaria',coffee_shop:'cafeteria',ice_cream:'sorvetes',sandwich:'lanches',chicken:'frango',seafood:'frutos do mar',mexican:'comida mexicana',vegetarian:'comida vegetariana',acai:'açaí',juice:'sucos',bakery:'padaria',cake:'bolos e doces',pastry:'doces'};
+var BEL={nails:'manicure',hair_removal:'depilação',eyelashes:'cílios',eyebrows:'design de sobrancelhas',facial:'estética facial',skin_care:'cuidados com a pele',tanning:'bronzeamento',makeup:'maquiagem',spa:'spa',massage:'massagem'};
+function analise(l){
+  var x=l.extra||{},o=[],faz=RAMO[l.categoria]||(l.categoria||'').toLowerCase()||'o seu negócio';
+  var cz=String(x.cuisine||'').split(';').map(function(c){return COZ[c.trim()]}).filter(Boolean);if(cz.length)faz=cz.slice(0,2).join(' e ');
+  var bz=String(x.beauty||'').split(';').map(function(c){return BEL[c.trim()]}).filter(Boolean);if(bz.length)faz=bz.slice(0,2).join(' e ');
+  if(x.esp)faz=faz+' ('+String(x.esp).replace(/_/g,' ').replace(/;/g,', ')+')';
+  o.push('Ramo: '+faz);
+  var g='';
+  if(l.instagram&&l.siteStatus!=='tem'){o.push('Tem Instagram (@'+l.instagram+') mas não tem site: o site completa a presença online');g=', acompanhei o Instagram de vocês,'}
+  else if(l.siteStatus!=='tem')o.push('Nenhum site nem rede social encontrada: oportunidade forte');
+  if(x.delivery==='yes'||x.takeaway==='yes'){o.push('Faz entrega/retirada: site com cardápio e pedido pelo WhatsApp');if(!g)g=', com '+(x.delivery==='yes'?'entregas':'retirada no local')+','}
+  if(x.horario)o.push('Horário publicado: '+x.horario);
+  if(x.desc)o.push('Descrição: '+x.desc);
+  o.push(l.waStatus?'WhatsApp confirmado pela fonte':(l.telTipo==='celular'?'Número de celular (provável WhatsApp)':'Número fixo: pode não ter WhatsApp'));
+  return{faz:faz,gancho:g,pontos:o};
+}
+function linkWa(l){var n=numWa(l);if(!n)return'';var m=preencher(roteiro()[0],l);return'https://web.whatsapp.com/send?phone='+n+(m?'&text='+encodeURIComponent(m):'')}
+function pontos(l){var p=0;if(l.siteStatus!=='tem')p+=50;if(l.siteStatus==='social')p+=10;if(l.telefone)p+=20;if(l.waStatus)p+=20;else if(l.telTipo==='celular')p+=5;return p}
+function nivel(l){var p=pontos(l);return p>=70?'alta':p>=50?'media':'baixa'}
+function jaCont(l){return!!l.ultimoContato||CONTATADO.indexOf(l.status)>=0}
+
+var LOTE=100,limite=LOTE,verTodas=false;var leads=new Map(),cfg={eu:'Rodrigo',empresa:'',roteiro:null},filtroSt='';
+var ts=0;function salvar(){clearTimeout(ts);ts=setTimeout(function(){ts=0;salvarJa()},300)}window.addEventListener('pagehide',function(){if(ts){clearTimeout(ts);ts=0;salvarJa()}});function salvarJa(){try{localStorage.setItem(CHAVE,JSON.stringify({cfg:cfg,leads:Array.from(leads.values())}))}catch(e){toast('Não consegui salvar neste navegador.')}}
+function carregar(){try{var o=JSON.parse(localStorage.getItem(CHAVE)||'null');if(o){if(o.cfg)cfg=Object.assign(cfg,o.cfg);(o.leads||[]).forEach(function(l){if(l.telExibicao&&!l.telEx)l.telEx=l.telExibicao;if(l.categoria==='company')l.categoria='Empresa';if(l.categoria==='tax advisor')l.categoria='Consultoria tributária';leads.set(l.id,l)})}}catch(e){}}
+function gravar(l){leads.set(l.id,l);salvar()}
+
+
+/* ---------- Importar lista ---------- */
+$('bImp').addEventListener('click',function(){$('impTxt').value='';$('impArq').value='';$('dlgImp').showModal()});
+$('impFechar').addEventListener('click',function(){$('dlgImp').close()});
+$('impArq').addEventListener('change',function(){var fs=Array.from(this.files||[]);if(!fs.length)return;Promise.all(fs.map(function(f){return f.text()})).then(function(ts){$('impTxt').value=ts.map(function(t){return t.replace(/^\ufeff/,'')}).join('\n')})});
+function linhasCsv(t){var out=[];t.replace(/^﻿/,'').split(/\r?\n/).forEach(function(ln){if(!ln.trim())return;var d=(ln.indexOf(';')>=0)?';':(ln.indexOf('\t')>=0)?'\t':(ln.indexOf('|')>=0)?'|':',';var c=[],cur='',q=false;for(var i=0;i<ln.length;i++){var ch=ln[i];if(q){if(ch==='"'){if(ln[i+1]==='"'){cur+='"';i++}else q=false}else cur+=ch}else if(ch==='"')q=true;else if(ch===d){c.push(cur.trim());cur=''}else cur+=ch}c.push(cur.trim());out.push(c)});return out}
+function dataIso(t){var m=String(t||'').match(/(\d{2})\/(\d{2})\/(\d{4})/);return m?m[3]+'-'+m[2]+'-'+m[1]:(/^\d{4}-\d{2}-\d{2}/.test(t||'')?String(t).slice(0,10):'')}
+var CAB={nome:['nome do estabelecimento','nome','estabelecimento'],categoria:['categoria'],cidade:['cidade'],endereco:['endereco'],telefone:['telefone'],whatsapp:['whatsapp'],email:['e-mail','email'],instagram:['instagram'],site:['site'],sitest:['status do site'],status:['status do contato','status'],fonte:['fonte do telefone','fonte'],verif:['ultima verificacao'],ultimo:['ultimo contato'],obs:['observacoes','observacao']};
+$('fImp').addEventListener('submit',function(ev){
+  ev.preventDefault();var ddd=$('bDdd').value.trim(),fonteP=$('impFonte').value.trim()||'Lista importada',ids=[],nov=0,at=0,sem=0,cids={},map=null;
+  linhasCsv($('impTxt').value).forEach(function(c){
+    var low=c.map(function(x){return semAc(x)});
+    if(low.indexOf('telefone')>=0&&(low.indexOf('nome do estabelecimento')>=0||low.indexOf('nome')>=0)){map={};Object.keys(CAB).forEach(function(k){for(var n=0;n<CAB[k].length;n++){var ix=low.indexOf(CAB[k][n]);if(ix>=0){map[k]=ix;break}}});return}
+    var g=map?function(k){return map[k]!=null?(c[map[k]]||''):''}:function(k){return c[{nome:0,telefone:1,endereco:2,cidade:3,categoria:4,site:5}[k]]||''};
+    var nome=g('nome');if(!nome)return;var n=normTel(/n[aã]o encontrado/i.test(g('telefone'))?'':g('telefone'),ddd);
+    if((!n||!n.e164)&&!map){sem++;return}
+    var site=g('site'),sst=semAc(g('sitest')),st=sst?(/tem site/.test(sst)?'tem':/redes/.test(sst)?'social':'sem'):(!site?'sem':(/instagram|facebook|linktr/i.test(site)?'social':'tem'));
+    var wa=semAc(g('whatsapp')),stt=g('status'),ult=dataIso(g('ultimo')),ig=g('instagram').replace(/^@/,'');
+    var e164=n&&n.e164||'',l={id:'imp-'+(e164||semAc(nome+'-'+g('cidade')).replace(/[^a-z0-9]+/g,'-')),nome:nome,categoria:g('categoria'),cidade:g('cidade')||$('bCidade').value.trim(),endereco:g('endereco'),
+      telefone:e164,telEx:n&&n.ex||'',telTipo:n&&n.tipo||'',dddA:!!(n&&n.dddA),outros:[],waStatus:/fonte/.test(wa)?'fonte':/voce/.test(wa)?'usuario':'',email:g('email'),instagram:ig,facebook:'',site:urlSegura(site),siteStatus:st,
+      fonte:g('fonte')||fonteP,fonteUrl:'',verificadoEm:dataIso(g('verif'))||hoje(),status:stt||'Novo lead',obs:g('obs'),ultimoContato:ult,extra:{}};
+    var ja=null;leads.forEach(function(x){if(!ja&&((e164&&x.telefone===e164)||(!e164&&semAc(x.nome)===semAc(nome)&&semAc(x.cidade)===semAc(l.cidade))))ja=x});
+    if(ja){var m=Object.assign({},ja);['categoria','endereco','cidade','email','instagram','obs'].forEach(function(k){if(!m[k]&&l[k])m[k]=l[k]});
+      if(l.ultimoContato&&!m.ultimoContato)m.ultimoContato=l.ultimoContato;if(l.status!=='Novo lead'&&(m.status==='Novo lead'||!m.status))m.status=l.status;if(!m.waStatus&&l.waStatus)m.waStatus=l.waStatus;
+      leads.set(m.id,m);ids.push(m.id);at++}
+    else{leads.set(l.id,l);ids.push(l.id);nov++}
+    if(l.cidade)cids[semAc(l.cidade)]=1;
+  });
+  if(!ids.length){toast('Nenhuma linha válida para importar.');return}
+  var cs=Object.keys(cids),jc=ids.filter(function(id){return jaCont(leads.get(id))}).length;
+  cfg.ultima={rotulo:'Importados · '+(cs.length===1?(leads.get(ids[0]).cidade||''):'várias cidades'),ids:ids};verTodas=false;limite=LOTE;filtroSt='';
+  $('fTexto').value='';$('fSite').value='';$('fTel').value='tel';salvar();cidadesFiltro(cs.length===1?cs[0]:'');desenhar();$('dlgImp').close();
+  $('estado').textContent=ids.length+' estabelecimentos importados ('+nov+' novos, '+at+' já estavam'+(jc?', '+jc+' já contatados foram para “Contatados ✓”':'')+(sem?', '+sem+' sem telefone válido ignorados':'')+').';
+  var tb=$('corpo').closest('section');if(tb)setTimeout(function(){tb.scrollIntoView({behavior:'smooth',block:'start'})},150);
+});
+
+/* ---------- Busca automática ---------- */
+function buscarEm(_i,q){
+  // Consulta todos os servidores ao mesmo tempo e usa a primeira resposta válida.
+  var ctls=[],pend=SERVIDORES.length,feito=false,ini=Date.now();
+  var tk=setInterval(function(){if(!feito)$('estado').textContent='Buscando no OpenStreetMap… '+Math.round((Date.now()-ini)/1000)+'s · costuma levar de 30 a 60 segundos, aguarde que o resultado aparece sozinho'},1000);
+  return new Promise(function(ok,falha){
+    SERVIDORES.forEach(function(u){
+      var c=new AbortController();ctls.push(c);var tm=setTimeout(function(){c.abort()},120000);
+      fetch(u,{method:'POST',body:'data='+encodeURIComponent(q),headers:{'Content-Type':'application/x-www-form-urlencoded'},signal:c.signal})
+        .then(function(r){if(!r.ok)throw 0;return r.json()})
+        .then(function(j){if(!j||!Array.isArray(j.elements))throw 0;if(feito)return;feito=true;clearInterval(tk);ctls.forEach(function(x){try{x.abort()}catch(e){}});ok(j)})
+        .catch(function(){if(--pend===0&&!feito){feito=true;clearInterval(tk);falha(new Error('todos'))}})
+        .then(function(){clearTimeout(tm)});
+    });
+  });
+}
+$('formBusca').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var b=$('bBuscar'),est=$('estado');b.disabled=true;b.textContent='Buscando…';est.className='';
+  est.textContent='Buscando no OpenStreetMap… costuma levar de 30 a 60 segundos. Não feche a página.';
+  var cid=$('bCidade').value.trim(),ddd=$('bDdd').value.trim(),soSem=$('soSemSite').checked,soTel=$('soComTel').checked;
+  var chaveRes='res2:'+semAc(cid)+':'+$('bUf').value+':'+selCats.slice().sort().join('-');var cache=null;try{cache=JSON.parse(sessionStorage.getItem(chaveRes)||localStorage.getItem(chaveRes)||'null')}catch(e){}
+  var pr=(cache&&Date.now()-cache.t<6*3600e3)?Promise.resolve(cache.j):areaCidade().catch(function(){throw{cidade:true}}).then(function(area){return buscarEm(0,consulta(area.bb)).then(function(j){var dentro=j.elements.filter(function(el){return naCidade(el,area,cid)});return{elements:dentro,fora:j.elements.length-dentro.length,nome:area.nome}})}).then(function(j){try{localStorage.setItem(chaveRes,JSON.stringify({t:Date.now(),j:j}))}catch(e){}return j});
+  pr.then(function(j){
+    if(!j.elements.length){var qg=encodeURIComponent(selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' ')+' em '+(j.nome||cid));est.innerHTML='O OpenStreetMap não tem esse tipo de estabelecimento cadastrado em '+esc(j.nome||cid)+'. <a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Procurar no Google Maps</a> Depois use “Importar lista” para trazer os que você achar.';return}
+    var ach=0,nov=0,at=0,tel=0,pul=0,vis={},ids=[];
+    j.elements.forEach(function(el){
+      var l=leadOsm(el,j.nome||cid,ddd);if(!l||vis[l.id])return;vis[l.id]=1;ach++;
+      if((soSem&&l.siteStatus==='tem')||(soTel&&!l.telefone)){pul++;return}
+      if(l.telefone)tel++;ids.push(l.id);
+      var a=leads.get(l.id);
+      if(a){var m=Object.assign({},a);if(!m.telEx&&l.telEx){['telefone','telEx','telTipo','dddA','fonte','fonteUrl'].forEach(function(k){m[k]=l[k]})}
+        ['email','instagram','facebook','site','endereco'].forEach(function(k){if(!m[k]&&l[k])m[k]=l[k]});
+        if(!m.waStatus&&l.waStatus&&m.telefone===l.telefone)m.waStatus=l.waStatus;
+        if(m.fonte==='OpenStreetMap'){m.verificadoEm=l.verificadoEm;if(l.cidade)m.cidade=l.cidade}leads.set(m.id,m);at++}
+      else{leads.set(l.id,l);nov++}
+    });
+    cfg.ultima={rotulo:selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' + ')+' · '+(j.nome||cid),ids:ids};verTodas=false;limite=LOTE;
+    $('fTexto').value='';$('fSite').value='';$('fTel').value='tel';cidadesFiltro(semAc(j.nome||cid));
+    salvar();filtroSt='';desenhar();
+    var jc=ids.filter(function(id){var x=leads.get(id);return x&&(jaCont(x)||x.descartado)}).length,semT=ids.filter(function(id){var x=leads.get(id);return x&&!x.telEx&&!jaCont(x)&&!x.descartado}).length,vis=filtrados().length;
+    est.textContent=ach+' estabelecimentos encontrados: '+vis+' na lista agora'+(tel&&vis?' ('+tel+' com telefone)':'')+(jc?', '+jc+' que você já contatou (estão em “Contatados ✓”)':'')+(semT?', '+semT+' sem telefone (escondidos; para ver, use Contato → “Telefone não encontrado”)':'')+(pul?', '+pul+' deixados de fora pelos filtros':'')+'.'+(j.fora?' ('+j.fora+' de cidades vizinhas foram ignorados.)':'');
+    if(!vis&&ach)est.textContent+=' Nenhum novo para mostrar: '+(pul?'desmarque “Só quem não tem site próprio” ou “Só quem tem telefone público” para ver mais, ou ':'')+'tente outra categoria ou cidade.';
+    if(vis){var tb=$('corpo').closest('section');if(tb)setTimeout(function(){tb.scrollIntoView({behavior:'smooth',block:'start'})},150)}
+  }).catch(function(err){est.className='erro';if(err&&err.cidade){est.textContent='Não encontrei essa cidade. Confira o nome (com acentos) e o estado.';return}if(NO_CLAUDE){est.innerHTML='Dentro do Claude a busca é bloqueada por segurança. <button type="button" class="btn pri peq" id="bBaixar2">Baixar o Prospecta e buscar</button> Depois aperte Ctrl+J e abra o arquivo: lá a busca funciona.';$('bBaixar2').onclick=baixarArquivo;return}est.textContent='Os servidores gratuitos do OpenStreetMap estão sobrecarregados agora. Espere um ou dois minutos e clique em Buscar de novo.'})
+  .then(function(){b.disabled=false;b.textContent='Buscar estabelecimentos'});
+});
+
+/* ---------- Tabela ---------- */
+function filtrados(){
+  var tx=semAc($('fTexto').value.trim()),fs=$('fSite').value,ft=$('fTel').value,ord=$('fOrdem').value,fc=$('fCidade').value;
+  return Array.from(leads.values()).filter(function(l){
+    if(!verTodas&&filtroSt!=='__c'&&cfg.ultima&&cfg.ultima.ids&&cfg.ultima.ids.indexOf(l.id)<0)return false;
+    if(filtroSt==='__c'){if(!jaCont(l))return false}else if(filtroSt){if(l.status!==filtroSt)return false}else if(jaCont(l)||l.descartado)return false;
+    if(fs==='semsite'&&l.siteStatus==='tem')return false;
+    if(['sem','social','tem'].indexOf(fs)>=0&&l.siteStatus!==fs)return false;
+    if(fc&&semAc(l.cidade)!==fc)return false;if(ft==='tel'&&!l.telEx)return false;if(ft==='wa'&&!l.waStatus)return false;if(ft==='sem'&&l.telEx)return false;
+    if(tx&&semAc([l.nome,l.categoria,l.cidade,l.endereco,l.telEx,l.instagram,l.obs].join(' ')).indexOf(tx)<0)return false;
+    return true;
+  }).sort(function(a,b){
+    if(ord==='nome')return String(a.nome).localeCompare(b.nome,'pt-BR');
+    if(ord==='contato')return String(b.ultimoContato||'').localeCompare(a.ultimoContato||'');
+    return pontos(b)-pontos(a)||String(a.nome).localeCompare(b.nome,'pt-BR');
+  });
+}
+function linha(l){
+  var nv=nivel(l),rot={alta:'Prioridade alta',media:'Prioridade média',baixa:'Prioridade baixa'}[nv];
+  var fonte='Fonte: '+(l.fonteUrl?'<a href="'+esc(l.fonteUrl)+'" target="_blank" rel="noopener">'+esc(l.fonte)+'</a>':esc(l.fonte||'não informada'))+(l.verificadoEm?' · verificado em '+esc(dataBr(l.verificadoEm)):'');
+  var tel=l.telEx?'<span>'+esc(l.telEx)+'</span><span class="sub">'+({celular:'Celular',fixo:'Fixo','0800':'Central 0800',central:'Central',outro:'Formato incomum',invalido:'Número incompleto na fonte'}[l.telTipo]||'Telefone')+(l.dddA?' · DDD da cidade aplicado':'')+'</span>'+((l.outros&&l.outros.length)?'<span class="sub">Outros: '+esc(l.outros.join(' · '))+'</span>':'')+'<span class="sub">'+fonte+'</span>'
+    :'<span class="nada">Telefone não encontrado</span><span class="sub">'+fonte+'</span>';
+  var wa=l.waStatus==='fonte'?'<span class="pill p-good">Confirmado pela fonte</span>':l.waStatus==='usuario'?'<span class="pill p-good">Confirmado por você</span>':numWa(l)?'<span class="pill p-warn">Não confirmado</span>':'<span class="nada">—</span>';
+  var lk=linkWa(l),ac='';
+  if(lk)ac+='<button type="button" class="btn wa peq" data-ato="analisar" data-id="'+esc(l.id)+'">Conversar no WhatsApp</button><span class="sub">wa.me/'+esc(numWa(l))+'</span>';
+  var qg=encodeURIComponent(l.nome+' '+(l.cidade||''));ac+='<span style="display:flex;gap:6px"><a class="btn peq" style="flex:1" target="_blank" rel="noopener" href="https://www.google.com/search?q='+qg+'" title="Confira se ele tem site">Ver no Google</a><a class="btn peq" style="flex:1" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Maps</a></span>';
+  if(l.telEx)ac+='<button class="btn peq" type="button" data-ato="copiar" data-id="'+esc(l.id)+'">Copiar telefone</button>';
+  if(!l.telEx){var qt=encodeURIComponent(l.nome+' '+(l.cidade||'')+' telefone whatsapp');ac+='<span class="nada">Sem telefone na fonte</span><a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/search?q='+qt+'">Procurar telefone</a><button class="btn peq pri" type="button" data-ato="addtel" data-id="'+esc(l.id)+'">Adicionar telefone</button>'}
+  if(lk)ac+='<button class="btn peq" type="button" data-ato="wa" data-id="'+esc(l.id)+'" title="Use se você já mandou mensagem por fora">Já mandei mensagem ✓</button>';
+  if(!ac)ac='<span class="nada">Sem número para contato</span>';
+  var site=l.site?'<a href="'+esc(l.site)+'" target="_blank" rel="noopener">'+esc(l.site.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))+'</a>':'<span class="nada">—</span>';
+  var sst0=l.siteStatus==='tem'?'<span class="pill p-mute">Tem site</span>':l.siteStatus==='social'?'<span class="pill p-good">Só redes sociais</span>':'<span class="pill p-good">Sem site identificado</span>';var sst=sst0+(l.siteStatus!=='tem'?'<button type="button" class="btn peq" style="margin-top:6px" data-ato="temsite" data-id="'+esc(l.id)+'">Achei site: descartar</button>':'');
+  var red='';if(l.instagram)red+='<a href="https://www.instagram.com/'+esc(l.instagram)+'/" target="_blank" rel="noopener">@'+esc(l.instagram)+'</a>';if(l.facebook)red+='<span class="sub"><a href="'+esc(l.facebook)+'" target="_blank" rel="noopener">Facebook</a></span>';if(!red)red='<span class="nada">—</span>';
+  var sel='<select data-ato="status" data-id="'+esc(l.id)+'">'+STATUS.map(function(s){return'<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>';
+  return'<tr><td class="nome pri-'+nv+'"><button type="button" data-ato="abrir" data-id="'+esc(l.id)+'">'+esc(l.nome)+'</button><span class="sub">'+rot+(l.obs?' · tem observações':'')+'</span></td><td>'+esc(l.categoria||'—')+'</td><td>'+esc(l.cidade||'—')+'</td><td>'+(l.endereco?esc(l.endereco):'<span class="nada">Não informado</span>')+'</td><td class="tel">'+tel+'</td><td>'+wa+'</td><td><div class="cel-acoes">'+ac+'</div></td><td>'+(l.email?esc(l.email):'<span class="nada">—</span>')+'</td><td>'+red+'</td><td>'+site+'</td><td>'+sst+'</td><td>'+sel+'<span class="sub">'+(l.ultimoContato?'Último contato: '+esc(dataBr(l.ultimoContato)):'Sem contato registrado')+'</span></td></tr>';
+}
+function cidadesFiltro(sel){var f=$('fCidade'),at=sel!==undefined?sel:f.value,m={};leads.forEach(function(l){if(l.cidade){var k=semAc(l.cidade);if(!m[k])m[k]=l.cidade}});var ks=Object.keys(m).sort();f.innerHTML='<option value="">Todas</option>'+ks.map(function(k){return'<option value="'+esc(k)+'">'+esc(m[k])+'</option>'}).join('');f.value=ks.indexOf(at)>=0?at:''}
+function desenhar(){cidadesFiltro();
+  var t=Array.from(leads.values());
+  $('tTotal').textContent=t.length;$('tSemSite').textContent=t.filter(function(l){return l.siteStatus!=='tem'}).length;
+  $('tTel').textContent=t.filter(function(l){return l.telefone}).length;$('tWa').textContent=t.filter(function(l){return l.waStatus}).length;
+  var c={};t.forEach(function(l){c[l.status]=(c[l.status]||0)+1});
+  var ua=cfg.ultima&&cfg.ultima.ids;var vis2=function(l){return verTodas||!ua||ua.indexOf(l.id)>=0};
+  $('funil').innerHTML=(ua?'<span style="display:inline-flex;gap:6px;margin-right:10px;padding:4px;border:1px solid var(--line);border-radius:999px"><button type="button" data-vt="0" aria-pressed="'+(!verTodas)+'">Esta busca: '+esc(cfg.ultima.rotulo)+'</button><button type="button" data-vt="1" aria-pressed="'+verTodas+'">Todas as buscas</button></span>':'')+'<button type="button" data-st="" aria-pressed="'+(filtroSt==='')+'">A contatar '+t.filter(function(l){return vis2(l)&&!jaCont(l)&&!l.descartado}).length+'</button><button type="button" data-st="__c" aria-pressed="'+(filtroSt==='__c')+'"><b>Já contatados '+t.filter(jaCont).length+'</b></button>'+STATUS.map(function(s){return'<button type="button" data-st="'+s+'" aria-pressed="'+(filtroSt===s)+'">'+s+' '+(c[s]||0)+'</button>'}).join('');
+  // Painel ao vivo e progresso (só dados reais)
+  var semSite=t.filter(function(l){return l.siteStatus!=='tem'}),comTel=semSite.filter(function(l){return l.telefone});
+  $('pvNum').textContent=semSite.length;
+  $('pvPct').textContent=(semSite.length?Math.round(comTel.length/semSite.length*100):0)+'%';
+  var cats={};semSite.forEach(function(l){cats[l.categoria]=(cats[l.categoria]||0)+1});
+  var vals=Object.keys(cats).map(function(k){return cats[k]}).sort(function(x,y){return x-y}).slice(-8),mx=Math.max.apply(null,vals.concat([1]));
+  $('pvBarras').innerHTML=(vals.length?vals:[1,1,1,1,1,1,1,1]).map(function(v){return'<i style="height:'+(vals.length?Math.max(12,v/mx*100):12)+'%"></i>'}).join('');
+  var top=t.slice().sort(function(x,y){return pontos(y)-pontos(x)}).slice(0,2);
+  $('pvLista').innerHTML=top.map(function(l){var ini=l.nome.split(/\s+/).filter(Boolean).slice(0,2).map(function(w){return w[0]}).join('').toUpperCase();return'<div><span class="ini">'+esc(ini)+'</span><p><b>'+esc(l.nome)+'</b><span>'+esc(l.categoria)+' · '+(l.siteStatus==='tem'?'tem site':'sem website')+'</span></p><span class="sc">'+pontos(l)+'%</span></div>'}).join('');
+  $('pvStatus').textContent=t.length?'Analisando':'Pronto';
+  if(top[0]){$('pvNotif').textContent='Lead em destaque';$('pvNotif2').textContent=top[0].nome+(top[0].cidade?' · '+top[0].cidade:'')}
+  var etapa=t.some(jaCont)?3:t.length?2:1;
+  ['et1','et2','et3'].forEach(function(id,i){$(id).className='etapa'+(i+1===etapa?' on':i+1<etapa?' ok':'')});
+  var pc=etapa===3?100:etapa===2?66:33;$('pgPct').textContent=pc+'%';$('pgBarra').style.width=pc+'%';
+
+  var ok=t.filter(jaCont).sort(function(x,y){return String(y.ultimoContato||'').localeCompare(x.ultimoContato||'')});
+  $('okQt').textContent=ok.length;$('okQt2').textContent=ok.length;
+  $('okLista').innerHTML=ok.length?ok.map(function(l){return'<div class="okit"><span class="ck">✓</span><div><b>'+esc(l.nome)+'</b><span class="fone">'+esc(l.telEx||'Telefone não encontrado')+'</span><small>'+(l.ultimoContato?'Contato em '+esc(dataBr(l.ultimoContato)):'Sem data registrada')+'</small></div><span style="display:flex;flex-direction:column;gap:6px;align-items:flex-end"><span class="st">'+esc(l.status)+'</span><button type="button" class="btn peq" data-rot="'+esc(l.id)+'">Roteiro</button></span></div>'}).join(''):'<p class="okvazio">Ninguém ainda. Clique em “Conversar no WhatsApp” em um lead da tabela e ele aparece aqui.</p>';
+
+  var a=filtrados(),vis=a.slice(0,limite);$('corpo').innerHTML=vis.map(linha).join('');
+  var mb=$('maisBox');if(!mb){mb=document.createElement('div');mb.id='maisBox';mb.className='mais';$('vazio').before(mb)}
+  mb.innerHTML=a.length>limite?'<button type="button" class="btn" id="bMais">Mostrar mais '+Math.min(LOTE,a.length-limite)+' de '+(a.length-limite)+' restantes</button>':'';
+  if(a.length>limite)$('bMais').onclick=function(){limite+=LOTE;desenhar()};
+  var v=$('vazio');v.hidden=!!a.length;v.textContent=t.length?'Nenhum lead combina com os filtros.':'Sua tabela está vazia. Escolha a cidade e a categoria lá em cima e clique em Buscar.';
+}
+
+var tt=0;function toast(x,r,f){$('toastTxt').textContent=x;var b=$('toastBtn');if(r){b.hidden=false;b.textContent=r;b.onclick=function(){$('toast').hidden=true;f()}}else b.hidden=true;$('toast').hidden=false;clearTimeout(tt);tt=setTimeout(function(){$('toast').hidden=true},r?12000:3500)}
+
+$('corpo').addEventListener('click',function(ev){
+  var a=ev.target.closest('[data-ato]');if(!a)return;var l=leads.get(a.dataset.id);if(!l)return;
+  if(a.dataset.ato==='abrir')ficha(l);
+  else if(a.dataset.ato==='temsite'){var antes2=Object.assign({},l);gravar(Object.assign({},l,{siteStatus:'tem',descartado:true,obs:(l.obs?l.obs+' · ':'')+'Tem site (verificado)'}));desenhar();toast(l.nome+' marcado como “tem site”.','Desfazer',function(){gravar(antes2);desenhar()})}
+  else if(a.dataset.ato==='copiar'){navigator.clipboard.writeText(l.telEx).then(function(){toast('Telefone copiado: '+l.telEx)},function(){toast('Número: '+l.telEx)})}
+  else if(a.dataset.ato==='analisar'){abrirAnalise(l)}
+  else if(a.dataset.ato==='addtel'){ficha(l);$('eFonte').value=$('eFonte').value&&$('eFonte').value!=='OpenStreetMap'?$('eFonte').value:'Google';setTimeout(function(){$('eTel').focus()},60)}
+  else if(a.dataset.ato==='wa'){var antes=Object.assign({},l),c=Object.assign({},l,{ultimoContato:hoje()});if(c.status==='Novo lead'||c.status==='Ainda não contatado')c.status='Mensagem enviada';gravar(c);desenhar();toast(l.nome+' saiu da lista e foi para “Contatados ✓”.','Desfazer (não enviei)',function(){gravar(antes);desenhar()})}
+});
+$('corpo').addEventListener('change',function(ev){var s=ev.target.closest('select[data-ato=status]');if(!s)return;var l=leads.get(s.dataset.id);gravar(Object.assign({},l,{status:s.value}));desenhar()});
+$('funil').addEventListener('click',function(ev){var v=ev.target.closest('button[data-vt]');if(v){verTodas=v.dataset.vt==='1';limite=LOTE;desenhar();return}var b=ev.target.closest('button[data-st]');if(!b)return;filtroSt=b.dataset.st;limite=LOTE;desenhar()});
+var td=0;['fSite','fTel','fOrdem','fCidade'].forEach(function(i){$(i).addEventListener('input',function(){limite=LOTE;desenhar()})});
+$('fTexto').addEventListener('input',function(){clearTimeout(td);td=setTimeout(function(){limite=LOTE;desenhar()},200)});
+
+var ed=null,conf=false;
+function ficha(l){
+  ed=l||null;conf=false;$('dlgTitulo').textContent=l?l.nome:'Novo lead';
+  $('eNome').value=l?l.nome:'';$('eCat').value=l?l.categoria||'':'';$('eCidade').value=l?l.cidade||'':$('bCidade').value;$('eEnd').value=l?l.endereco||'':'';
+  $('eTel').value=l?l.telEx||'':'';$('eFonte').value=l?l.fonte||'':'';$('eWa').checked=!!(l&&l.waStatus);$('eEmail').value=l?l.email||'':'';
+  $('eInsta').value=l&&l.instagram?'@'+l.instagram:'';$('eFace').value=l?l.facebook||'':'';$('eSite').value=l?l.site||'':'';
+  $('eSiteSt').value=l?l.siteStatus||'sem':'sem';$('eStatus').value=l?l.status:'Novo lead';$('eData').value=l?l.ultimoContato||'':'';$('eObs').value=l?l.obs||'':'';
+  $('eExcluir').hidden=!l;$('eExcluir').textContent='Excluir lead';
+  $('eInfo').textContent=l&&l.verificadoEm?'Telefone verificado em '+dataBr(l.verificadoEm)+' na fonte '+(l.fonte||'—')+'.':'Ao informar um telefone, diga de onde ele veio.';
+  $('dlg').showModal();
+}
+$('ficha').addEventListener('submit',function(ev){
+  ev.preventDefault();var b=ed||{id:'m-'+Date.now().toString(36),outros:[],fonteUrl:''},l=Object.assign({},b);
+  l.nome=$('eNome').value.trim();if(!l.nome)return;l.categoria=$('eCat').value.trim();l.cidade=$('eCidade').value.trim();l.endereco=$('eEnd').value.trim();
+  var tn=$('eTel').value.trim();
+  if(tn!==(b.telEx||'')){var n=normTel(tn,$('bDdd').value.trim());l.telefone=n?n.e164:'';l.telEx=n?n.ex:'';l.telTipo=n?n.tipo:'';l.dddA=!!(n&&n.dddA);l.verificadoEm=hoje();l.fonteUrl='';l.fonte=$('eFonte').value.trim()||'Informado manualmente';if(b.waStatus==='fonte')l.waStatus=''}
+  else l.fonte=$('eFonte').value.trim()||b.fonte||(tn?'Informado manualmente':'');
+  if(!l.verificadoEm)l.verificadoEm=hoje();
+  l.waStatus=($('eWa').checked&&l.telefone)?(l.waStatus==='fonte'?'fonte':'usuario'):'';
+  l.email=$('eEmail').value.trim();l.instagram=insta($('eInsta').value);l.facebook=face($('eFace').value);l.site=urlSegura($('eSite').value);l.siteStatus=$('eSiteSt').value;
+  l.status=$('eStatus').value;l.ultimoContato=$('eData').value;l.obs=$('eObs').value.trim();
+  gravar(l);$('dlg').close();desenhar();toast(ed?'Lead atualizado.':'Lead cadastrado.');
+});
+$('eCancelar').onclick=function(){$('dlg').close()};
+$('eExcluir').onclick=function(){if(!ed)return;if(!conf){conf=true;this.textContent='Clique de novo para excluir';return}leads.delete(ed.id);salvar();$('dlg').close();desenhar();toast('Lead excluído.')};
+$('bNovo').onclick=$('bNovo2').onclick=function(){ficha(null)};
+function abrirMsg(r){var x=r||roteiro();$('mEu').value=cfg.eu||'Rodrigo';$('mEmp').value=cfg.empresa||'';[0,1,2,3].forEach(function(k){$('mT'+k).value=x[k]})}
+$('bMsg').onclick=function(){abrirMsg();$('dlgMsg').showModal()};
+$('mPadrao').onclick=function(){abrirMsg(ROT_PADRAO)};
+$('mCancelar').onclick=function(){$('dlgMsg').close()};
+$('fMsg').addEventListener('submit',function(ev){ev.preventDefault();cfg.eu=$('mEu').value.trim();cfg.empresa=$('mEmp').value.trim();cfg.roteiro=[0,1,2,3].map(function(k){return $('mT'+k).value});salvar();$('dlgMsg').close();desenhar();toast('Mensagens salvas.')});
+$('okLista').addEventListener('click',function(ev){var b=ev.target.closest('[data-rot]');if(!b)return;var l=leads.get(b.dataset.rot);if(!l)return;
+  $('rotTit').textContent='Roteiro: '+l.nome;var nomes=['1ª — abordagem','2ª — quando responder','3ª — mostrar exemplo','4ª — como funciona / valores'];
+  $('rotLista').innerHTML=roteiro().map(function(t,k){return'<div style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface-2)"><b style="font-size:.85rem;color:var(--accent)">'+nomes[k]+'</b><p style="margin:6px 0 10px;white-space:pre-wrap">'+esc(preencher(t,l))+'</p><button type="button" class="btn peq" data-cp="'+k+'">Copiar</button></div>'}).join('');
+  $('rotLista').onclick=function(e){var c=e.target.closest('[data-cp]');if(!c)return;navigator.clipboard.writeText(preencher(roteiro()[+c.dataset.cp],l)).then(function(){c.textContent='Copiado ✓'},function(){toast('Selecione o texto e copie com Ctrl+C.')})};
+  $('dlgRot').showModal()});
+var anLead=null;
+function abrirAnalise(l){anLead=l;var an=analise(l);$('anTit').textContent='Análise: '+l.nome;
+  $('anPontos').innerHTML=an.pontos.map(function(p){return'<div style="display:flex;gap:8px;font-size:.9rem"><span style="color:var(--accent)">●</span><span>'+esc(p)+'</span></div>'}).join('')+'<p class="dica">Baseado nos dados públicos do OpenStreetMap. Use “Ver no Google” para conferir mais.</p>';
+  $('anMsg').value=preencher(roteiro()[0],l);atuAn();$('dlgAn').showModal()}
+function atuAn(){if(!anLead)return;$('anAbrir').href='https://web.whatsapp.com/send?phone='+numWa(anLead)+'&text='+encodeURIComponent($('anMsg').value.trim())}
+$('anMsg').addEventListener('input',atuAn);
+$('anFechar').onclick=function(){$('dlgAn').close()};
+$('anAbrir').addEventListener('click',function(){var l=anLead;if(!l)return;$('dlgAn').close();var antes=Object.assign({},l),c=Object.assign({},l,{ultimoContato:hoje()});if(c.status==='Novo lead'||c.status==='Ainda não contatado')c.status='Mensagem enviada';gravar(c);desenhar();toast(l.nome+' saiu da lista e foi para “Contatados ✓”.','Desfazer (não enviei)',function(){gravar(antes);desenhar()})});
+$('rotFechar').onclick=function(){$('dlgRot').close()};
+if(!cfg.empresa){setTimeout(function(){toast('Coloque o nome da sua empresa nas mensagens.','Configurar',function(){$('bMsg').click()})},1200)}
+
+$('bCsv').onclick=function(){
+  if(!leads.size){toast('Ainda não há leads.');return}
+  var cab=['Nome do estabelecimento','Categoria','Cidade','Endereço','Telefone','WhatsApp','Link para conversar','E-mail','Instagram','Site','Status do site','Status do contato','Fonte do telefone','Última verificação','Último contato','Observações'];
+  var ls=filtrados().map(function(l){return[l.nome,l.categoria,l.cidade,l.endereco,l.telEx||'Telefone não encontrado',l.waStatus==='fonte'?'Confirmado pela fonte':l.waStatus==='usuario'?'Confirmado por você':numWa(l)?'Não confirmado':'',numWa(l)?'https://wa.me/'+numWa(l):'',l.email,l.instagram?'@'+l.instagram:'',l.site,l.siteStatus==='tem'?'Tem site':l.siteStatus==='social'?'Só redes sociais':'Sem site identificado',l.status,l.fonte,dataBr(l.verificadoEm),dataBr(l.ultimoContato),l.obs]});
+  var txt='\ufeff'+[cab].concat(ls).map(function(r){return r.map(function(c){return'"'+String(c==null?'':c).replace(/"/g,'""')+'"'}).join(';')}).join('\r\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv'}));a.download='leads-prospecta-'+hoje()+'.csv';a.click();
+};
+
+$('bUf').innerHTML=UFS.map(function(u){return'<option'+(u==='SP'?' selected':'')+'>'+u+'</option>'}).join('');
+$('bCat').innerHTML=CATS.map(function(c,i){return'<option value="'+i+'">'+esc(c.nome)+'</option>'}).join('');
+var selCats=[0];var ICONES=['💇','🍔','🥐','🔧','🐾','🦷','🏋️','👗','🛒','🧱','🛠️','🏨','💼','🎓','🛍️'];
+function desenharCats(){
+  $('catGrid').innerHTML=CATS.map(function(c,i){var m=c.nome.match(/^(.*?)\s*\((.*)\)$/),t=m?m[1]:c.nome,s=m?m[2]:'';
+    return'<button type="button" role="checkbox" data-i="'+i+'" aria-checked="'+(selCats.indexOf(i)>=0)+'"><span class="ce">'+ICONES[i]+'</span><span>'+esc(t)+(s?'<small>'+esc(s)+'</small>':'')+'</span></button>'}).join('');
+}
+$('catGrid').addEventListener('click',function(ev){var b=ev.target.closest('button[data-i]');if(!b)return;var i=+b.dataset.i,k=selCats.indexOf(i);if(k>=0){if(selCats.length>1)selCats.splice(k,1)}else{if(selCats.length>=4){toast('Escolha no máximo 4 categorias por busca, para não ficar lenta.');return}selCats.push(i)}cfg.cats=selCats.slice();salvar();desenharCats()});
+if(Array.isArray(cfg.cats)&&cfg.cats.length)selCats=cfg.cats.filter(function(i){return CATS[i]}).slice(0,4)||[0];if(!selCats.length)selCats=[0];desenharCats();
+if(NO_CLAUDE){$('bBuscar').textContent='⬇ Baixar o Prospecta para buscar';$('estado').innerHTML='<b>Aqui dentro do Claude a busca não funciona</b> (bloqueio de segurança do Claude). Clique no botão acima, depois aperte <b>Ctrl + J</b> no Chrome e abra <b>prospecta-ai.html</b>: nessa versão a busca funciona e os resultados aparecem na tela.';
+document.addEventListener('submit',function(ev){if(ev.target.id!=='formBusca')return;ev.preventDefault();ev.stopPropagation();baixarArquivo()},true);}
+if(NO_CLAUDE){var bb=document.createElement('button');bb.type='button';bb.className='btn pri';bb.id='bBaixar';bb.textContent='Baixar para usar a busca';bb.onclick=baixarArquivo;document.querySelector('.topo .dir').prepend(bb)}
+$('eStatus').innerHTML=STATUS.map(function(s){return'<option>'+s+'</option>'}).join('');
+carregar();if(Array.isArray(cfg.cats)&&cfg.cats.length){selCats=cfg.cats.filter(function(i){return CATS[i]}).slice(0,4);if(!selCats.length)selCats=[0];desenharCats()}desenhar();
+})();
+</script>
+</body>
+</html>
