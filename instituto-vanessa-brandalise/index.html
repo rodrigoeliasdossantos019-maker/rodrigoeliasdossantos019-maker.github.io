@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instituto Dra. Vanessa Brandalise · Cirurgia Plástica em Campinas</title>
+<meta name="description" content="Instituto Dra. Vanessa Brandalise: cirurgia plástica e procedimentos estéticos com a Dra. Vanessa Brandalise, cirurgiã plástica formada pela USP, no Jardim Guanabara, em Campinas/SP.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#221a19; --ink-2:#55494a; --ink-3:#8a7b75;
+  --navy:#2a2220; --navy-2:#3d3130; --aqua:#c48b7c; --aqua-2:#f0cfc2; --gold:#c49a6c;
+  --bg:#fcf9f7; --card:#ffffff; --line:#ebe2dc; --soft:#f7eee9;
+  --r:18px; --sh:0 1px 2px rgba(42,34,32,.04),0 12px 32px rgba(42,34,32,.08);
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}img,svg{display:block}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;margin:0;line-height:1.1}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 .74rem var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--aqua)}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font:600 .95rem var(--sans);text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-2px)}
+.btn-pri{background:var(--navy);color:#fff;box-shadow:0 10px 24px rgba(42,34,32,.25)}
+.btn-pri:hover{background:var(--navy-2)}
+.btn-wa{background:#25d366;color:#05301a;box-shadow:0 10px 24px rgba(37,211,102,.3)}
+.btn-ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn svg{width:18px;height:18px}
+
+/* topo */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s,padding .3s;padding:20px 0}
+header.on{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;transition:color .3s}
+header.on .logo{color:var(--navy)}
+.logo svg{width:40px;height:40px}
+.logo b{font:400 1.15rem var(--serif);display:block;line-height:1.1}
+.logo small{font:500 .66rem var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.menu{display:flex;gap:30px;align-items:center}
+.menu a{text-decoration:none;font-size:.92rem;color:rgba(255,255,255,.85);transition:color .2s}
+header.on .menu a{color:var(--ink-2)}
+.menu a:hover{color:var(--aqua)!important}
+.menu .btn{padding:11px 20px;font-size:.86rem;color:#fff!important}
+header:not(.on) .menu .btn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);box-shadow:none}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;color:#fff;
+  background:radial-gradient(900px 600px at 78% 45%,rgba(196,139,124,.28),transparent 60%),linear-gradient(160deg,#1a1413 0%,#2a2220 55%,#3d3130 100%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(transparent,var(--bg))}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:120px;padding-bottom:120px}
+.hero h1{font-size:clamp(2.6rem,5.6vw,4.6rem);margin:22px 0 24px}
+.hero h1 em{font-style:italic;color:var(--aqua-2)}
+.hero p.lead{font-size:1.15rem;color:rgba(255,255,255,.78);max-width:46ch}
+.hero .acoes{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+.hero .info{display:flex;gap:28px;flex-wrap:wrap;margin-top:44px;font-size:.88rem;color:rgba(255,255,255,.7)}
+.hero .info span{display:flex;align-items:center;gap:8px}
+.hero .info svg{width:16px;height:16px;color:var(--aqua-2)}
+.olho{position:relative;aspect-ratio:1;max-width:460px;margin-left:auto;width:100%}
+.olho .anel{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(240,207,194,.25)}
+.olho .anel:nth-child(2){inset:9%;border-color:rgba(240,207,194,.18)}
+.olho .anel:nth-child(3){inset:18%;border-style:dashed;border-color:rgba(240,207,194,.22);animation:gira 60s linear infinite}
+.olho svg.iris{position:absolute;inset:24%;width:52%;height:52%;filter:drop-shadow(0 20px 50px rgba(196,139,124,.45))}
+.olho .tag{position:absolute;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 16px;font-size:.82rem;display:flex;gap:10px;align-items:center}
+.olho .tag b{display:block;font-weight:600}.olho .tag small{color:rgba(255,255,255,.65)}
+.olho .tag i{width:34px;height:34px;border-radius:10px;background:rgba(196,139,124,.25);display:grid;place-items:center;font-style:normal}
+.olho .t1{top:8%;left:-6%}.olho .t2{bottom:10%;right:-4%}
+@keyframes gira{to{transform:rotate(360deg)}}
+@keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+.pupila{transform-origin:100px 100px;animation:pulsa 5s ease-in-out infinite}
+
+/* seções */
+section{padding:110px 0}
+.titulo{max-width:640px;margin-bottom:56px}
+.titulo h2{font-size:clamp(2rem,3.6vw,3rem);margin:16px 0 18px}
+.titulo h2 em{font-style:italic;color:var(--navy-2)}
+.titulo p{color:var(--ink-2);font-size:1.06rem}
+.centro{text-align:center;margin-left:auto;margin-right:auto}
+.centro .eyebrow::after{content:"";width:26px;height:1px;background:currentColor}
+
+/* pilares */
+.pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:-60px;position:relative;z-index:3}
+.pilar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:var(--sh)}
+.pilar .ic{width:52px;height:52px;border-radius:14px;background:var(--soft);color:var(--navy-2);display:grid;place-items:center;margin-bottom:20px}
+.pilar .ic svg{width:24px;height:24px}
+.pilar h3{font-size:1.35rem;margin-bottom:10px}
+.pilar p{color:var(--ink-2);font-size:.95rem}
+
+/* serviços */
+.servicos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.serv{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;transition:transform .25s,box-shadow .25s,border-color .25s;overflow:hidden}
+.serv:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:transparent}
+.serv::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--aqua),var(--navy-2));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.serv:hover::before{transform:scaleX(1)}
+.serv .n{font:400 .9rem var(--serif);color:var(--aqua);font-style:italic}
+.serv h3{font-size:1.3rem;margin:10px 0 10px}
+.serv p{color:var(--ink-2);font-size:.94rem}
+.nota{margin-top:26px;font-size:.84rem;color:var(--ink-3)}
+
+/* médico */
+.medico{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.medico .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.foto{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#2a2220,#3d3130 60%,#8a5b50);display:grid;place-items:center;color:#fff}
+.foto .mono{font:300 7rem var(--serif);opacity:.95;letter-spacing:-.04em}
+.foto .mono em{color:var(--aqua-2)}
+.foto small{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+.foto::after{content:"";position:absolute;width:140%;aspect-ratio:1;border:1px solid rgba(240,207,194,.15);border-radius:50%;top:-20%;left:-20%}
+.medico blockquote{margin:30px 0;padding-left:22px;border-left:2px solid var(--gold);font:italic 300 1.3rem/1.5 var(--serif);color:var(--navy)}
+.selos{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.selo{padding:9px 16px;border-radius:999px;background:var(--soft);font-size:.85rem;font-weight:500;color:var(--navy-2)}
+
+/* convênios */
+.conv{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:860px;margin:0 auto}
+.conv div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:34px;text-align:center}
+.conv b{display:block;font:400 1.8rem var(--serif);color:var(--navy);margin:10px 0 6px}
+.conv span{color:var(--ink-2);font-size:.92rem}
+.conv i{font-style:normal;font-size:1.6rem}
+
+/* passos */
+.passos{display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:p;position:relative}
+.passo{padding:0 28px;position:relative}
+.passo::before{counter-increment:p;content:"0" counter(p);display:block;font:300 3.2rem var(--serif);color:var(--aqua);margin-bottom:14px}
+.passo:not(:last-child)::after{content:"";position:absolute;top:30px;right:0;width:40%;height:1px;background:var(--line)}
+.passo h3{font-size:1.3rem;margin-bottom:8px}
+.passo p{color:var(--ink-2);font-size:.95rem}
+
+/* faq */
+.faq{max-width:820px;margin:0 auto}
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:400 1.22rem var(--serif);color:var(--navy)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:300 1.6rem var(--sans);color:var(--aqua);transition:transform .25s;line-height:1}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--ink-2);margin-top:12px;max-width:68ch}
+
+/* local + cta */
+.local{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.mapa{border-radius:24px;overflow:hidden;position:relative;min-height:380px;background:
+  linear-gradient(0deg,rgba(42,34,32,.04),rgba(42,34,32,.04)),
+  repeating-linear-gradient(0deg,transparent 0 46px,#ebe2dc 46px 48px),
+  repeating-linear-gradient(90deg,transparent 0 58px,#ebe2dc 58px 60px),#f7eee9;border:1px solid var(--line)}
+.mapa .rua{position:absolute;background:#fff;box-shadow:0 0 0 1px #eadbd3}
+.mapa .pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+.mapa .pin span{background:var(--navy);color:#fff;padding:10px 16px;border-radius:12px;font-size:.84rem;font-weight:600;white-space:nowrap;box-shadow:var(--sh)}
+.mapa .pin i{width:16px;height:16px;background:var(--navy);transform:rotate(45deg);margin-top:-9px}
+.mapa .pin b{width:14px;height:14px;border-radius:50%;background:var(--aqua);box-shadow:0 0 0 8px rgba(196,139,124,.25);margin-top:8px}
+.mapa a{position:absolute;bottom:18px;left:18px}
+.contato{background:var(--navy);color:#fff;border-radius:24px;padding:44px;display:flex;flex-direction:column;gap:26px;position:relative;overflow:hidden}
+.contato::after{content:"";position:absolute;width:320px;aspect-ratio:1;border-radius:50%;border:1px solid rgba(240,207,194,.18);right:-110px;top:-110px}
+.contato h3{font-size:2rem}
+.linha{display:flex;gap:16px;align-items:flex-start}
+.linha i{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex:none;font-style:normal}
+.linha i svg{width:20px;height:20px;color:var(--aqua-2)}
+.linha small{display:block;color:rgba(255,255,255,.55);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.linha b{font-weight:500}
+
+.cta{margin:110px auto 0;max-width:1180px;border-radius:30px;padding:70px 40px;text-align:center;color:#fff;
+  background:radial-gradient(600px 300px at 50% 0,rgba(196,139,124,.35),transparent 70%),linear-gradient(135deg,#2a2220,#3d3130)}
+.cta h2{font-size:clamp(2rem,4vw,3.2rem);margin:16px 0 14px}
+.cta p{color:rgba(255,255,255,.75);max-width:52ch;margin:0 auto 32px}
+
+.flutua{position:fixed;right:22px;bottom:22px;z-index:60;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.45);transition:transform .2s}
+.flutua:hover{transform:scale(1.08)}
+.flutua svg{width:30px;height:30px;color:#fff}
+
+.rev{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.rev.vis{opacity:1;transform:none}
+
+@media(max-width:960px){
+  .hero .wrap,.medico .grid,.local{grid-template-columns:1fr}
+  .olho{max-width:340px;margin:0 auto}
+  .pilares,.servicos{grid-template-columns:1fr 1fr}
+  .passos{grid-template-columns:1fr;gap:34px}.passo::after{display:none}
+  .menu a:not(.btn){display:none}
+}
+@media(max-width:620px){
+  .pilares,.servicos,.conv{grid-template-columns:1fr}
+  section{padding:80px 0}
+  .olho .tag{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}}
+
+/* ===== estilo do modelo de referência ===== */
+:root{--serif:"Inter",system-ui,sans-serif;--blue:#a0655a;--blue-2:#7e4c43;--aqua:#a0655a;--aqua-2:#e8bfae;--navy:#2a2220;--navy-2:#7e4c43}
+h1,h2,h3{font-family:var(--sans);font-weight:700;letter-spacing:-.03em}
+h1 em,h2 em,.titulo h2 em{font-style:normal;color:var(--blue)}
+.hero h1 em{color:#fff}
+.eyebrow{letter-spacing:.14em;color:var(--blue)}
+.eyebrow::before{display:none}
+.centro .eyebrow::after{display:none}
+.btn{border-radius:999px}
+.btn-pri,.menu .btn{background:var(--blue)!important;color:#fff!important;border:0!important;box-shadow:0 10px 24px rgba(160,101,90,.35)}
+.btn-pri:hover{background:var(--blue-2)!important}
+.menu .btn{padding:16px 34px!important;font-size:1rem!important}
+header{padding:22px 0}
+.menu{gap:40px}
+.menu a{color:#fff!important;font-weight:500;font-size:1rem}
+header.on .menu a:not(.btn){color:var(--navy)!important}
+.menu a.ativo{color:var(--blue)!important}
+.dd{position:relative}.dd>span{cursor:pointer;color:#fff;font-weight:500;display:flex;align-items:center;gap:6px}
+header.on .dd>span{color:var(--navy)}
+.dd>span::after{content:"";border:5px solid transparent;border-top-color:currentColor;margin-top:5px}
+.dd ul{position:absolute;top:130%;left:-16px;list-style:none;margin:0;padding:10px;background:#fff;border-radius:14px;box-shadow:0 20px 40px rgba(30,22,22,.18);min-width:220px;opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s}
+.dd:hover ul{opacity:1;visibility:visible;transform:none}
+.dd ul a{display:block;padding:10px 14px;border-radius:9px;color:var(--navy)!important;font-size:.92rem}
+.dd ul a:hover{background:#f7eee9}
+.logo{gap:8px}.logo svg{width:58px;height:58px}
+.logo b{font:700 1.02rem/1 var(--sans)}
+.logo .grande{font:800 1.9rem/0.95 var(--sans);letter-spacing:-.02em;display:block}
+.logo small{font:600 1rem/1 var(--sans);letter-spacing:0;text-transform:none;opacity:1}
+.hero{background:
+  linear-gradient(90deg,rgba(40,30,30,.92) 0%,rgba(56,42,41,.78) 45%,rgba(90,72,70,.55) 100%),
+  radial-gradient(700px 500px at 75% 55%,#b8a39b 0%,transparent 70%),
+  linear-gradient(180deg,#d3c3bb 0%,#a8928a 55%,#7d6a64 100%)}
+.hero::after{display:none}
+.hero .wrap{grid-template-columns:1fr;padding-top:140px;padding-bottom:140px}
+.hero h1{font-size:clamp(2.8rem,6.4vw,5.4rem);line-height:1.02;font-weight:800;max-width:14ch}
+.hero .eyebrow{color:var(--aqua-2);font-weight:600;letter-spacing:.2em;text-transform:none;font-size:1.05rem}
+.olho{position:absolute;right:4%;top:50%;transform:translateY(-50%);max-width:420px;opacity:.9}
+.olho .anel{border-color:rgba(255,255,255,.22)}
+.foto-aviso{position:absolute;right:24px;bottom:24px;z-index:3;font-size:.75rem;color:rgba(255,255,255,.6);border:1px dashed rgba(255,255,255,.35);padding:6px 12px;border-radius:999px}
+.pilares{margin-top:60px}
+.pilar .ic{background:#f7eee9;color:var(--blue)}
+.serv::before{background:var(--blue)}
+.serv .n{font:700 .9rem var(--sans);font-style:normal;color:var(--blue)}
+.foto{background:linear-gradient(160deg,#33292a,#a0655a)}
+.foto .mono{font:800 6.5rem var(--sans)}
+.medico blockquote{font:500 1.15rem/1.6 var(--sans);font-style:italic;border-left-color:var(--blue)}
+.selo{background:#f7eee9;color:var(--blue-2)}
+.conv b{font:700 1.6rem var(--sans)}
+.passo::before{font:800 3rem var(--sans);color:var(--blue)}
+summary{font:600 1.08rem var(--sans)}
+summary::after{color:var(--blue)}
+.contato,.cta{background:linear-gradient(135deg,#33292a,#7e4c43)}
+.mapa .pin span,.mapa .pin i{background:var(--blue)}
+.mapa .pin b{background:#33292a;box-shadow:0 0 0 8px rgba(160,101,90,.25)}
+.ajuda{position:fixed;right:96px;bottom:36px;z-index:60;background:#fff;color:#111;font-weight:600;font-size:.92rem;padding:9px 14px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.flutua{width:74px;height:74px;bottom:20px}.flutua svg{width:40px;height:40px}
+.hero .wrap>div:first-child{max-width:600px}
+.hero .olho{position:absolute!important;left:auto!important;right:7%!important;top:52%!important;transform:translateY(-40%)!important;width:400px!important;max-width:400px;margin:0!important}
+.hero .olho .tag{display:none}
+.foto-aviso{right:auto;left:24px}
+@media(max-width:960px){.olho{display:none}.dd{display:none}.ajuda{display:none}}
+
+/* ===== animações refinadas ===== */
+@keyframes sobe{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes surge{from{opacity:0;transform:translateY(-40%) scale(.85)}to{opacity:.95;transform:translateY(-40%) scale(1)}}
+@keyframes flutuaO{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes brilho{0%{transform:translateX(-120%) rotate(25deg)}60%,100%{transform:translateX(220%) rotate(25deg)}}
+@keyframes onda{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.25);opacity:0}}
+@keyframes olhar{0%,40%,100%{transform:translate(0,0)}50%,70%{transform:translate(9px,-4px)}80%,90%{transform:translate(-7px,3px)}}
+@keyframes piscar{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+.hero .eyebrow,.hero h1,.hero .lead,.hero .acoes,.hero .info{opacity:0;animation:sobe .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .eyebrow{animation-delay:.15s}.hero h1{animation-delay:.3s}.hero .lead{animation-delay:.5s}.hero .acoes{animation-delay:.65s}.hero .info{animation-delay:.8s}
+.hero .wrap>div:first-child.rev{opacity:1;transform:none}
+header{animation:sobe .8s ease both}
+.hero .olho{animation:surge 1.2s .4s cubic-bezier(.2,.7,.2,1) both}
+.hero .olho svg.iris{animation:flutuaO 6s ease-in-out infinite;transform-origin:center}
+.hero .olho svg.iris .gira{transform-origin:100px 100px;animation:olhar 9s ease-in-out infinite}
+.hero .olho svg.iris{overflow:visible}
+.hero .olho .anel:nth-child(1),.hero .olho .anel:nth-child(2){animation:onda 4s ease-out infinite}
+.hero .olho .anel:nth-child(2){animation-delay:2s}
+.btn{position:relative;overflow:hidden}
+.btn-wa::after,.btn-pri::after{content:"";position:absolute;top:-50%;left:0;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:brilho 4.5s ease-in-out infinite}
+.rev{transform:translateY(40px) scale(.98);filter:blur(4px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),filter .9s}
+.rev.vis{filter:none}
+.pilar,.serv,.conv div{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
+.pilar:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(42,34,32,.14)}
+.pilar .ic{transition:transform .4s,background .4s,color .4s}
+.pilar:hover .ic,.serv:hover .n{transform:scale(1.12) rotate(-6deg)}
+.pilar:hover .ic{background:var(--blue);color:#fff}
+.serv .n{display:inline-block;transition:transform .35s}
+.conv div:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(42,34,32,.12)}
+.flutua{animation:pulsaWa 2.6s ease-in-out infinite}
+@keyframes pulsaWa{0%,100%{box-shadow:0 12px 30px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.45)}50%{box-shadow:0 12px 30px rgba(37,211,102,.45),0 0 0 14px rgba(37,211,102,0)}}
+.ajuda{animation:sobe .6s 1.6s both}
+.barra-prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#a0655a,#e8bfae);z-index:70;width:0}
+@media(prefers-reduced-motion:reduce){.hero *{opacity:1!important}}
+
+/* ===================== MOBILE FIRST ===================== */
+.burger{display:none}
+.menu-mob{display:none}
+.barra-mob{display:none}
+@media(max-width:960px){
+  body{font-size:15.5px}
+  .wrap{padding:0 20px}
+  header,header.on{padding:12px 0}
+  header.on{background:rgba(255,255,255,.94)}
+  .logo svg{width:44px;height:44px}
+  .logo b{font-size:.82rem}.logo .grande{font-size:1.45rem}.logo small{font-size:.8rem}
+  .menu{display:none}
+  .burger{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);cursor:pointer;padding:0}
+  header.on .burger{border-color:var(--line);background:#fff}
+  .burger span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;position:relative;transition:.3s}
+  header.on .burger span{background:var(--navy)}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:inherit;border-radius:2px;transition:.3s}
+  .burger span::before{top:-6px}.burger span::after{top:6px}
+  body.aberto .burger span{background:transparent!important}
+  body.aberto .burger span::before{top:0;transform:rotate(45deg);background:var(--navy)}
+  body.aberto .burger span::after{top:0;transform:rotate(-45deg);background:var(--navy)}
+  .menu-mob{display:flex;flex-direction:column;position:fixed;inset:0;z-index:45;background:#fff;padding:100px 24px 120px;gap:4px;opacity:0;visibility:hidden;transform:translateY(-12px);transition:.35s cubic-bezier(.2,.7,.2,1)}
+  body.aberto .menu-mob{opacity:1;visibility:visible;transform:none}
+  body.aberto header{background:#fff}
+  body.aberto .logo{color:var(--navy)}
+  .menu-mob a{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;border-bottom:1px solid var(--line);text-decoration:none;font:600 1.25rem var(--sans);color:var(--navy)}
+  .menu-mob a::after{content:"→";color:var(--blue);font-weight:400}
+  .menu-mob .btn{margin-top:24px;justify-content:center;border:0;color:#05301a}
+  .menu-mob .btn::after{display:none}
+  .menu-mob small{margin-top:auto;color:var(--ink-3);font-size:.85rem;line-height:1.6}
+
+  .hero{min-height:auto}
+  .hero .wrap{padding-top:118px;padding-bottom:70px}
+  .hero .wrap>div:first-child{max-width:none}
+  .hero .eyebrow{font-size:.9rem}
+  .hero h1{font-size:2.45rem;line-height:1.05;margin:14px 0 18px}
+  .hero p.lead{font-size:1.02rem}
+  .hero .acoes{flex-direction:column;gap:12px;margin-top:28px}
+  .hero .acoes .btn{justify-content:center;width:100%;padding:17px 22px;font-size:1rem}
+  .hero .info{flex-direction:column;gap:10px;margin-top:28px}
+  .hero .info span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:10px 14px;border-radius:12px;color:#fff}
+  .hero .olho{display:block!important;width:230px!important;max-width:230px!important;right:-95px!important;top:64px!important;transform:none!important;opacity:.22;animation:none!important;pointer-events:none}
+  .foto-aviso{display:none}
+
+  section{padding:64px 0}
+  .titulo{margin-bottom:30px}
+  .titulo h2{font-size:1.85rem;margin:10px 0 12px}
+  .titulo p{font-size:1rem}
+  #quem-somos .titulo{margin-top:56px!important}
+
+  .pilares{grid-template-columns:1fr;gap:12px;margin-top:0}
+  .pilar{display:grid;grid-template-columns:48px 1fr;column-gap:16px;padding:20px;box-shadow:none}
+  .pilar .ic{margin:0;grid-row:span 2;width:48px;height:48px}
+  .pilar h3{font-size:1.1rem;margin-bottom:4px}
+  .pilar p{font-size:.92rem}
+
+  .servicos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:4px 20px 18px;scrollbar-width:none}
+  .servicos::-webkit-scrollbar{display:none}
+  .serv{flex:0 0 82%;scroll-snap-align:start;padding:26px 22px}
+  .serv:hover{transform:none}
+  .deslize{display:flex!important;align-items:center;gap:8px;font-size:.84rem;color:var(--ink-3);margin-top:4px}
+  .deslize i{display:inline-block;animation:dica 1.6s ease-in-out infinite;font-style:normal;color:var(--blue)}
+  @keyframes dica{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+
+  .medico .grid{gap:30px}
+  .foto{aspect-ratio:1/1;max-width:300px;width:100%;margin:0 auto;border-radius:22px}
+  .foto .mono{font-size:5rem}
+  .medico blockquote{font-size:1.02rem;margin:20px 0}
+  .selos{gap:8px}.selo{font-size:.8rem;padding:8px 12px}
+
+  .conv{grid-template-columns:1fr 1fr;gap:12px}
+  .conv div{padding:22px 12px}
+  .conv b{font-size:1.25rem}.conv span{font-size:.8rem;display:block;line-height:1.4}
+
+  .passos{grid-template-columns:1fr;gap:0;border-left:2px solid var(--line);margin-left:22px}
+  .passo{padding:0 0 28px 28px}
+  .passo::before{position:absolute;left:-23px;top:0;width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;font:700 .95rem var(--sans);display:grid;place-items:center;margin:0}
+  .passo h3{font-size:1.1rem;padding-top:10px}
+  .passo::after{display:none}
+
+  summary{font-size:1rem;padding:4px 0}
+  details{padding:16px 0}
+
+  .local{gap:16px}
+  .mapa{min-height:260px;border-radius:20px}
+  .contato{padding:28px 22px;border-radius:20px}
+  .contato h3{font-size:1.5rem}
+  .contato .btn{width:100%;justify-content:center}
+  .cta{margin-top:56px;border-radius:22px;padding:44px 22px}
+  .cta h2{font-size:1.7rem}
+  .cta .btn{width:100%;justify-content:center}
+
+
+  .flutua,.ajuda{display:none!important}
+  .barra-mob{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:55;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 -6px 24px rgba(30,22,22,.1);transform:translateY(110%);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .barra-mob.on{transform:none}
+  .barra-mob a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:14px;text-decoration:none;font:600 .95rem var(--sans)}
+  .barra-mob .lig{border:1px solid var(--line);color:var(--navy)}
+  .barra-mob .wa{background:#25d366;color:#05301a}
+  .barra-mob svg{width:18px;height:18px}
+  body.aberto .barra-mob{transform:translateY(110%)}
+}
+.deslize{display:none}
+
+/* ===== imagens ilustrativas ===== */
+.hero{background:linear-gradient(90deg,rgba(34,25,25,.95) 0%,rgba(44,33,33,.88) 48%,rgba(70,52,50,.5) 100%),url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDEwMDAiPjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhcmVkZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2Y0ZWJlNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U3ZDhjZCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibmljaG8iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlOWQzYzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOWJiYTkiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBpc28iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkOGM2YjgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjNGFkOWMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InNvZmEiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMmI4YTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjOTk2ODYiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9Im91cm8iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWQ5YjMiLz48c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZDRhZDdhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYTc3ZDRjIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtYXJtb3JlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmJmOGY1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZTllMWRhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJlc3BlbGhvIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjZlZmU5Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNlM2QzYzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmM2U5ZTIiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImNldSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2NmZTBlYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y2ZWNlNCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibHV6IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9Ii43Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9ImJyaWxobyIgY3g9Ii41IiBjeT0iMCIgcj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMWRjIiBzdG9wLW9wYWNpdHk9Ii43NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZjFkYyIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPjxyZWN0IHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9InVybCgjcGFyZWRlKSIvPjxyZWN0IHg9Ijk0MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjEwMTAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxMDgwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTE1MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjEyMjAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxMjkwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTM2MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjE0MzAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxNTAwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTU3MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHk9Ijc0MCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMjYwIiBmaWxsPSJ1cmwoI3Bpc28pIi8+PHJlY3QgeT0iNzM2IiB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI4IiBmaWxsPSIjZWZlM2RhIi8+PHBhdGggZD0iTTMwMCAxNDAgaDMwMCB2NDMwIGgtMzAweiIgZmlsbD0idXJsKCNjZXUpIi8+PHBhdGggZD0iTTMwMCAxNDAgaDMwMCB2NDMwIGgtMzAweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjdmMGVhIiBzdHJva2Utd2lkdGg9IjE0Ii8+PHBhdGggZD0iTTQ1MCAxNDB2NDMwIiBzdHJva2U9IiNmN2YwZWEiIHN0cm9rZS13aWR0aD0iOCIvPjxwYXRoIGQ9Ik0zMDAgMTQwIEw2MDAgMTQwIEw5ODAgMTAwMCBMNjAgMTAwMCBaIiBmaWxsPSJ1cmwoI2x1eikiLz48cGF0aCBkPSJNMTAxMCA3NDAgVjMzMCBhMTkwIDE5MCAwIDAgMSAzODAgMCBWNzQwIHoiIGZpbGw9InVybCgjbmljaG8pIi8+PGVsbGlwc2UgY3g9IjEyMDAiIGN5PSIzODAiIHJ4PSIxMjAiIHJ5PSIxNTAiIGZpbGw9InVybCgjb3VybykiLz48ZWxsaXBzZSBjeD0iMTIwMCIgY3k9IjM4MCIgcng9IjEwOCIgcnk9IjEzOCIgZmlsbD0idXJsKCNlc3BlbGhvKSIvPjxwYXRoIGQ9Ik0xMTEwIDB2MTIwTTEyOTAgMHY5MCIgc3Ryb2tlPSIjYTc3ZDRjIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxMTEwIiBjeT0iMTQwIiByPSIyMiIgZmlsbD0iI2ZmZjRlMyIvPjxjaXJjbGUgY3g9IjEyOTAiIGN5PSIxMTAiIHI9IjE4IiBmaWxsPSIjZmZmNGUzIi8+PGVsbGlwc2UgY3g9IjExMTAiIGN5PSIxNzAiIHJ4PSIxNDAiIHJ5PSI4MCIgZmlsbD0idXJsKCNicmlsaG8pIi8+PGVsbGlwc2UgY3g9IjEyOTAiIGN5PSIxNDAiIHJ4PSIxMjAiIHJ5PSI3MCIgZmlsbD0idXJsKCNicmlsaG8pIi8+PHBhdGggZD0iTTk2MCA3NjAgcTAgLTE1MCAyNDAgLTE1MCBxMjQwIDAgMjQwIDE1MCB2NDAgaC00ODAgeiIgZmlsbD0idXJsKCNzb2ZhKSIvPjxyZWN0IHg9Ijk0MCIgeT0iNzQwIiB3aWR0aD0iNTIwIiBoZWlnaHQ9IjkwIiByeD0iNDQiIGZpbGw9IiNkNGE0OTMiLz48cmVjdCB4PSI5ODAiIHk9IjgyNiIgd2lkdGg9IjE0IiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iI2E3N2Q0YyIvPjxyZWN0IHg9IjE0MDYiIHk9IjgyNiIgd2lkdGg9IjE0IiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iI2E3N2Q0YyIvPjxlbGxpcHNlIGN4PSIxMDgwIiBjeT0iNzIwIiByeD0iNTYiIHJ5PSI0MCIgZmlsbD0iI2VmZDNjNyIvPjxlbGxpcHNlIGN4PSIxMzIwIiBjeT0iNzIwIiByeD0iNTYiIHJ5PSI0MCIgZmlsbD0iI2VmZDNjNyIvPjxlbGxpcHNlIGN4PSI3NjAiIGN5PSI3OTAiIHJ4PSIxMjAiIHJ5PSIyMiIgZmlsbD0iI2Q5Y2RjMyIvPjxyZWN0IHg9Ijc1MiIgeT0iNzkwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI291cm8pIi8+PGVsbGlwc2UgY3g9Ijc2MCIgY3k9IjkxMiIgcng9IjcwIiByeT0iMTIiIGZpbGw9IiNiOTk4NzciLz48ZWxsaXBzZSBjeD0iNzYwIiBjeT0iNzgyIiByeD0iMTIwIiByeT0iMjIiIGZpbGw9InVybCgjbWFybW9yZSkiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NDAgNjkwKSBzY2FsZSgwLjkpIj48cGF0aCBkPSJNLTQ2IDAgaDkyIGwtMTIgOTYgaC02OCB6IiBmaWxsPSJ1cmwoI21hcm1vcmUpIi8+PHBhdGggZD0iTS00NiAwIGg5MiIgc3Ryb2tlPSIjZDhjYmMwIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNLTEwIDAgUS0zMCAtNjAgLTYwIC03MCBRLTMwIC01MCAtMTIgLTQgTTggMCBRMjAgLTUwIDU0IC02NCBRMjQgLTQwIDEwIC0yIiBmaWxsPSIjNWY3YTVjIi8+PHBhdGggZD0iTTAgMCBDIDYgLTEyMCAzMCAtMjAwIDkwIC0yNTAiIHN0cm9rZT0iIzZiN2Y1YSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAgLTE1MCkgc2NhbGUoMSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyIC0xOTApIHNjYWxlKDAuOSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc2IC0yMjYpIHNjYWxlKDAuOCkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk4IC0yNTIpIHNjYWxlKDAuNykiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxlbGxpcHNlIGN4PSItMzYiIGN5PSItNiIgcng9IjQwIiByeT0iMTEiIGZpbGw9IiM2YjhhNjQiIHRyYW5zZm9ybT0icm90YXRlKC0xOCAtMzYgLTYpIi8+PGVsbGlwc2UgY3g9IjM2IiBjeT0iLTYiIHJ4PSI0MCIgcnk9IjExIiBmaWxsPSIjNmI4YTY0IiB0cmFuc2Zvcm09InJvdGF0ZSgxOCAzNiAtNikiLz48L2c+PHJlY3QgeD0iODAwIiB5PSI3NjAiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMiIgcng9IjMiIGZpbGw9IiNjOTk2ODYiLz48cmVjdCB4PSI4MDYiIHk9Ijc0OCIgd2lkdGg9IjYyIiBoZWlnaHQ9IjEyIiByeD0iMyIgZmlsbD0iI2VmZTNkYSIvPjxlbGxpcHNlIGN4PSIxMTUwIiBjeT0iOTMwIiByeD0iNDIwIiByeT0iNTAiIGZpbGw9IiNlZmUxZDYiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+") center/cover no-repeat!important}
+.foto-aviso{display:block!important;left:auto!important;right:24px!important;bottom:24px;background:rgba(255,255,255,.12);border-style:solid}
+.qs-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;margin-top:90px}
+.qs-grid .titulo{margin:0!important}
+.img-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(42,34,32,.18);aspect-ratio:16/11;background:#f1e6e0}
+.img-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.img-card:hover img{transform:scale(1.04)}
+.img-card span{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.9);color:var(--ink-2);font-size:.72rem;padding:5px 10px;border-radius:999px}
+.serv-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:46px}
+.serv-top .titulo{margin:0}
+@media(max-width:960px){
+  .hero{background:linear-gradient(180deg,rgba(40,30,30,.9) 0%,rgba(42,32,32,.86) 60%,rgba(40,30,30,.95) 100%),url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDEwMDAiPjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhcmVkZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2Y0ZWJlNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U3ZDhjZCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibmljaG8iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlOWQzYzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOWJiYTkiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBpc28iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkOGM2YjgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjNGFkOWMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InNvZmEiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMmI4YTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjOTk2ODYiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9Im91cm8iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWQ5YjMiLz48c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZDRhZDdhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYTc3ZDRjIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtYXJtb3JlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmJmOGY1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZTllMWRhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJlc3BlbGhvIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjZlZmU5Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNlM2QzYzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmM2U5ZTIiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImNldSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2NmZTBlYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y2ZWNlNCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibHV6IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9Ii43Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9ImJyaWxobyIgY3g9Ii41IiBjeT0iMCIgcj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMWRjIiBzdG9wLW9wYWNpdHk9Ii43NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZjFkYyIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPjxyZWN0IHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9InVybCgjcGFyZWRlKSIvPjxyZWN0IHg9Ijk0MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjEwMTAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxMDgwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTE1MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjEyMjAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxMjkwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTM2MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHg9IjE0MzAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9Ijc0MCIgZmlsbD0iI2UyZDJjNiIgb3BhY2l0eT0iLjciLz48cmVjdCB4PSIxNTAwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI3NDAiIGZpbGw9IiNlMmQyYzYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMTU3MCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNzQwIiBmaWxsPSIjZTJkMmM2IiBvcGFjaXR5PSIuNyIvPjxyZWN0IHk9Ijc0MCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMjYwIiBmaWxsPSJ1cmwoI3Bpc28pIi8+PHJlY3QgeT0iNzM2IiB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI4IiBmaWxsPSIjZWZlM2RhIi8+PHBhdGggZD0iTTMwMCAxNDAgaDMwMCB2NDMwIGgtMzAweiIgZmlsbD0idXJsKCNjZXUpIi8+PHBhdGggZD0iTTMwMCAxNDAgaDMwMCB2NDMwIGgtMzAweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjdmMGVhIiBzdHJva2Utd2lkdGg9IjE0Ii8+PHBhdGggZD0iTTQ1MCAxNDB2NDMwIiBzdHJva2U9IiNmN2YwZWEiIHN0cm9rZS13aWR0aD0iOCIvPjxwYXRoIGQ9Ik0zMDAgMTQwIEw2MDAgMTQwIEw5ODAgMTAwMCBMNjAgMTAwMCBaIiBmaWxsPSJ1cmwoI2x1eikiLz48cGF0aCBkPSJNMTAxMCA3NDAgVjMzMCBhMTkwIDE5MCAwIDAgMSAzODAgMCBWNzQwIHoiIGZpbGw9InVybCgjbmljaG8pIi8+PGVsbGlwc2UgY3g9IjEyMDAiIGN5PSIzODAiIHJ4PSIxMjAiIHJ5PSIxNTAiIGZpbGw9InVybCgjb3VybykiLz48ZWxsaXBzZSBjeD0iMTIwMCIgY3k9IjM4MCIgcng9IjEwOCIgcnk9IjEzOCIgZmlsbD0idXJsKCNlc3BlbGhvKSIvPjxwYXRoIGQ9Ik0xMTEwIDB2MTIwTTEyOTAgMHY5MCIgc3Ryb2tlPSIjYTc3ZDRjIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxMTEwIiBjeT0iMTQwIiByPSIyMiIgZmlsbD0iI2ZmZjRlMyIvPjxjaXJjbGUgY3g9IjEyOTAiIGN5PSIxMTAiIHI9IjE4IiBmaWxsPSIjZmZmNGUzIi8+PGVsbGlwc2UgY3g9IjExMTAiIGN5PSIxNzAiIHJ4PSIxNDAiIHJ5PSI4MCIgZmlsbD0idXJsKCNicmlsaG8pIi8+PGVsbGlwc2UgY3g9IjEyOTAiIGN5PSIxNDAiIHJ4PSIxMjAiIHJ5PSI3MCIgZmlsbD0idXJsKCNicmlsaG8pIi8+PHBhdGggZD0iTTk2MCA3NjAgcTAgLTE1MCAyNDAgLTE1MCBxMjQwIDAgMjQwIDE1MCB2NDAgaC00ODAgeiIgZmlsbD0idXJsKCNzb2ZhKSIvPjxyZWN0IHg9Ijk0MCIgeT0iNzQwIiB3aWR0aD0iNTIwIiBoZWlnaHQ9IjkwIiByeD0iNDQiIGZpbGw9IiNkNGE0OTMiLz48cmVjdCB4PSI5ODAiIHk9IjgyNiIgd2lkdGg9IjE0IiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iI2E3N2Q0YyIvPjxyZWN0IHg9IjE0MDYiIHk9IjgyNiIgd2lkdGg9IjE0IiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iI2E3N2Q0YyIvPjxlbGxpcHNlIGN4PSIxMDgwIiBjeT0iNzIwIiByeD0iNTYiIHJ5PSI0MCIgZmlsbD0iI2VmZDNjNyIvPjxlbGxpcHNlIGN4PSIxMzIwIiBjeT0iNzIwIiByeD0iNTYiIHJ5PSI0MCIgZmlsbD0iI2VmZDNjNyIvPjxlbGxpcHNlIGN4PSI3NjAiIGN5PSI3OTAiIHJ4PSIxMjAiIHJ5PSIyMiIgZmlsbD0iI2Q5Y2RjMyIvPjxyZWN0IHg9Ijc1MiIgeT0iNzkwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI291cm8pIi8+PGVsbGlwc2UgY3g9Ijc2MCIgY3k9IjkxMiIgcng9IjcwIiByeT0iMTIiIGZpbGw9IiNiOTk4NzciLz48ZWxsaXBzZSBjeD0iNzYwIiBjeT0iNzgyIiByeD0iMTIwIiByeT0iMjIiIGZpbGw9InVybCgjbWFybW9yZSkiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NDAgNjkwKSBzY2FsZSgwLjkpIj48cGF0aCBkPSJNLTQ2IDAgaDkyIGwtMTIgOTYgaC02OCB6IiBmaWxsPSJ1cmwoI21hcm1vcmUpIi8+PHBhdGggZD0iTS00NiAwIGg5MiIgc3Ryb2tlPSIjZDhjYmMwIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNLTEwIDAgUS0zMCAtNjAgLTYwIC03MCBRLTMwIC01MCAtMTIgLTQgTTggMCBRMjAgLTUwIDU0IC02NCBRMjQgLTQwIDEwIC0yIiBmaWxsPSIjNWY3YTVjIi8+PHBhdGggZD0iTTAgMCBDIDYgLTEyMCAzMCAtMjAwIDkwIC0yNTAiIHN0cm9rZT0iIzZiN2Y1YSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAgLTE1MCkgc2NhbGUoMSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyIC0xOTApIHNjYWxlKDAuOSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc2IC0yMjYpIHNjYWxlKDAuOCkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk4IC0yNTIpIHNjYWxlKDAuNykiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxlbGxpcHNlIGN4PSItMzYiIGN5PSItNiIgcng9IjQwIiByeT0iMTEiIGZpbGw9IiM2YjhhNjQiIHRyYW5zZm9ybT0icm90YXRlKC0xOCAtMzYgLTYpIi8+PGVsbGlwc2UgY3g9IjM2IiBjeT0iLTYiIHJ4PSI0MCIgcnk9IjExIiBmaWxsPSIjNmI4YTY0IiB0cmFuc2Zvcm09InJvdGF0ZSgxOCAzNiAtNikiLz48L2c+PHJlY3QgeD0iODAwIiB5PSI3NjAiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMiIgcng9IjMiIGZpbGw9IiNjOTk2ODYiLz48cmVjdCB4PSI4MDYiIHk9Ijc0OCIgd2lkdGg9IjYyIiBoZWlnaHQ9IjEyIiByeD0iMyIgZmlsbD0iI2VmZTNkYSIvPjxlbGxpcHNlIGN4PSIxMTUwIiBjeT0iOTMwIiByeD0iNDIwIiByeT0iNTAiIGZpbGw9IiNlZmUxZDYiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+") 62% center/cover no-repeat!important}
+  .foto-aviso{display:none!important}
+  .qs-grid,.serv-top{grid-template-columns:1fr;gap:26px;margin-top:56px}
+  .serv-top{margin-top:0;margin-bottom:26px}
+  .img-card{border-radius:18px}
+}
+
+/* ===== faixa de confiança ===== */
+.confianca{background:#fff;border-bottom:1px solid var(--line)}
+.confianca .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.confianca div.it{display:flex;gap:14px;align-items:center;padding:26px 18px;border-right:1px solid var(--line)}
+.confianca div.it:last-child{border-right:0}
+.confianca i{flex:none;width:46px;height:46px;border-radius:14px;background:#f7eee9;color:var(--blue);display:grid;place-items:center;font-style:normal}
+.confianca i svg{width:22px;height:22px}
+.confianca b{display:block;color:var(--navy);font-size:.98rem}
+.confianca small{color:var(--ink-3);font-size:.82rem}
+/* ===== teste de visão ===== */
+.teste{background:linear-gradient(160deg,#2a1f20,#5a3f3b);color:#fff;position:relative;overflow:hidden}
+.teste::before{content:"";position:absolute;width:520px;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.12);right:-160px;top:-160px}
+.teste .titulo h2,.teste .titulo p{color:#fff}.teste .titulo p{opacity:.8}.teste .titulo h2 em{color:#f0cfc2}
+.teste .eyebrow{color:#f0cfc2}
+.teste-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.cartela{background:#fff;color:#111;border-radius:22px;padding:34px 24px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.25);min-height:330px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px}
+.cartela .letra{font:800 6rem/1 Arial,Helvetica,sans-serif;letter-spacing:.06em;transition:font-size .4s cubic-bezier(.2,.7,.2,1),opacity .25s}
+.cartela .nivel{font-size:.8rem;color:#86766f;letter-spacing:.12em;text-transform:uppercase}
+.opcoes{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.opcoes button{min-width:62px;min-height:52px;border-radius:14px;border:1px solid #eadbd3;background:#fcf8f6;font:700 1.2rem var(--sans);color:var(--navy);cursor:pointer;transition:.2s}
+.opcoes button:hover{border-color:var(--blue);background:#f7eee9}
+.opcoes button.ok{background:#22c55e;color:#fff;border-color:#22c55e}
+.opcoes button.erro{background:#ef4444;color:#fff;border-color:#ef4444}
+.teste-res{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:22px;margin-top:22px}
+.teste-res b{font-size:1.15rem}
+.teste-passos{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.teste-passos li{display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,.85);font-size:.95rem}
+.teste-passos li span{flex:none;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.aviso-med{font-size:.78rem;color:rgba(255,255,255,.6);margin-top:18px}
+/* ===== agendamento ===== */
+.agenda{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.form-ag{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 24px 50px rgba(42,34,32,.08);display:grid;gap:18px}
+.form-ag label{display:grid;gap:8px;font-weight:600;font-size:.9rem;color:var(--navy)}
+.form-ag input[type=text]{border:1px solid var(--line);border-radius:12px;padding:14px 16px;font:inherit;font-weight:400;font-size:1rem;background:#fcf9f7}
+.form-ag input[type=text]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(160,101,90,.15);background:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{display:inline-flex;font-weight:500;font-size:.92rem;color:var(--ink-2);padding:11px 16px;border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:.2s;background:#fcf9f7}
+.chips input:checked+label{background:var(--blue);border-color:var(--blue);color:#fff}
+.chips input:focus-visible+label{outline:2px solid var(--blue);outline-offset:2px}
+.form-ag .btn{justify-content:center;width:100%;padding:17px;font-size:1.02rem}
+.form-ag .erro-msg{color:#dc2626;font-size:.85rem;display:none}
+.previa-msg{background:#e8f6ee;border-radius:14px;padding:14px 16px;font-size:.88rem;color:#14532d;white-space:pre-line;border:1px solid #c7ebd5}
+.previa-msg small{display:block;color:#3f7a57;font-size:.74rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+@media(max-width:960px){
+  .confianca .wrap{grid-template-columns:1fr 1fr;padding:0}
+  .qs-grid{margin-top:40px!important}
+  .confianca div.it{padding:16px 14px;border-bottom:1px solid var(--line);gap:10px}
+  .confianca div.it:nth-child(2n){border-right:0}
+  .confianca i{width:38px;height:38px;border-radius:11px}
+  .confianca b{font-size:.86rem}.confianca small{font-size:.74rem}
+  .teste-grid,.agenda{grid-template-columns:1fr;gap:28px}
+  .cartela{min-height:280px;padding:28px 16px}
+  .form-ag{padding:22px;border-radius:20px}
+}
+
+/* ===== teste de visão v2 ===== */
+.cartela{display:block!important;min-height:0!important;padding:26px 28px 28px!important;text-align:left!important;border-radius:26px!important;position:relative}
+.c-top{display:flex;justify-content:space-between;align-items:center}
+.c-tag{display:inline-flex;align-items:center;gap:8px;font:600 .78rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.c-tag i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.c-niv{font:700 .85rem var(--sans);color:var(--blue);background:#f7eee9;padding:6px 12px;border-radius:999px}
+.c-prog{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:18px 0 8px}
+.c-prog i{height:6px;border-radius:6px;background:#f1e6e0;transition:background .4s}
+.c-prog i.feito{background:#22c55e}.c-prog i.atual{background:var(--blue)}.c-prog i.errou{background:#ef4444}
+.c-arena{display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:64px 170px 64px;gap:10px;align-items:center;justify-items:center;max-width:360px;margin:12px auto 0}
+.c-arena button{width:64px;height:64px;border-radius:18px;border:1px solid #eadbd3;background:#fcf8f6;color:var(--navy);display:grid;place-items:center;cursor:pointer;transition:transform .15s,background .2s,border-color .2s,color .2s}
+.c-arena button svg{width:26px;height:26px}
+.c-arena button:hover{background:#f7eee9;border-color:var(--blue);color:var(--blue)}
+.c-arena button:active{transform:scale(.94)}
+.c-arena button.ok{background:#22c55e;border-color:#22c55e;color:#fff}
+.c-arena button.erro{background:#ef4444;border-color:#ef4444;color:#fff;animation:treme .35s}
+@keyframes treme{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.b-up{grid-column:2;grid-row:1}.b-left{grid-column:1;grid-row:2}.b-right{grid-column:3;grid-row:2}.b-down{grid-column:2;grid-row:3}
+.c-alvo{grid-column:2;grid-row:2;width:100%;height:100%;display:grid;place-items:center;border-radius:22px;background:radial-gradient(circle,#fff 55%,#faf4f1 100%);border:1px dashed #eadbd3}
+.c-alvo svg{display:block;transition:width .45s cubic-bezier(.2,.7,.2,1),height .45s cubic-bezier(.2,.7,.2,1),transform .35s cubic-bezier(.2,.7,.2,1),opacity .2s}
+.c-dica{text-align:center;color:var(--ink-3);font-size:.9rem;margin-top:16px}
+.c-dica b{color:var(--navy)}
+.c-fim{text-align:center;padding:10px 0 4px}
+.c-placar{position:relative;width:130px;height:130px;margin:6px auto 14px}
+.c-placar svg{width:100%;height:100%}
+.c-placar circle#tArco{transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1)}
+.c-placar b{position:absolute;inset:0;display:grid;place-items:center;font:800 1.9rem var(--sans);color:var(--navy)}
+.c-fim h3{font-size:1.3rem;color:var(--navy);margin-bottom:6px}
+.c-fim p{color:var(--ink-2);font-size:.95rem;max-width:40ch;margin:0 auto}
+.c-acoes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.c-denovo{background:#faf4f1;color:var(--navy)}
+.teste .teste-res{display:none}
+@media(max-width:960px){
+  .cartela{padding:22px 18px 22px!important}
+  .c-arena{grid-template-columns:58px 1fr 58px;grid-template-rows:58px 150px 58px;gap:8px}
+  .c-arena button{width:58px;height:58px;border-radius:16px}
+  .c-acoes .btn{width:100%;justify-content:center}
+}
+
+/* ===== convênios que atendemos ===== */
+.conv-sec{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.conv-sec .titulo h2{font-size:clamp(2rem,4vw,3.2rem)}
+.cv-lista{list-style:none;padding:0;margin:0 auto 46px;display:grid;grid-template-columns:repeat(2,max-content);justify-content:center;gap:14px 46px}
+.cv-lista li{display:flex;align-items:center;gap:12px;font-size:1.12rem;color:var(--ink)}
+.cv-lista svg{width:20px;height:20px;color:var(--navy);flex:none}
+.cv-carrossel{display:grid;grid-template-columns:52px 1fr 52px;align-items:center;gap:12px}
+.cv-seta{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--navy);display:grid;place-items:center;cursor:pointer;transition:.2s}
+.cv-seta:hover{border-color:var(--blue);color:var(--blue)}
+.cv-seta svg{width:22px;height:22px}
+.cv-seta[hidden]{visibility:hidden;display:grid}
+.cv-trilho{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 2px;justify-content:safe center}
+.cv-trilho::-webkit-scrollbar{display:none}
+.cv-card{flex:0 0 250px;scroll-snap-align:start;display:flex;align-items:center;gap:14px;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:#fcf9f7;transition:transform .3s,box-shadow .3s,border-color .3s}
+.cv-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(42,34,32,.1);border-color:transparent;background:#fff}
+.cv-ini{flex:none;width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#33292a,#a0655a);color:#fff;display:grid;place-items:center;font:800 1.3rem var(--sans)}
+.cv-card b{display:block;color:var(--navy);font-size:1.05rem}
+.cv-card small{color:var(--ink-3);font-size:.84rem}
+.cv-outro{border-style:dashed;background:#fff}
+.cv-outro .cv-ini{background:#f7eee9;color:var(--blue)}
+.cv-nota{text-align:center;margin-top:26px;color:var(--ink-2);font-size:.95rem}
+.cv-nota a{color:var(--blue);font-weight:600}
+@media(max-width:960px){
+  .cv-lista{grid-template-columns:repeat(2,max-content);gap:12px 28px;margin-bottom:30px}
+  .cv-lista li{font-size:1rem}
+  .cv-carrossel{grid-template-columns:1fr}
+  .cv-seta{display:none!important}
+  .cv-trilho{margin:0 -20px;padding:6px 20px;justify-content:flex-start}
+  .cv-card{flex-basis:78%}
+}
+
+.cv-faixa{position:relative;display:flex;overflow:hidden;gap:18px;padding:8px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.cv-mover{flex:none;display:flex;gap:18px;min-width:100%;animation:passa 28s linear infinite}
+.cv-faixa:hover .cv-mover{animation-play-state:paused}
+@keyframes passa{from{transform:translateX(0)}to{transform:translateX(calc(-100% - 18px))}}
+.cv-faixa .cv-card{flex:0 0 250px}
+@media(max-width:960px){.cv-faixa{margin:0 -20px}.cv-faixa .cv-card{flex-basis:220px;padding:16px 18px}.cv-mover{animation-duration:22s}}
+@media(prefers-reduced-motion:reduce){.cv-mover{animation:none!important}}
+
+/* ===== WhatsApp refinado ===== */
+.wa-ic{width:20px;height:20px;flex:none}
+.btn-wa{background:linear-gradient(135deg,#2fe073 0%,#1fbf5b 55%,#14a34a 100%)!important;color:#fff!important;box-shadow:0 10px 26px rgba(31,191,91,.38),inset 0 1px 0 rgba(255,255,255,.35)!important;border:0!important;font-weight:700!important;letter-spacing:.01em}
+.btn-wa:hover{box-shadow:0 14px 32px rgba(31,191,91,.5),inset 0 1px 0 rgba(255,255,255,.35)!important}
+.btn-wa .wa-ic{width:21px;height:21px}
+.barra-mob .wa{background:linear-gradient(135deg,#2fe073,#14a34a)!important;color:#fff!important;font-weight:700}
+.barra-mob .wa .wa-ic{width:20px;height:20px}
+.flutua,.ajuda{display:none!important}
+.wa-box{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.wa-fab{position:relative;width:66px;height:66px;border-radius:50%;border:0;cursor:pointer;color:#fff;display:grid;place-items:center;background:linear-gradient(135deg,#2fe073,#14a34a);box-shadow:0 14px 34px rgba(20,163,74,.45);transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.wa-fab:hover{transform:scale(1.07) rotate(-4deg)}
+.wa-fab .wa-ic{width:34px;height:34px}
+.wa-fab::before,.wa-fab::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:anelWa 2.4s ease-out infinite;pointer-events:none}
+.wa-fab::after{animation-delay:1.2s}
+@keyframes anelWa{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+.wa-badge{position:absolute;top:-2px;right:-2px;width:22px;height:22px;border-radius:50%;background:#ef4444;color:#fff;font:700 .75rem var(--sans);display:grid;place-items:center;border:2px solid #fff;transition:transform .3s}
+.wa-box.lido .wa-badge{transform:scale(0)}
+.wa-card{position:relative;width:300px;background:#fff;border-radius:20px;box-shadow:0 24px 60px rgba(30,22,22,.22);overflow:hidden;transform-origin:bottom right;opacity:0;transform:translateY(12px) scale(.92);pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.9,.25,1.2)}
+.wa-box.aberto .wa-card{opacity:1;transform:none;pointer-events:auto}
+.wa-head{display:flex;gap:12px;align-items:center;padding:16px 18px;background:linear-gradient(135deg,#2a2220,#7e4c43);color:#fff}
+.wa-av{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
+.wa-av svg{width:30px;height:30px}
+.wa-head b{display:block;font-size:.98rem}
+.wa-head small{display:flex;align-items:center;gap:6px;font-size:.78rem;opacity:.85}
+.wa-head small i{width:8px;height:8px;border-radius:50%;background:#2fe073;box-shadow:0 0 0 3px rgba(47,224,115,.25)}
+.wa-x{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:1.2rem;line-height:1;cursor:pointer;z-index:2}
+.wa-msg{margin:16px 16px 0;background:#f0f5ef;border-radius:4px 16px 16px 16px;padding:12px 14px;font-size:.92rem;color:#1f2a24;line-height:1.5;position:relative}
+.wa-cta{display:flex;align-items:center;justify-content:center;gap:9px;margin:14px 16px 16px;padding:13px;border-radius:12px;text-decoration:none;color:#fff;font-weight:700;font-size:.95rem;background:linear-gradient(135deg,#2fe073,#14a34a);box-shadow:0 8px 20px rgba(20,163,74,.3)}
+@media(max-width:960px){.wa-box{display:none}}
+@media(prefers-reduced-motion:reduce){.wa-fab::before,.wa-fab::after{animation:none}}
+
+/* ===== rodapé ===== */
+.rodape{background:#231b1b;color:#fff;padding:96px 0 0;position:relative}
+.rd-grid{display:grid;grid-template-columns:1.25fr .55fr .85fr;gap:56px;padding-bottom:70px}
+.rd-logo{color:#fff!important;margin-bottom:26px}
+.rd-logo svg{width:54px;height:54px}
+.rd-marca p{color:rgba(255,255,255,.9);font-size:1.06rem;line-height:1.65;max-width:500px;margin:0 0 30px}
+.rd-redes{display:flex;gap:12px}
+.rd-redes a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);transition:background .25s,transform .25s,border-color .25s}
+.rd-redes a:hover{background:#a0655a;border-color:#a0655a;transform:translateY(-3px)}
+.rd-redes svg{width:22px;height:22px}
+.rd-col{display:flex;flex-direction:column;gap:18px}
+.rd-col h4{margin:0 0 6px;font:700 1.25rem var(--sans);color:#fff}
+.rd-col>a{color:rgba(255,255,255,.92);text-decoration:none;font-size:1.08rem;width:max-content;position:relative;transition:color .2s}
+.rd-col>a::after{content:"";position:absolute;left:0;bottom:-3px;height:1.5px;width:0;background:#e8bfae;transition:width .25s}
+.rd-col>a:hover{color:#fff}.rd-col>a:hover::after{width:100%}
+.rd-info .rd-item{display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,.92);text-decoration:none;font-size:1.04rem;line-height:1.5;width:auto}
+.rd-info .rd-item::after{display:none}
+.rd-item svg{width:22px;height:22px;flex:none;margin-top:2px;color:#fff}
+.rd-info a.rd-item:hover span{color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(232,191,174,.7)}
+.rd-base{border-top:1px solid rgba(255,255,255,.12);padding:28px 20px 34px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.rd-base span{color:rgba(255,255,255,.88);font-size:.95rem}
+.rd-base small{color:rgba(255,255,255,.5);font-size:.8rem}
+.rd-base small b{color:rgba(255,255,255,.8);font-weight:700;letter-spacing:.04em}
+@media(max-width:960px){
+  .rodape{padding-top:64px}
+  .rd-grid{grid-template-columns:1fr;gap:40px;padding-bottom:44px}
+  .rd-marca p{font-size:1rem}
+  .rd-col{gap:14px}
+  .rd-col>a{font-size:1.02rem}
+  .rd-base{padding:24px 20px 110px}
+  .rd-base span{font-size:.85rem}
+}
+
+/* ===== idioma PT / EN ===== */
+.lang{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.lang button{display:flex;align-items:center;gap:6px;padding:6px 11px;border:0;border-radius:999px;background:transparent;font:600 .78rem/1 var(--sans);letter-spacing:.02em;color:var(--ink-3);cursor:pointer;transition:background .2s,color .2s}
+.lang button:hover{color:var(--navy)}
+.lang button.on{background:#f7eee9;color:var(--navy)}
+.lang svg{width:19px;height:13.5px;border-radius:2.5px;box-shadow:0 0 0 1px rgba(0,0,0,.08);flex:none}
+header:not(.on) .lang-top{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28)}
+header:not(.on) .lang-top button{color:rgba(255,255,255,.75)}
+header:not(.on) .lang-top button:hover{color:#fff}
+header:not(.on) .lang-top button.on{background:rgba(255,255,255,.22);color:#fff}
+.menu .lang-top{margin-left:-14px}
+.menu-mob .lang-mob{align-self:flex-start;margin-top:22px}
+.menu-mob .lang-mob button{padding:7px 12px;font-size:.8rem}
+.menu-mob .lang-mob+.btn{margin-top:18px}
+.menu{gap:28px}
+.menu>a,.menu .dd>span{white-space:nowrap}
+.menu .btn{padding:14px 26px!important}
+@media(max-width:1240px){.menu{gap:20px}.menu>a,.menu .dd>span{font-size:.92rem}.menu .btn{padding:12px 20px!important;font-size:.92rem!important}.menu .lang-top{margin-left:-6px}.lang-top button{padding:6px 9px}}
+@media(max-width:1080px){.menu .dd{display:none}}
+
+/* ===== mapa do Google ===== */
+.mapa-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.mapa-g{flex:1;min-height:400px;background:#f1e6e0;border:1px solid var(--line);box-shadow:var(--sh)}
+.mapa-g iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.mapa-link{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--navy);font-weight:600;font-size:.92rem;text-decoration:none;transition:border-color .2s,color .2s}
+.mapa-link:hover{border-color:var(--blue);color:var(--blue)}
+.mapa-link svg{width:18px;height:18px}.mapa-link .seta{width:15px;height:15px;opacity:.6}
+@media(max-width:960px){.mapa-g{min-height:320px}}
+/* atalhos do menu não ficam embaixo do cabeçalho */
+html{scroll-padding-top:96px}
+#quem-somos{scroll-margin-top:30px}
+@media(max-width:960px){html{scroll-padding-top:84px}#quem-somos{scroll-margin-top:0}}
+
+/* logos dos convênios */
+.cv-marca{flex-direction:column;justify-content:center;align-items:center;gap:8px;background:#fff}
+.cv-logo{display:block;width:150px;height:50px;background:center/contain no-repeat}
+
+.cv-marca small{font-size:.8rem}
+@media(max-width:960px){.cv-logo{width:128px;height:43px}}
+
+/* ===== ajustes do Lucas ===== */
+/* primeira seção ocupa exatamente a altura da tela */
+.hero{min-height:100vh;min-height:100svh;height:auto;padding:0!important}
+.hero .wrap{width:100%;padding-top:clamp(100px,14vh,140px);padding-bottom:clamp(28px,6vh,72px)}
+.hero h1{font-size:clamp(2.6rem,min(6.2vw,8.6vh),5.4rem);max-width:16ch;margin:clamp(10px,2.2vh,22px) 0 clamp(12px,2.6vh,24px)}
+.hero .lead{max-width:56ch}
+.hero .acoes{margin-top:clamp(18px,4vh,36px)}
+.hero .info{margin-top:clamp(18px,4.4vh,44px)}
+@media(max-width:960px){
+  .hero{min-height:100vh;min-height:100svh}
+  .hero .wrap{padding-top:104px;padding-bottom:28px}
+  .hero h1{font-size:clamp(2.1rem,9.6vw,2.6rem);max-width:none;margin:12px 0 14px}
+  .hero .lead{font-size:1rem}
+  .hero .acoes{margin-top:24px}.hero .info{margin-top:18px}
+}
+/* destaques do topo no celular: cartões alinhados e letras padronizadas */
+@media(max-width:960px){
+  .confianca{background:var(--bg,#fcf9f7);border-bottom:0}
+  .confianca .wrap{grid-template-columns:1fr 1fr;gap:10px;padding:18px 20px 6px}
+  .confianca div.it{flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px;border:1px solid var(--line)!important;border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(42,34,32,.04)}
+  .confianca i{width:38px;height:38px;border-radius:11px}
+  .confianca i svg{width:19px;height:19px}
+  .confianca b{font-size:.9rem;line-height:1.25;font-weight:700}
+  .confianca small{display:block;margin-top:3px;font-size:.78rem;line-height:1.35}
+}
+/* espaço entre a imagem da clínica e os cartões (celular) */
+@media(max-width:960px){.pilares{margin-top:28px!important}}
+@media(min-width:961px){.hero .foto-aviso{right:118px!important}}
+
+/* ===== advocacia: tipografia e componentes ===== */
+:root{--law:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+h1,h2{font-family:var(--law)!important;font-weight:600!important;letter-spacing:-.005em!important}
+h1 em,h2 em,.titulo h2 em{font-style:italic}
+.hero h1{font-size:clamp(3rem,min(7vw,9.8vh),6.1rem)!important;line-height:.98!important;max-width:15ch}
+.titulo h2,.conv-sec .titulo h2{font-size:clamp(2.4rem,4.2vw,3.6rem)}
+.cta h2{font-size:clamp(2.4rem,4.4vw,3.6rem)}
+.contato h3{font-family:var(--law);font-weight:600;font-size:2.3rem}
+.logo .grande{font:700 2.05rem/.92 var(--law)!important;letter-spacing:0!important}
+.logo b{font-weight:600}
+.logo small{letter-spacing:.24em!important;text-transform:uppercase!important;font-size:.66rem!important;font-weight:600!important;margin-top:3px;display:block}
+.foto .mono{font:600 7rem var(--law)!important}
+.foto .mono em{font-style:italic}
+.cv-ini{font-size:1rem!important;letter-spacing:.02em}
+.q-prog{grid-template-columns:repeat(3,1fr)!important}
+.q-perg{font:700 1.3rem/1.3 var(--sans)!important;color:var(--navy);margin:16px 0 14px;letter-spacing:-.01em}
+.q-ops{display:grid;gap:10px}
+.q-ops.duas{grid-template-columns:1fr 1fr}
+.logo b{font-size:.78rem!important;letter-spacing:.14em;text-transform:uppercase}
+.q-op{text-align:left;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:#fcf8f6;font:500 .94rem/1.3 var(--sans);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,transform .2s,color .2s}
+.q-op:hover{border-color:#c48b7c;background:#fff;transform:translateY(-1px)}
+.q-op.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+.q-voltar{margin-top:12px;background:none;border:0;color:var(--ink-3);font:500 .88rem var(--sans);cursor:pointer;padding:6px 0}
+.q-voltar:hover{color:var(--navy)}
+.q-selo{width:86px;height:86px;margin:4px auto 12px;border-radius:50%;background:#f7eee9;display:grid;place-items:center;color:#a0655a}
+.q-selo svg{width:44px;height:44px}
+.q-rot{display:block;font:600 .72rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+#qArea{font:600 2rem/1.1 var(--law)!important;margin-bottom:10px}
+.adv-lista{display:grid;gap:12px;margin-top:24px}
+.adv{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:#faf8f4}
+.adv>span{flex:none;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#16233b,#2b3d60);color:#e3cc9f;display:grid;place-items:center;font:600 1.15rem var(--law);letter-spacing:.04em}
+.adv b{display:block;color:var(--navy);font-size:1rem;line-height:1.3}
+.adv small{color:var(--ink-3);font-size:.84rem}
+.contato .linha>div{min-width:0}.contato .email{overflow-wrap:anywhere;font-size:.92rem}
+.rd-previa{display:block;max-width:60ch;color:rgba(255,255,255,.42)!important;font-size:.74rem!important;margin-top:4px}
+@media(max-width:960px){
+  .hero h1{font-size:2.75rem!important;line-height:1!important}
+  .titulo h2{font-size:2.15rem}
+  .cta h2{font-size:2rem}
+  .contato h3{font-size:1.8rem}
+  .logo .grande{font-size:1.6rem!important}
+  .q-ops.duas{grid-template-columns:1fr}
+  .q-op{padding:12px 14px}
+  .foto .mono{font-size:5.4rem!important}
+}
+</style>
+</head>
+<body>
+<div class="barra-prog" id="prog"></div>
+
+<header id="topo">
+  <div class="wrap nav">
+    <a class="logo" href="#inicio">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="18.5" stroke="currentColor" stroke-width="1.3" opacity=".55"/><path d="M20 31C13.5 25.5 11.5 17.5 13.2 9.5 17.4 14.4 19.6 21.6 20 31Z" stroke="#d9a594" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31C26.5 25.5 28.5 17.5 26.8 9.5 22.6 14.4 20.4 21.6 20 31Z" stroke="#d9a594" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31V15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14 33h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span><b>Instituto Dra.</b><span class="grande">Vanessa</span><small>Brandalise</small></span>
+    </a>
+    <nav class="menu">
+      <a class="ativo" href="#inicio">Início</a>
+      <a href="#quem-somos">O Instituto</a>
+      <a href="#medico">A Médica</a>
+      <div class="dd"><span>Procedimentos</span><ul>
+        <li><a href="#servicos">Cirurgias das mamas</a></li><li><a href="#servicos">Contorno corporal</a></li><li><a href="#servicos">Face e rejuvenescimento</a></li><li><a href="#destaques">Todos os procedimentos</a></li><li><a href="#teste">Descubra seu procedimento</a></li></ul></div>
+      <a href="#contato">Contato</a>
+      <a class="btn btn-pri" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener">Agendar avaliação</a>
+      <div class="lang lang-top" role="group" aria-label="Idioma / Language"><button type="button" data-lang="pt" class="on" aria-pressed="true" lang="pt-BR"><svg viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" fill="#009c3b"/><path d="M14 2.2 25.6 10 14 17.8 2.4 10z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.6" fill="#002776"/><path d="M9.6 9.1c3-.6 6.2.2 8.8 2.2" stroke="#fff" stroke-width="1" fill="none"/></svg><span>PT</span></button><button type="button" data-lang="en" aria-pressed="false" lang="en"><svg viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" fill="#b22234"/><rect y="1.538" width="28" height="1.538" fill="#fff"/><rect y="4.615" width="28" height="1.538" fill="#fff"/><rect y="7.692" width="28" height="1.538" fill="#fff"/><rect y="10.769" width="28" height="1.538" fill="#fff"/><rect y="13.846" width="28" height="1.538" fill="#fff"/><rect y="16.923" width="28" height="1.538" fill="#fff"/><rect width="12" height="10.769" fill="#3c3b6e"/><circle cx="1.40" cy="1.20" r=".42" fill="#fff"/><circle cx="3.50" cy="1.20" r=".42" fill="#fff"/><circle cx="5.60" cy="1.20" r=".42" fill="#fff"/><circle cx="7.70" cy="1.20" r=".42" fill="#fff"/><circle cx="9.80" cy="1.20" r=".42" fill="#fff"/><circle cx="2.45" cy="2.95" r=".42" fill="#fff"/><circle cx="4.55" cy="2.95" r=".42" fill="#fff"/><circle cx="6.65" cy="2.95" r=".42" fill="#fff"/><circle cx="8.75" cy="2.95" r=".42" fill="#fff"/><circle cx="1.40" cy="4.70" r=".42" fill="#fff"/><circle cx="3.50" cy="4.70" r=".42" fill="#fff"/><circle cx="5.60" cy="4.70" r=".42" fill="#fff"/><circle cx="7.70" cy="4.70" r=".42" fill="#fff"/><circle cx="9.80" cy="4.70" r=".42" fill="#fff"/><circle cx="2.45" cy="6.45" r=".42" fill="#fff"/><circle cx="4.55" cy="6.45" r=".42" fill="#fff"/><circle cx="6.65" cy="6.45" r=".42" fill="#fff"/><circle cx="8.75" cy="6.45" r=".42" fill="#fff"/><circle cx="1.40" cy="8.20" r=".42" fill="#fff"/><circle cx="3.50" cy="8.20" r=".42" fill="#fff"/><circle cx="5.60" cy="8.20" r=".42" fill="#fff"/><circle cx="7.70" cy="8.20" r=".42" fill="#fff"/><circle cx="9.80" cy="8.20" r=".42" fill="#fff"/><circle cx="2.45" cy="9.95" r=".42" fill="#fff"/><circle cx="4.55" cy="9.95" r=".42" fill="#fff"/><circle cx="6.65" cy="9.95" r=".42" fill="#fff"/><circle cx="8.75" cy="9.95" r=".42" fill="#fff"/></svg><span>EN</span></button></div>
+    </nav>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+<nav class="menu-mob" id="menuMob" aria-label="Menu">
+  <a href="#quem-somos">O Instituto</a>
+  <a href="#medico">A Médica</a>
+  <a href="#servicos">Procedimentos</a>
+  <a href="#teste">Descubra seu procedimento</a>
+  <a href="#agendar">Agendar avaliação</a>
+  <a href="#duvidas">Dúvidas</a>
+  <a href="#contato">Contato</a>
+  <div class="lang lang-mob" role="group" aria-label="Idioma / Language"><button type="button" data-lang="pt" class="on" aria-pressed="true" lang="pt-BR"><svg viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" fill="#009c3b"/><path d="M14 2.2 25.6 10 14 17.8 2.4 10z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.6" fill="#002776"/><path d="M9.6 9.1c3-.6 6.2.2 8.8 2.2" stroke="#fff" stroke-width="1" fill="none"/></svg><span>PT</span></button><button type="button" data-lang="en" aria-pressed="false" lang="en"><svg viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" fill="#b22234"/><rect y="1.538" width="28" height="1.538" fill="#fff"/><rect y="4.615" width="28" height="1.538" fill="#fff"/><rect y="7.692" width="28" height="1.538" fill="#fff"/><rect y="10.769" width="28" height="1.538" fill="#fff"/><rect y="13.846" width="28" height="1.538" fill="#fff"/><rect y="16.923" width="28" height="1.538" fill="#fff"/><rect width="12" height="10.769" fill="#3c3b6e"/><circle cx="1.40" cy="1.20" r=".42" fill="#fff"/><circle cx="3.50" cy="1.20" r=".42" fill="#fff"/><circle cx="5.60" cy="1.20" r=".42" fill="#fff"/><circle cx="7.70" cy="1.20" r=".42" fill="#fff"/><circle cx="9.80" cy="1.20" r=".42" fill="#fff"/><circle cx="2.45" cy="2.95" r=".42" fill="#fff"/><circle cx="4.55" cy="2.95" r=".42" fill="#fff"/><circle cx="6.65" cy="2.95" r=".42" fill="#fff"/><circle cx="8.75" cy="2.95" r=".42" fill="#fff"/><circle cx="1.40" cy="4.70" r=".42" fill="#fff"/><circle cx="3.50" cy="4.70" r=".42" fill="#fff"/><circle cx="5.60" cy="4.70" r=".42" fill="#fff"/><circle cx="7.70" cy="4.70" r=".42" fill="#fff"/><circle cx="9.80" cy="4.70" r=".42" fill="#fff"/><circle cx="2.45" cy="6.45" r=".42" fill="#fff"/><circle cx="4.55" cy="6.45" r=".42" fill="#fff"/><circle cx="6.65" cy="6.45" r=".42" fill="#fff"/><circle cx="8.75" cy="6.45" r=".42" fill="#fff"/><circle cx="1.40" cy="8.20" r=".42" fill="#fff"/><circle cx="3.50" cy="8.20" r=".42" fill="#fff"/><circle cx="5.60" cy="8.20" r=".42" fill="#fff"/><circle cx="7.70" cy="8.20" r=".42" fill="#fff"/><circle cx="9.80" cy="8.20" r=".42" fill="#fff"/><circle cx="2.45" cy="9.95" r=".42" fill="#fff"/><circle cx="4.55" cy="9.95" r=".42" fill="#fff"/><circle cx="6.65" cy="9.95" r=".42" fill="#fff"/><circle cx="8.75" cy="9.95" r=".42" fill="#fff"/></svg><span>EN</span></button></div>
+  <a class="btn btn-wa" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+  <small>R. Frei Manoel da Ressurreição, 1181 · Jardim Guanabara · Campinas/SP<br>Seg. a sex. · 12h às 18h</small>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div class="rev">
+      <span class="eyebrow">Cirurgia plástica e estética · Campinas</span>
+      <h1>Beleza com segurança e <em>cuidado em cada detalhe.</em></h1>
+      <p class="lead">Cirurgia plástica e procedimentos estéticos com a Dra. Vanessa Brandalise, cirurgiã plástica formada e especializada pela USP, em um espaço pensado para acolher você.</p>
+      <div class="acoes">
+        <a class="btn btn-wa" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg>
+          Agendar avaliação
+        </a>
+        <a class="btn btn-pri" href="#servicos">Ver procedimentos</a>
+      </div>
+      <div class="info">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>R. Frei Manoel da Ressurreição, 1181</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Seg. a sex. · 12h às 18h</span>
+      </div>
+    </div>
+    </div>
+  </div>
+  <span class="foto-aviso">Prévia de demonstração · imagens ilustrativas</span>
+</section>
+
+<div class="confianca">
+  <div class="wrap">
+    <div class="it"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><div><b>Jardim Guanabara</b><small>Campinas · SP</small></div></div>
+    <div class="it"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 9 12 4 2 9l10 5 10-5Z"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 9v6"/></svg></i><div><b>Formação USP</b><small>Cirurgiã plástica</small></div></div>
+    <div class="it"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.4 3.6 4 7 4c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 15.4 12 20 12 20Z"/></svg></i><div><b>Avaliação individual</b><small>Plano feito para você</small></div></div>
+    <div class="it"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12Z"/></svg></i><div><b>WhatsApp direto</b><small>Seg. a sex., das 12h às 18h</small></div></div>
+  </div>
+</div>
+<div class="wrap" id="quem-somos">
+  <div class="qs-grid"><div class="titulo rev"><span class="eyebrow">O Instituto</span><h2>Um novo conceito de medicina <em>em Campinas</em></h2><p>O Instituto Dra. Vanessa Brandalise nasceu com um objetivo: trazer para Campinas um novo jeito de cuidar. Aqui você encontra cirurgia plástica e procedimentos estéticos de alta qualidade, em um espaço montado com carinho para receber e acolher cada paciente.</p></div>
+  <div class="img-card rev"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDEwMDAiPjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhcmVkZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2Y0ZWJlNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U3ZDhjZCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibmljaG8iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlOWQzYzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOWJiYTkiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBpc28iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkOGM2YjgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjNGFkOWMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InNvZmEiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMmI4YTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjOTk2ODYiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9Im91cm8iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWQ5YjMiLz48c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZDRhZDdhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYTc3ZDRjIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtYXJtb3JlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmJmOGY1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZTllMWRhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJlc3BlbGhvIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjZlZmU5Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNlM2QzYzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmM2U5ZTIiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImNldSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2NmZTBlYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y2ZWNlNCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibHV6IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9Ii43Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9ImJyaWxobyIgY3g9Ii41IiBjeT0iMCIgcj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMWRjIiBzdG9wLW9wYWNpdHk9Ii43NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZjFkYyIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPjxyZWN0IHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9InVybCgjcGFyZWRlKSIvPjxyZWN0IHk9IjcyMCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMjgwIiBmaWxsPSJ1cmwoI3Bpc28pIi8+PHJlY3QgeT0iNzE2IiB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI4IiBmaWxsPSIjZWZlM2RhIi8+PHBhdGggZD0iTTEwODAgMTIwIGgzNjAgdjQ2MCBoLTM2MHoiIGZpbGw9InVybCgjY2V1KSIvPjxwYXRoIGQ9Ik0xMDgwIDEyMCBoMzYwIHY0NjAgaC0zNjB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmN2YwZWEiIHN0cm9rZS13aWR0aD0iMTQiLz48cGF0aCBkPSJNMTI2MCAxMjB2NDYwIiBzdHJva2U9IiNmN2YwZWEiIHN0cm9rZS13aWR0aD0iOCIvPjxwYXRoIGQ9Ik0xMDgwIDEyMCBMMTQ0MCAxMjAgTDEzMDAgMTAwMCBMNzAwIDEwMDAgWiIgZmlsbD0idXJsKCNsdXopIi8+PHJlY3QgeD0iMjQwIiB5PSIyMDAiIHdpZHRoPSIxNzAiIGhlaWdodD0iMTMwIiByeD0iNCIgZmlsbD0idXJsKCNvdXJvKSIvPjxyZWN0IHg9IjI1MiIgeT0iMjEyIiB3aWR0aD0iMTQ2IiBoZWlnaHQ9IjEwNiIgZmlsbD0iI2ZiZjhmNSIvPjxyZWN0IHg9IjI3OCIgeT0iMjQwIiB3aWR0aD0iOTQiIGhlaWdodD0iNyIgZmlsbD0iI2UzZDNjOCIvPjxyZWN0IHg9IjI3MCIgeT0iMjU4IiB3aWR0aD0iMTEwIiBoZWlnaHQ9IjUiIGZpbGw9IiNlY2UyZGEiLz48cmVjdCB4PSIyNzAiIHk9IjI3MiIgd2lkdGg9IjExMCIgaGVpZ2h0PSI1IiBmaWxsPSIjZWNlMmRhIi8+PGNpcmNsZSBjeD0iMzI1IiBjeT0iMjk4IiByPSI4IiBmaWxsPSIjZDRhZDdhIi8+PHJlY3QgeD0iNDUwIiB5PSIyMDAiIHdpZHRoPSIxNzAiIGhlaWdodD0iMTMwIiByeD0iNCIgZmlsbD0idXJsKCNvdXJvKSIvPjxyZWN0IHg9IjQ2MiIgeT0iMjEyIiB3aWR0aD0iMTQ2IiBoZWlnaHQ9IjEwNiIgZmlsbD0iI2ZiZjhmNSIvPjxyZWN0IHg9IjQ4OCIgeT0iMjQwIiB3aWR0aD0iOTQiIGhlaWdodD0iNyIgZmlsbD0iI2UzZDNjOCIvPjxyZWN0IHg9IjQ4MCIgeT0iMjU4IiB3aWR0aD0iMTEwIiBoZWlnaHQ9IjUiIGZpbGw9IiNlY2UyZGEiLz48cmVjdCB4PSI0ODAiIHk9IjI3MiIgd2lkdGg9IjExMCIgaGVpZ2h0PSI1IiBmaWxsPSIjZWNlMmRhIi8+PGNpcmNsZSBjeD0iNTM1IiBjeT0iMjk4IiByPSI4IiBmaWxsPSIjZDRhZDdhIi8+PHJlY3QgeD0iMzAwIiB5PSI2MDAiIHdpZHRoPSI2MjAiIGhlaWdodD0iMjYiIHJ4PSIxMCIgZmlsbD0idXJsKCNtYXJtb3JlKSIvPjxyZWN0IHg9IjMzMCIgeT0iNjI2IiB3aWR0aD0iMTYiIGhlaWdodD0iMjUwIiBmaWxsPSJ1cmwoI291cm8pIi8+PHJlY3QgeD0iODc0IiB5PSI2MjYiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyNTAiIGZpbGw9InVybCgjb3VybykiLz48cmVjdCB4PSI0MjAiIHk9IjU2MCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSI0MCIgcng9IjYiIGZpbGw9IiNmYmY4ZjUiIHN0cm9rZT0iI2UzZDNjOCIvPjxyZWN0IHg9IjY0MCIgeT0iNTQwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzNhMmYyYyIvPjxyZWN0IHg9IjY0NiIgeT0iNTQ2IiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjQ4IiByeD0iNSIgZmlsbD0iI2U5ZDNjNiIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg2MCA2MDApIHNjYWxlKDAuNjIpIj48cGF0aCBkPSJNLTQ2IDAgaDkyIGwtMTIgOTYgaC02OCB6IiBmaWxsPSJ1cmwoI21hcm1vcmUpIi8+PHBhdGggZD0iTS00NiAwIGg5MiIgc3Ryb2tlPSIjZDhjYmMwIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNLTEwIDAgUS0zMCAtNjAgLTYwIC03MCBRLTMwIC01MCAtMTIgLTQgTTggMCBRMjAgLTUwIDU0IC02NCBRMjQgLTQwIDEwIC0yIiBmaWxsPSIjNWY3YTVjIi8+PHBhdGggZD0iTTAgMCBDIDYgLTEyMCAzMCAtMjAwIDkwIC0yNTAiIHN0cm9rZT0iIzZiN2Y1YSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAgLTE1MCkgc2NhbGUoMSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyIC0xOTApIHNjYWxlKDAuOSkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc2IC0yMjYpIHNjYWxlKDAuOCkiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk4IC0yNTIpIHNjYWxlKDAuNykiPjxlbGxpcHNlIGN4PSItMTQiIGN5PSIwIiByeD0iMTYiIHJ5PSIxMSIgZmlsbD0iI2Y3ZTRlYSIvPjxlbGxpcHNlIGN4PSIxNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSItMTMiIHJ4PSIxMSIgcnk9IjE1IiBmaWxsPSIjZmJlZWYyIi8+PGVsbGlwc2UgY3g9IjAiIGN5PSIxMiIgcng9IjkiIHJ5PSIxMiIgZmlsbD0iI2U5YjljNiIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1IiBmaWxsPSIjZDQ4ZWEyIi8+PC9nPjxlbGxpcHNlIGN4PSItMzYiIGN5PSItNiIgcng9IjQwIiByeT0iMTEiIGZpbGw9IiM2YjhhNjQiIHRyYW5zZm9ybT0icm90YXRlKC0xOCAtMzYgLTYpIi8+PGVsbGlwc2UgY3g9IjM2IiBjeT0iLTYiIHJ4PSI0MCIgcnk9IjExIiBmaWxsPSIjNmI4YTY0IiB0cmFuc2Zvcm09InJvdGF0ZSgxOCAzNiAtNikiLz48L2c+PGc+PHBhdGggZD0iTTQ0MCA3MDAgcTAgLTEzMCAxMjAgLTEzMCBxMTIwIDAgMTIwIDEzMCB6IiBmaWxsPSJ1cmwoI3NvZmEpIi8+PHJlY3QgeD0iNDMwIiB5PSI2OTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iNjAiIHJ4PSIyNCIgZmlsbD0iI2Q0YTQ5MyIvPjxyZWN0IHg9IjQ2MCIgeT0iNzQ4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTIwIiBmaWxsPSIjYTc3ZDRjIi8+PHJlY3QgeD0iNjUwIiB5PSI3NDgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNhNzdkNGMiLz48L2c+PHBhdGggZD0iTTE0ODAgODgwIGg5MCBsLTEyIDEwMCBoLTY2IHoiIGZpbGw9InVybCgjbWFybW9yZSkiLz48cGF0aCBkPSJNMTUyNSA4ODAgUTE0NjUgNzUwIDE0MzUuMCA2NzAiIHN0cm9rZT0iIzZiOGE2NCIgc3Ryb2tlLXdpZHRoPSIxNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE1MjUgODgwIFExNDk3IDY5MCAxNDgzLjAgNjEwIiBzdHJva2U9IiM2YjhhNjQiIHN0cm9rZS13aWR0aD0iMTQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xNTI1IDg4MCBRMTUyNSA2NjAgMTUyNS4wIDU4MCIgc3Ryb2tlPSIjNmI4YTY0IiBzdHJva2Utd2lkdGg9IjE0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMTUyNSA4ODAgUTE1NTUgNzAwIDE1NzAuMCA2MjAiIHN0cm9rZT0iIzZiOGE2NCIgc3Ryb2tlLXdpZHRoPSIxNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE1MjUgODgwIFExNTg3IDc2MCAxNjE4LjAgNjgwIiBzdHJva2U9IiM2YjhhNjQiIHN0cm9rZS13aWR0aD0iMTQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==" alt="Consultório do Instituto (ilustração)"><span>Imagem ilustrativa</span></div></div>
+  <div class="pilares">
+    <div class="pilar rev">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.4 3.6 4 7 4c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 15.4 12 20 12 20Z"/></svg></div>
+      <h3>Avaliação sem pressa</h3>
+      <p>Decidir por um procedimento não é simples. Por isso a primeira consulta é dedicada a ouvir, avaliar e explicar com calma.</p>
+    </div>
+    <div class="pilar rev">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3Z"/><path d="M8.7 12.2l2.3 2.3 4.4-4.6"/></svg></div>
+      <h3>Segurança em cada etapa</h3>
+      <p>Indicação responsável e acompanhamento próximo, do pré ao pós-operatório.</p>
+    </div>
+    <div class="pilar rev">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13c-4.5 0-6.5-3.5-6.5-7.5 3.5 0 6.5 2 6.5 7.5Z"/><path d="M12 13c4.5 0 6.5-3.5 6.5-7.5-3.5 0-6.5 2-6.5 7.5Z"/><path d="M12 13c0-4 1.4-7.4 0-10-1.4 2.6 0 6 0 10Z"/><path d="M8 21h8"/></svg></div>
+      <h3>Espaço acolhedor</h3>
+      <p>Um ambiente pensado nos detalhes para você se sentir à vontade.</p>
+    </div>
+  </div>
+</div>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="serv-top"><div class="titulo rev">
+      <span class="eyebrow">Procedimentos</span>
+      <h2>Cuidado para o corpo e o rosto, <em>com naturalidade.</em></h2>
+      <p>Cada procedimento começa com uma avaliação individual, para indicar com segurança o que faz sentido para você.</p>
+    </div>
+    <div class="img-card rev"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDEwMDAiPjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhcmVkZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2Y0ZWJlNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U3ZDhjZCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibmljaG8iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlOWQzYzYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOWJiYTkiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBpc28iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkOGM2YjgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjNGFkOWMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InNvZmEiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMmI4YTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjOTk2ODYiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9Im91cm8iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWQ5YjMiLz48c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZDRhZDdhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYTc3ZDRjIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtYXJtb3JlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmJmOGY1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZTllMWRhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJlc3BlbGhvIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjZlZmU5Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNlM2QzYzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmM2U5ZTIiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImNldSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2NmZTBlYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y2ZWNlNCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibHV6IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9Ii43Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmOGYxIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9ImJyaWxobyIgY3g9Ii41IiBjeT0iMCIgcj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmMWRjIiBzdG9wLW9wYWNpdHk9Ii43NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZjFkYyIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPjxyZWN0IHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9InVybCgjcGFyZWRlKSIvPjxwYXRoIGQ9Ik0xODAgNjQwIFYyNjAgYTIwMCAyMDAgMCAwIDEgNDAwIDAgVjY0MCB6IiBmaWxsPSJ1cmwoI25pY2hvKSIvPjxlbGxpcHNlIGN4PSIxMTUwIiBjeT0iMzMwIiByeD0iMjMwIiByeT0iMjMwIiBmaWxsPSJ1cmwoI291cm8pIi8+PGVsbGlwc2UgY3g9IjExNTAiIGN5PSIzMzAiIHJ4PSIyMTQiIHJ5PSIyMTQiIGZpbGw9InVybCgjZXNwZWxobykiLz48cmVjdCB5PSI2NDAiIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjM2MCIgZmlsbD0idXJsKCNtYXJtb3JlKSIvPjxyZWN0IHk9IjY0MCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMTQiIGZpbGw9IiNlOWUxZGEiLz48cGF0aCBkPSJNMTIwIDY2MCBxOTAgNjAgMTgwIDM0MCIgc3Ryb2tlPSIjZTNkOGNmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTIwIDY2MCBxMTQwIDYwIDI4MCAzNDAiIHN0cm9rZT0iI2UzZDhjZiIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTk4MCA2NjAgcTExMCA2MCAyMjAgMzQwIiBzdHJva2U9IiNlM2Q4Y2YiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xMzMwIDY2MCBxODAgNjAgMTYwIDM0MCIgc3Ryb2tlPSIjZTNkOGNmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48Zz48cmVjdCB4PSI2NDAiIHk9IjUyMCIgd2lkdGg9IjUyIiBoZWlnaHQ9IjEzMCIgcng9IjEyIiBmaWxsPSIjZTljOWJkIi8+PHJlY3QgeD0iNjU0IiB5PSI0OTQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyOCIgcng9IjUiIGZpbGw9IiNkNGFkN2EiLz48cmVjdCB4PSI2NTAiIHk9IjU2OS40IiB3aWR0aD0iMzIiIGhlaWdodD0iMzMuODAwMDAwMDAwMDAwMDA0IiByeD0iNCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnPjxyZWN0IHg9IjcxMiIgeT0iNTYwIiB3aWR0aD0iNTIiIGhlaWdodD0iOTAiIHJ4PSIxMiIgZmlsbD0iI2Y2ZWNlNiIvPjxyZWN0IHg9IjcyNiIgeT0iNTM0IiB3aWR0aD0iMjQiIGhlaWdodD0iMjgiIHJ4PSI1IiBmaWxsPSIjYTc3ZDRjIi8+PHJlY3QgeD0iNzIyIiB5PSI1OTQuMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjIzLjQwMDAwMDAwMDAwMDAwMiIgcng9IjQiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii41NSIvPjwvZz48Zz48cmVjdCB4PSI3OTAiIHk9IjUwMCIgd2lkdGg9IjUyIiBoZWlnaHQ9IjE1MCIgcng9IjEyIiBmaWxsPSIjZDhhODk4Ii8+PHJlY3QgeD0iODA0IiB5PSI0NzQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyOCIgcng9IjUiIGZpbGw9IiNkNGFkN2EiLz48cmVjdCB4PSI4MDAiIHk9IjU1Ny4wIiB3aWR0aD0iMzIiIGhlaWdodD0iMzkuMCIgcng9IjQiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii41NSIvPjwvZz48cmVjdCB4PSI4ODAiIHk9IjYxMCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI0MCIgcng9IjIwIiBmaWxsPSIjZjZlY2U2Ii8+PHJlY3QgeD0iOTAwIiB5PSI1OTYiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZDRhZDdhIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzgwIDY0MCkgc2NhbGUoMS4wNSkiPjxwYXRoIGQ9Ik0tNDYgMCBoOTIgbC0xMiA5NiBoLTY4IHoiIGZpbGw9InVybCgjbWFybW9yZSkiLz48cGF0aCBkPSJNLTQ2IDAgaDkyIiBzdHJva2U9IiNkOGNiYzAiIHN0cm9rZS13aWR0aD0iMyIvPjxwYXRoIGQ9Ik0tMTAgMCBRLTMwIC02MCAtNjAgLTcwIFEtMzAgLTUwIC0xMiAtNCBNOCAwIFEyMCAtNTAgNTQgLTY0IFEyNCAtNDAgMTAgLTIiIGZpbGw9IiM1ZjdhNWMiLz48cGF0aCBkPSJNMCAwIEMgNiAtMTIwIDMwIC0yMDAgOTAgLTI1MCIgc3Ryb2tlPSIjNmI3ZjVhIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMCAtMTUwKSBzY2FsZSgxKSI+PGVsbGlwc2UgY3g9Ii0xNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjE0IiBjeT0iMCIgcng9IjE2IiByeT0iMTEiIGZpbGw9IiNmN2U0ZWEiLz48ZWxsaXBzZSBjeD0iMCIgY3k9Ii0xMyIgcng9IjExIiByeT0iMTUiIGZpbGw9IiNmYmVlZjIiLz48ZWxsaXBzZSBjeD0iMCIgY3k9IjEyIiByeD0iOSIgcnk9IjEyIiBmaWxsPSIjZTliOWM2Ii8+PGNpcmNsZSBjeD0iMCIgY3k9IjAiIHI9IjUiIGZpbGw9IiNkNDhlYTIiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTIgLTE5MCkgc2NhbGUoMC45KSI+PGVsbGlwc2UgY3g9Ii0xNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjE0IiBjeT0iMCIgcng9IjE2IiByeT0iMTEiIGZpbGw9IiNmN2U0ZWEiLz48ZWxsaXBzZSBjeD0iMCIgY3k9Ii0xMyIgcng9IjExIiByeT0iMTUiIGZpbGw9IiNmYmVlZjIiLz48ZWxsaXBzZSBjeD0iMCIgY3k9IjEyIiByeD0iOSIgcnk9IjEyIiBmaWxsPSIjZTliOWM2Ii8+PGNpcmNsZSBjeD0iMCIgY3k9IjAiIHI9IjUiIGZpbGw9IiNkNDhlYTIiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzYgLTIyNikgc2NhbGUoMC44KSI+PGVsbGlwc2UgY3g9Ii0xNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjE0IiBjeT0iMCIgcng9IjE2IiByeT0iMTEiIGZpbGw9IiNmN2U0ZWEiLz48ZWxsaXBzZSBjeD0iMCIgY3k9Ii0xMyIgcng9IjExIiByeT0iMTUiIGZpbGw9IiNmYmVlZjIiLz48ZWxsaXBzZSBjeD0iMCIgY3k9IjEyIiByeD0iOSIgcnk9IjEyIiBmaWxsPSIjZTliOWM2Ii8+PGNpcmNsZSBjeD0iMCIgY3k9IjAiIHI9IjUiIGZpbGw9IiNkNDhlYTIiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTggLTI1Mikgc2NhbGUoMC43KSI+PGVsbGlwc2UgY3g9Ii0xNCIgY3k9IjAiIHJ4PSIxNiIgcnk9IjExIiBmaWxsPSIjZjdlNGVhIi8+PGVsbGlwc2UgY3g9IjE0IiBjeT0iMCIgcng9IjE2IiByeT0iMTEiIGZpbGw9IiNmN2U0ZWEiLz48ZWxsaXBzZSBjeD0iMCIgY3k9Ii0xMyIgcng9IjExIiByeT0iMTUiIGZpbGw9IiNmYmVlZjIiLz48ZWxsaXBzZSBjeD0iMCIgY3k9IjEyIiByeD0iOSIgcnk9IjEyIiBmaWxsPSIjZTliOWM2Ii8+PGNpcmNsZSBjeD0iMCIgY3k9IjAiIHI9IjUiIGZpbGw9IiNkNDhlYTIiLz48L2c+PGVsbGlwc2UgY3g9Ii0zNiIgY3k9Ii02IiByeD0iNDAiIHJ5PSIxMSIgZmlsbD0iIzZiOGE2NCIgdHJhbnNmb3JtPSJyb3RhdGUoLTE4IC0zNiAtNikiLz48ZWxsaXBzZSBjeD0iMzYiIGN5PSItNiIgcng9IjQwIiByeT0iMTEiIGZpbGw9IiM2YjhhNjQiIHRyYW5zZm9ybT0icm90YXRlKDE4IDM2IC02KSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTgwIDcwMCkiPjxyZWN0IHg9Ii0xNTAiIHk9IjAiIHdpZHRoPSIzMDAiIGhlaWdodD0iODAiIHJ4PSIxNCIgZmlsbD0iI2YzZTNkYyIvPjxyZWN0IHg9Ii0xNTAiIHk9IjIyIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjEyIiBmaWxsPSIjZTJjM2I2Ii8+PHJlY3QgeD0iLTEzMCIgeT0iLTYwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjYyIiByeD0iMTQiIGZpbGw9IiNmOGVmZWEiLz48cmVjdCB4PSItMTMwIiB5PSItNDAiIHdpZHRoPSIyNjAiIGhlaWdodD0iMTAiIGZpbGw9IiNlOWNmYzQiLz48L2c+PGNpcmNsZSBjeD0iMTQ1MCIgY3k9IjcyMCIgcj0iMzQiIGZpbGw9IiNmOGVmZWEiLz48Y2lyY2xlIGN4PSIxNDUwIiBjeT0iNzIwIiByPSIyMCIgZmlsbD0iI2U5YzliZCIvPjwvc3ZnPg==" alt="Detalhe do Instituto (ilustração)"><span>Imagem ilustrativa</span></div></div>
+    <div class="servicos">
+      <div class="serv rev"><span class="n">01</span><h3>Mamoplastia</h3><p>Prótese de silicone, redução e elevação das mamas, com planejamento feito para o seu corpo.</p></div>
+      <div class="serv rev"><span class="n">02</span><h3>Abdominoplastia</h3><p>Retirada do excesso de pele e gordura do abdômen e correção da musculatura.</p></div>
+      <div class="serv rev"><span class="n">03</span><h3>Lipoaspiração</h3><p>Remoção de gordura localizada para melhorar o contorno do corpo.</p></div>
+      <div class="serv rev"><span class="n">04</span><h3>Pós-bariátrica</h3><p>Reconstrução do contorno corporal depois de uma grande perda de peso.</p></div>
+      <div class="serv rev"><span class="n">05</span><h3>Cirurgia da face</h3><p>Pálpebras, orelhas e outros procedimentos para harmonizar e rejuvenescer o rosto.</p></div>
+      <div class="serv rev"><span class="n">06</span><h3>Procedimentos estéticos</h3><p>Tratamentos sem cirurgia para cuidar da pele e prevenir o envelhecimento.</p></div>
+    </div>
+    <p class="deslize">Deslize para ver todos <i>→</i></p>
+    <p class="nota rev">* Lista ilustrativa para esta demonstração. Confirme com a Dra. Vanessa os procedimentos realizados.</p>
+  </div>
+</section>
+
+<section class="teste" id="teste">
+  <div class="wrap teste-grid">
+    <div class="rev">
+      <div class="titulo" style="margin-bottom:0">
+        <span class="eyebrow">Descubra seu procedimento</span>
+        <h2>Por onde começar <em>o seu cuidado?</em></h2>
+        <p>Responda 3 perguntas rápidas e veja qual assunto levar para a sua avaliação. No fim, você fala com a equipe pelo WhatsApp com tudo já resumido.</p>
+      </div>
+      <ul class="teste-passos">
+        <li><span>1</span>Escolha a região que deseja cuidar.</li>
+        <li><span>2</span>Conte se já fez alguma cirurgia plástica.</li>
+        <li><span>3</span>Veja o assunto indicado e agende sua avaliação.</li>
+      </ul>
+      <p class="aviso-med">Este teste é só um ponto de partida e não substitui a avaliação médica.</p>
+    </div>
+    <div class="rev">
+      <div class="cartela" id="cartela">
+        <div class="c-top"><span class="c-tag"><i></i>Teste rápido</span><span class="c-niv" id="qNivel">1/3</span></div>
+        <div class="c-prog q-prog" id="qProg"><i></i><i></i><i></i></div>
+        <div id="qJogo">
+          <h3 class="q-perg" id="qPerg">Qual região você quer cuidar?</h3>
+          <div class="q-ops" id="qOps"></div>
+          <button type="button" class="q-voltar" id="qVoltar" hidden>← Voltar</button>
+        </div>
+        <div class="c-fim" id="qRes" hidden>
+          <div class="q-selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13c-4.5 0-6.5-3.5-6.5-7.5 3.5 0 6.5 2 6.5 7.5Z"/><path d="M12 13c4.5 0 6.5-3.5 6.5-7.5-3.5 0-6.5 2-6.5 7.5Z"/><path d="M12 13c0-4 1.4-7.4 0-10-1.4 2.6 0 6 0 10Z"/><path d="M8 21h8"/></svg></div>
+          <small class="q-rot">Assunto para a sua avaliação</small>
+          <h3 id="qArea"></h3>
+          <p id="qTexto"></p>
+          <div class="c-acoes"><a class="btn btn-wa" id="qWa" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg>Agendar avaliação</a><button class="btn c-denovo" type="button" id="qDeNovo">Refazer</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="medico" id="medico">
+  <div class="wrap grid">
+    <div class="foto rev"><div class="mono">V<em>B</em></div><small>Espaço para a foto da Dra. Vanessa</small></div>
+    <div class="rev">
+      <span class="eyebrow">A médica</span>
+      <div class="titulo" style="margin-bottom:0">
+        <h2>Dra. Vanessa <em>Brandalise</em></h2>
+        <p>Cirurgiã plástica formada e especializada pela Universidade de São Paulo (USP), com atuação em medicina preventiva. À frente do Instituto, acompanha cada paciente de perto, da primeira avaliação ao pós-operatório.</p>
+      </div>
+      <blockquote>“Meu nome é Vanessa Brandalise e eu nasci pra ser médica!”</blockquote>
+      <div class="selos"><span class="selo">Cirurgia plástica</span><span class="selo">Formação USP</span><span class="selo">Medicina preventiva</span></div>
+      <p class="nota">* Completar com CRM, RQE e títulos (ex.: membro da SBCP), conforme as normas do CFM.</p>
+    </div>
+  </div>
+</section>
+
+<section id="destaques" class="conv-sec">
+  <div class="wrap">
+    <div class="titulo centro rev" style="margin-bottom:28px">
+      <span class="eyebrow">Procedimentos</span>
+      <h2>Procedimentos <em>em destaque</em></h2>
+    </div>
+    <ul class="cv-lista rev"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cirúrgicos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Não cirúrgicos</li></ul>
+    <div class="cv-faixa rev" aria-label="Procedimentos em destaque">
+      <div class="cv-mover"><div class="cv-card"><span class="cv-ini">PM</span><div><b>Prótese de mama</b><small>Silicone com naturalidade</small></div></div><div class="cv-card"><span class="cv-ini">MR</span><div><b>Mamoplastia redutora</b><small>Mais conforto e leveza</small></div></div><div class="cv-card"><span class="cv-ini">Mx</span><div><b>Mastopexia</b><small>Elevação das mamas</small></div></div><div class="cv-card"><span class="cv-ini">Ab</span><div><b>Abdominoplastia</b><small>Abdômen mais firme</small></div></div><div class="cv-card"><span class="cv-ini">Li</span><div><b>Lipoaspiração</b><small>Contorno do corpo</small></div></div><div class="cv-card"><span class="cv-ini">PB</span><div><b>Pós-bariátrica</b><small>Depois de emagrecer</small></div></div><div class="cv-card"><span class="cv-ini">Bl</span><div><b>Blefaroplastia</b><small>Olhar descansado</small></div></div><div class="cv-card"><span class="cv-ini">Ot</span><div><b>Otoplastia</b><small>Correção das orelhas</small></div></div><div class="cv-card"><span class="cv-ini">TB</span><div><b>Toxina botulínica</b><small>Sem cirurgia</small></div></div><div class="cv-card"><span class="cv-ini">Pr</span><div><b>Preenchimento</b><small>Sem cirurgia</small></div></div></div>
+      <div class="cv-mover" aria-hidden="true"><div class="cv-card"><span class="cv-ini">PM</span><div><b>Prótese de mama</b><small>Silicone com naturalidade</small></div></div><div class="cv-card"><span class="cv-ini">MR</span><div><b>Mamoplastia redutora</b><small>Mais conforto e leveza</small></div></div><div class="cv-card"><span class="cv-ini">Mx</span><div><b>Mastopexia</b><small>Elevação das mamas</small></div></div><div class="cv-card"><span class="cv-ini">Ab</span><div><b>Abdominoplastia</b><small>Abdômen mais firme</small></div></div><div class="cv-card"><span class="cv-ini">Li</span><div><b>Lipoaspiração</b><small>Contorno do corpo</small></div></div><div class="cv-card"><span class="cv-ini">PB</span><div><b>Pós-bariátrica</b><small>Depois de emagrecer</small></div></div><div class="cv-card"><span class="cv-ini">Bl</span><div><b>Blefaroplastia</b><small>Olhar descansado</small></div></div><div class="cv-card"><span class="cv-ini">Ot</span><div><b>Otoplastia</b><small>Correção das orelhas</small></div></div><div class="cv-card"><span class="cv-ini">TB</span><div><b>Toxina botulínica</b><small>Sem cirurgia</small></div></div><div class="cv-card"><span class="cv-ini">Pr</span><div><b>Preenchimento</b><small>Sem cirurgia</small></div></div></div>
+    </div>
+    <p class="cv-nota">Tem dúvida sobre outro procedimento? <a href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20A%20Dra.%20Vanessa%20realiza%20o%20procedimento%20que%20eu%20procuro%3F" target="_blank" rel="noopener">Pergunte pelo WhatsApp</a> se a Dra. Vanessa realiza.</p>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="titulo centro rev">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Sua avaliação <em>em três passos</em></h2>
+    </div>
+    <div class="passos">
+      <div class="passo rev"><h3>Fale com a equipe</h3><p>Chame no WhatsApp e conte o que você deseja. Respondemos de segunda a sexta, das 12h às 18h.</p></div>
+      <div class="passo rev"><h3>Avaliação com a Dra.</h3><p>Uma consulta sem pressa para ouvir, examinar e explicar as opções com clareza.</p></div>
+      <div class="passo rev"><h3>Plano e acompanhamento</h3><p>Você recebe um plano pensado para você e é acompanhada em todas as etapas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="agendar">
+  <div class="wrap agenda">
+    <div class="rev">
+      <div class="titulo">
+        <span class="eyebrow">Agendamento</span>
+        <h2>Agende sua avaliação <em>em 1 minuto</em></h2>
+        <p>Preencha rapidinho e a conversa no WhatsApp já abre com tudo escrito para a nossa equipe. É só tocar em enviar.</p>
+      </div>
+      <div class="previa-msg" id="aPrevia"><small>Prévia da sua mensagem</small>Olá! Gostaria de agendar uma avaliação com a Dra. Vanessa.</div>
+    </div>
+    <form class="form-ag rev" id="formAg" novalidate>
+      <label>Seu nome<input type="text" id="aNome" placeholder="Ex.: Maria Souza" autocomplete="name"></label>
+      <span class="erro-msg" id="aErro">Digite seu nome para continuar.</span>
+      <div><label style="margin-bottom:8px">Interesse</label><div class="chips">
+        <input type="radio" name="mot" id="m1" value="Seios" checked><label for="m1">Seios</label>
+        <input type="radio" name="mot" id="m2" value="Abdômen"><label for="m2">Abdômen</label>
+        <input type="radio" name="mot" id="m3" value="Lipoaspiração"><label for="m3">Lipo</label>
+        <input type="radio" name="mot" id="m4" value="Rosto"><label for="m4">Rosto</label>
+        <input type="radio" name="mot" id="m5" value="Pele"><label for="m5">Pele</label></div></div>
+      <div><label style="margin-bottom:8px">Consulta</label><div class="chips">
+        <input type="radio" name="conv" id="c1" value="Primeira consulta" checked><label for="c1">Primeira consulta</label>
+        <input type="radio" name="conv" id="c2" value="Retorno"><label for="c2">Retorno</label></div></div>
+      <div><label style="margin-bottom:8px">Melhor período</label><div class="chips">
+        <input type="radio" name="per" id="p1" value="início da tarde" checked><label for="p1">12h às 15h</label>
+        <input type="radio" name="per" id="p2" value="fim da tarde"><label for="p2">15h às 18h</label>
+        <input type="radio" name="per" id="p3" value="qualquer horário"><label for="p3">Tanto faz</label></div></div>
+      <button class="btn btn-wa" type="submit"><svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg>Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+<section id="duvidas" style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="titulo centro rev">
+      <span class="eyebrow">Dúvidas frequentes</span>
+      <h2>Perguntas que <em>sempre recebemos</em></h2>
+    </div>
+    <div class="faq rev">
+      <details><summary>Como é a primeira consulta?</summary><p>É uma avaliação individual: a Dra. Vanessa ouve o seu objetivo, examina, explica as opções, os cuidados e a recuperação, e tira todas as suas dúvidas.</p></details>
+      <details><summary>Preciso de exames antes da avaliação?</summary><p>Não. Se houver indicação de cirurgia, os exames necessários são pedidos depois da consulta.</p></details>
+      <details><summary>Quanto tempo leva a recuperação?</summary><p>Depende do procedimento e de cada paciente. Tudo é explicado na avaliação, com as orientações de pré e pós-operatório.</p></details>
+      <details><summary>Onde fica o Instituto?</summary><p>Na Rua Frei Manoel da Ressurreição, 1181, no Jardim Guanabara, em Campinas.</p></details>
+      <details><summary>Como faço para agendar?</summary><p>É só chamar no WhatsApp pelo botão desta página. Atendemos de segunda a sexta, das 12h às 18h.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="titulo rev">
+      <span class="eyebrow">Onde estamos</span>
+      <h2>Venha nos <em>visitar</em></h2>
+    </div>
+    <div class="local">
+      <div class="mapa-col rev">
+        <div class="mapa mapa-g">
+          <iframe id="gMapa" src="https://maps.google.com/maps?q=Instituto%20Dra.%20Vanessa%20Brandalise%2C%20Rua%20Frei%20Manoel%20da%20Ressurrei%C3%A7%C3%A3o%2C%201181%2C%20Jardim%20Guanabara%2C%20Campinas%20-%20SP&amp;z=17&amp;hl=pt-BR&amp;output=embed" title="Mapa do Instituto Dra. Vanessa Brandalise" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <a class="mapa-link" href="https://www.google.com/maps/search/?api=1&amp;query=Instituto%20Dra.%20Vanessa%20Brandalise%2C%20Rua%20Frei%20Manoel%20da%20Ressurrei%C3%A7%C3%A3o%2C%201181%2C%20Jardim%20Guanabara%2C%20Campinas%20-%20SP" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Abrir no Google Maps</span><svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      </div>
+      <div class="contato rev">
+        <h3>Fale com o Instituto</h3>
+        <div class="linha"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><div><small>Endereço</small><b>R. Frei Manoel da Ressurreição, 1181<br>Jardim Guanabara · Campinas · SP · 13073-027</b></div></div>
+        <div class="linha"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12Z"/></svg></i><div><small>WhatsApp</small><b>(19) 99959-9898</b></div></div>
+        <div class="linha"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></i><div><small>Instagram</small><b>@dravanessabrandalise</b></div></div>
+        <div class="linha"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><div><small>Horário</small><b>Segunda a sexta · 12h às 18h</b></div></div>
+        <a class="btn btn-wa" style="align-self:flex-start" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="cta rev">
+      <span class="eyebrow" style="color:var(--aqua-2)">Cuidado em cada detalhe</span>
+      <h2>Vamos conversar sobre o seu objetivo?</h2>
+      <p>Agende sua avaliação com a Dra. Vanessa pelo WhatsApp em poucos minutos.</p>
+      <a class="btn btn-wa" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener">Agendar minha avaliação</a>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="wrap rd-grid">
+    <div class="rd-marca">
+      <a class="logo rd-logo" href="#inicio" aria-label="Instituto Dra. Vanessa Brandalise, voltar ao início">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="18.5" stroke="currentColor" stroke-width="1.3" opacity=".55"/><path d="M20 31C13.5 25.5 11.5 17.5 13.2 9.5 17.4 14.4 19.6 21.6 20 31Z" stroke="#e8bfae" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31C26.5 25.5 28.5 17.5 26.8 9.5 22.6 14.4 20.4 21.6 20 31Z" stroke="#e8bfae" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31V15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14 33h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <span><b>Instituto Dra.</b><span class="grande">Vanessa</span><small>Brandalise</small></span>
+      </a>
+      <p>Cirurgia plástica e procedimentos estéticos com acolhimento e segurança, no Jardim Guanabara, em Campinas.</p>
+      <div class="rd-redes">
+        <a href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg></a>
+        <a href="tel:+5519999599898" aria-label="Ligar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></a>
+        <a href="https://www.instagram.com/dravanessabrandalise/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Instituto%20Dra.%20Vanessa%20Brandalise%2C%20Rua%20Frei%20Manoel%20da%20Ressurrei%C3%A7%C3%A3o%2C%201181%2C%20Jardim%20Guanabara%2C%20Campinas%20-%20SP" target="_blank" rel="noopener" aria-label="Ver no mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7.5 7.5 0 0 0-7.5 7.5c0 5.4 6.4 11.6 6.7 11.9a1.2 1.2 0 0 0 1.6 0c.3-.3 6.7-6.5 6.7-11.9A7.5 7.5 0 0 0 12 2Zm0 10.3a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6Z"/></svg></a>
+      </div>
+    </div>
+    <nav class="rd-col" aria-label="Conheça">
+      <h4>Conheça</h4>
+      <a href="#quem-somos">O Instituto</a>
+      <a href="#medico">A Médica</a>
+      <a href="#servicos">Procedimentos</a>
+      <a href="#teste">Descubra seu procedimento</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="rd-col rd-info">
+      <h4>Visite o Instituto</h4>
+      <a class="rd-item" href="https://www.google.com/maps/search/?api=1&amp;query=Instituto%20Dra.%20Vanessa%20Brandalise%2C%20Rua%20Frei%20Manoel%20da%20Ressurrei%C3%A7%C3%A3o%2C%201181%2C%20Jardim%20Guanabara%2C%20Campinas%20-%20SP" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7.5 7.5 0 0 0-7.5 7.5c0 5.4 6.4 11.6 6.7 11.9a1.2 1.2 0 0 0 1.6 0c.3-.3 6.7-6.5 6.7-11.9A7.5 7.5 0 0 0 12 2Zm0 10.3a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6Z"/></svg><span>R. Frei Manoel da Ressurreição, 1181<br>Jardim Guanabara - Campinas - SP</span></a>
+      <a class="rd-item" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg><span>(19) 99959-9898</span></a>
+      <div class="rd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Segunda a sexta, das 12h às 18h</span></div>
+    </div>
+  </div>
+  <div class="wrap rd-base">
+    <span>Copyright © 2026 - Todos os direitos reservados para Instituto Dra. Vanessa Brandalise</span>
+    <small>Site desenvolvido por <b>Adeza</b></small>
+    <small class="rd-previa">Prévia de demonstração criada pela Adeza para apresentação à Dra. Vanessa. Não é o site oficial.</small>
+  </div>
+</footer>
+
+<div class="barra-mob" id="barraMob">
+  <a class="lig" href="tel:+5519999599898"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>Ligar</a>
+  <a class="wa" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg>Agendar avaliação</a>
+</div>
+<div class="wa-box" id="waBox">
+  <div class="wa-card" id="waCard" role="dialog" aria-label="Fale com o Instituto no WhatsApp">
+    <button class="wa-x" id="waX" type="button" aria-label="Fechar">×</button>
+    <div class="wa-head"><span class="wa-av"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="18.5" stroke="#fff" stroke-width="1.3" opacity=".55"/><path d="M20 31C13.5 25.5 11.5 17.5 13.2 9.5 17.4 14.4 19.6 21.6 20 31Z" stroke="#f0cfc2" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31C26.5 25.5 28.5 17.5 26.8 9.5 22.6 14.4 20.4 21.6 20 31Z" stroke="#f0cfc2" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 31V15.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/><path d="M14 33h12" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+      <div><b>Instituto Dra. Vanessa</b><small><i></i>Seg. a sex. · 12h às 18h</small></div></div>
+    <div class="wa-msg">Olá! 👋<br>Quer agendar sua avaliação com a Dra. Vanessa?</div>
+    <a class="wa-cta" href="https://wa.me/5519999599898?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Vanessa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg>Conversar no WhatsApp</a>
+  </div>
+  <button class="wa-fab" id="waFab" type="button" aria-label="Abrir conversa no WhatsApp" aria-expanded="false"><svg viewBox="0 0 24 24" class="wa-ic" aria-hidden="true"><path d="M12 2.3a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l4.9-1.3A9.7 9.7 0 1 0 12 2.3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.4c.2-.4.5-.5.8-.5h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.6.8c-.1.2-.2.4 0 .6.6 1 1.4 1.9 2.4 2.5.2.1.4.1.6-.1l.8-.9c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.5 0 .6-.3 1.4-1 1.8-.6.4-1.5.5-2.6.1-1.6-.6-3-1.6-4.1-2.9-.9-1-1.6-2.2-1.9-3.4-.2-.9 0-1.7.4-2.1Z" fill="currentColor"/></svg><span class="wa-badge">1</span></button>
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('topo');
+  var pr=document.getElementById('prog'),bm=document.getElementById('barraMob');function f(){h.classList.toggle('on',window.scrollY>40);bm.classList.toggle('on',window.scrollY>innerHeight*.6);var m=document.documentElement.scrollHeight-innerHeight;pr.style.width=(m>0?scrollY/m*100:0)+'%'}
+  window.addEventListener('scroll',f,{passive:true});f();
+  var bg=document.getElementById('burger');
+  function fecha(){document.body.classList.remove('aberto');bg.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+  bg.addEventListener('click',function(){var a=document.body.classList.toggle('aberto');bg.setAttribute('aria-expanded',a);bg.setAttribute('aria-label',(window.T||String)(a?'Fechar menu':'Abrir menu'));document.body.style.overflow=a?'hidden':''});
+  document.querySelectorAll('#menuMob a').forEach(function(a){a.addEventListener('click',fecha)});
+  var els=document.querySelectorAll('.rev');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vis')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e,i){e.style.transitionDelay=(i%3)*90+'ms';io.observe(e)});
+})();
+</script>
+
+<script>
+(function(){
+  var NUM='5519999599898',T=function(x){return (window.T||String)(x)};
+  /* triagem: entenda seu caso */
+  var P=[
+    {q:'Qual região você quer cuidar?',ops:[['Seios','Mamoplastia'],['Abdômen','Abdominoplastia'],['Gordura localizada','Lipoaspiração'],['Corpo após emagrecer','Pós-bariátrica'],['Rosto e pálpebras','Cirurgia da face'],['Pele, sem cirurgia','Procedimentos estéticos']]},
+    {q:'Já fez alguma cirurgia plástica?',ops:[['Não, seria a primeira','n'],['Sim, já fiz antes','s']]},
+    {q:'Quando pensa em fazer?',ops:[['Nos próximos meses','p'],['Ainda estou pesquisando','e']]}
+  ];
+  var r=[],i=0,$=function(id){return document.getElementById(id)};
+  var N=$('qNivel'),B=document.querySelectorAll('#qProg i'),jogo=$('qJogo'),res=$('qRes'),perg=$('qPerg'),ops=$('qOps'),volta=$('qVoltar'),wa=$('qWa');
+  function prog(n){B.forEach(function(b,k){b.className=k<n?'feito':(k===n?'atual':'')})}
+  function mostra(){N.textContent=(i+1)+'/'+P.length;prog(i);perg.textContent=P[i].q;ops.innerHTML='';ops.classList.toggle('duas',i===0);
+    P[i].ops.forEach(function(o,k){var b=document.createElement('button');b.type='button';b.className='q-op'+(r[i]===k?' sel':'');b.textContent=o[0];
+      b.addEventListener('click',function(){r[i]=k;b.classList.add('sel');setTimeout(function(){i++;if(i>=P.length)fim();else mostra()},180)});ops.appendChild(b)});
+    volta.hidden=i===0}
+  function link(){if(res.hidden)return;var a=P[0].ops[r[0]],u=P[1].ops[r[1]],m=P[2].ops[r[2]],t;
+    if(window.LANG==='en')t='Hello! I took the quiz on the website. I am interested in: '+T(a[0]).toLowerCase()+' ('+T(a[1])+').\n'+T(u[0])+'.\nWhen: '+T(m[0]).toLowerCase()+'.\nI would like to book an assessment.';
+    else t='Olá! Fiz o teste no site. Tenho interesse em: '+a[0].toLowerCase()+' ('+a[1]+').\n'+u[0]+'.\nQuando: '+m[0].toLowerCase()+'.\nGostaria de agendar uma avaliação.';
+    wa.href='https://wa.me/'+NUM+'?text='+encodeURIComponent(t)}
+  function fim(){jogo.hidden=true;res.hidden=false;N.textContent='Resultado';prog(P.length);
+    var a=P[0].ops[r[0]],m=P[2].ops[r[2]];$('qArea').textContent=a[1];
+    $('qTexto').textContent=m[1]==='e'?'Sem pressa: a avaliação serve justamente para tirar dúvidas e conhecer as opções, sem compromisso de fazer o procedimento.':'Na avaliação, a Dra. Vanessa entende o seu objetivo, examina com calma e indica, com segurança, o que faz sentido para você.';
+    link()}
+  volta.addEventListener('click',function(){if(i>0){i--;mostra()}});
+  $('qDeNovo').addEventListener('click',function(){r=[];i=0;res.hidden=true;jogo.hidden=false;mostra()});
+  document.addEventListener('idioma',link);
+  mostra();
+  /* whatsapp flutuante */
+  var wb=$('waBox'),wf=$('waFab');
+  function abreWa(v){wb.classList.toggle('aberto',v);wb.classList.add('lido');wf.setAttribute('aria-expanded',v)}
+  wf.addEventListener('click',function(){abreWa(!wb.classList.contains('aberto'))});
+  $('waX').addEventListener('click',function(){abreWa(false)});
+  setTimeout(function(){if(!wb.classList.contains('lido'))abreWa(true)},3500);
+  /* agendamento */
+  var f=$('formAg'),nome=$('aNome'),erro=$('aErro'),prev=$('aPrevia');
+  function val(n){var e=f.querySelector('input[name='+n+']:checked');return e?e.value:''}
+  function msg(){var nm=nome.value.trim();
+    if(window.LANG==='en')return 'Hello! '+(nm?'My name is '+nm+'. ':'')+'I would like to book an assessment about: '+T(val('mot')).toLowerCase()+'.\nVisit: '+T(val('conv')).toLowerCase()+'\nBest time: '+T(val('per'))+'.';
+    return 'Olá! '+(nm?'Meu nome é '+nm+'. ':'')+'Gostaria de agendar uma avaliação sobre: '+val('mot').toLowerCase()+'.\nConsulta: '+val('conv').toLowerCase()+'\nMelhor período: '+val('per')+'.'}
+  function atu(){prev.innerHTML='<small>'+T('Prévia da sua mensagem')+'</small>';prev.appendChild(document.createTextNode(msg()))}
+  f.addEventListener('input',function(){if(nome.value.trim())erro.style.display='none';atu()});f.addEventListener('change',atu);document.addEventListener('idioma',atu);
+  document.addEventListener('idioma',function(){var g=$('gMapa');if(!g)return;var hl=window.LANG==='en'?'en':'pt-BR';if(g.src.indexOf('hl='+hl+'&')<0)g.src=g.src.replace(/hl=[A-Za-z-]+/,'hl='+hl)});atu();
+  f.addEventListener('submit',function(e){e.preventDefault();if(!nome.value.trim()){erro.style.display='block';nome.focus();return}
+    var a=document.createElement('a');a.href='https://wa.me/'+NUM+'?text='+encodeURIComponent(msg());a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()});
+})();
+</script>
+<script>
+/* idioma: português / inglês */
+(function(){
+  var D={"Início": "Home", "Contato": "Contact", "Abrir menu": "Open menu", "Fechar menu": "Close menu", "Dúvidas": "FAQ", "Imagem ilustrativa": "Illustrative image", "Deslize para ver todos": "Swipe to see all", "← Voltar": "← Back", "Refazer": "Start over", "Resultado": "Result", "Pergunte pelo WhatsApp": "Ask on WhatsApp", "Como funciona": "How it works", "em três passos": "in three steps", "Agendamento": "Booking", "em 1 minuto": "in 1 minute", "Preencha rapidinho e a conversa no WhatsApp já abre com tudo escrito para a nossa equipe. É só tocar em enviar.": "Fill this in quickly and the WhatsApp chat opens with everything written for our team. Just tap send.", "Prévia da sua mensagem": "Preview of your message", "Seu nome": "Your name", "Ex.: Maria Souza": "E.g.: Maria Souza", "Digite seu nome para continuar.": "Enter your name to continue.", "Melhor período": "Best time", "Tanto faz": "Either is fine", "qualquer horário": "any time", "Enviar pelo WhatsApp": "Send via WhatsApp", "Dúvidas frequentes": "Frequently asked questions", "Perguntas que": "Questions we", "sempre recebemos": "always get", "Onde estamos": "Where we are", "Venha nos": "Come", "visitar": "visit us", "Abrir no Google Maps": "Open in Google Maps", "Endereço": "Address", "Horário": "Hours", "Ligar": "Call", "Conheça": "Explore", "Site desenvolvido por": "Website by", "Fechar": "Close", "Olá! 👋": "Hello! 👋", "Conversar no WhatsApp": "Chat on WhatsApp", "Abrir conversa no WhatsApp": "Open WhatsApp chat", "Prévia de demonstração · imagens ilustrativas": "Demo preview · illustrative images", "O Instituto": "The Institute", "A Médica": "The Doctor", "Procedimentos": "Procedures", "Cirurgias das mamas": "Breast surgery", "Contorno corporal": "Body contouring", "Face e rejuvenescimento": "Face and rejuvenation", "Todos os procedimentos": "All procedures", "Descubra seu procedimento": "Find your procedure", "Olá! Gostaria de agendar uma avaliação com a Dra. Vanessa.": "Hello! I would like to book an assessment with Dr. Vanessa.", "Agendar avaliação": "Book an assessment", "Agendar pelo WhatsApp": "Book on WhatsApp", "Seg. a sex. · 12h às 18h": "Mon to Fri · 12pm to 6pm", "Cirurgia plástica e estética · Campinas": "Plastic and aesthetic surgery · Campinas", "Beleza com segurança e": "Beauty with safety and", "cuidado em cada detalhe.": "care in every detail.", "Cirurgia plástica e procedimentos estéticos com a Dra. Vanessa Brandalise, cirurgiã plástica formada e especializada pela USP, em um espaço pensado para acolher você.": "Plastic surgery and aesthetic procedures with Dr. Vanessa Brandalise, a plastic surgeon trained and specialized at USP, in a space designed to welcome you.", "Ver procedimentos": "See procedures", "Formação USP": "Trained at USP", "Cirurgiã plástica": "Plastic surgeon", "Avaliação individual": "Individual assessment", "Plano feito para você": "A plan made for you", "Seg. a sex., das 12h às 18h": "Mon to Fri, 12pm to 6pm", "Um novo conceito de medicina": "A new concept of medicine", "em Campinas": "in Campinas", "O Instituto Dra. Vanessa Brandalise nasceu com um objetivo: trazer para Campinas um novo jeito de cuidar. Aqui você encontra cirurgia plástica e procedimentos estéticos de alta qualidade, em um espaço montado com carinho para receber e acolher cada paciente.": "The Dr. Vanessa Brandalise Institute was created with one goal: to bring a new way of caring to Campinas. Here you will find high-quality plastic surgery and aesthetic procedures, in a space lovingly prepared to welcome every patient.", "Consultório do Instituto (ilustração)": "Institute office (illustration)", "Avaliação sem pressa": "An unhurried assessment", "Decidir por um procedimento não é simples. Por isso a primeira consulta é dedicada a ouvir, avaliar e explicar com calma.": "Deciding on a procedure is not simple. That is why the first visit is dedicated to listening, assessing and explaining calmly.", "Segurança em cada etapa": "Safety at every step", "Indicação responsável e acompanhamento próximo, do pré ao pós-operatório.": "Responsible recommendations and close follow-up, from pre-op to post-op.", "Espaço acolhedor": "A welcoming space", "Um ambiente pensado nos detalhes para você se sentir à vontade.": "A space designed down to the details so you feel at ease.", "Cuidado para o corpo e o rosto,": "Care for body and face,", "com naturalidade.": "with natural results.", "Cada procedimento começa com uma avaliação individual, para indicar com segurança o que faz sentido para você.": "Every procedure starts with an individual assessment, to safely recommend what makes sense for you.", "Detalhe do Instituto (ilustração)": "Institute detail (illustration)", "Mamoplastia": "Breast surgery", "Prótese de silicone, redução e elevação das mamas, com planejamento feito para o seu corpo.": "Silicone implants, breast reduction and lift, planned for your body.", "Abdominoplastia": "Tummy tuck", "Retirada do excesso de pele e gordura do abdômen e correção da musculatura.": "Removal of excess abdominal skin and fat and muscle repair.", "Lipoaspiração": "Liposuction", "Remoção de gordura localizada para melhorar o contorno do corpo.": "Removal of localized fat to improve body contour.", "Pós-bariátrica": "Post-bariatric", "Reconstrução do contorno corporal depois de uma grande perda de peso.": "Body contour reconstruction after major weight loss.", "Cirurgia da face": "Facial surgery", "Pálpebras, orelhas e outros procedimentos para harmonizar e rejuvenescer o rosto.": "Eyelids, ears and other procedures to harmonize and rejuvenate the face.", "Procedimentos estéticos": "Aesthetic procedures", "Tratamentos sem cirurgia para cuidar da pele e prevenir o envelhecimento.": "Non-surgical treatments to care for the skin and prevent aging.", "* Lista ilustrativa para esta demonstração. Confirme com a Dra. Vanessa os procedimentos realizados.": "* Illustrative list for this demo. Confirm the procedures performed with Dr. Vanessa.", "Por onde começar": "Where to start", "o seu cuidado?": "your care?", "Responda 3 perguntas rápidas e veja qual assunto levar para a sua avaliação. No fim, você fala com a equipe pelo WhatsApp com tudo já resumido.": "Answer 3 quick questions and see which topic to bring to your assessment. At the end, you message the team on WhatsApp with everything already summarized.", "Escolha a região que deseja cuidar.": "Choose the area you want to treat.", "Conte se já fez alguma cirurgia plástica.": "Tell us if you've had plastic surgery before.", "Veja o assunto indicado e agende sua avaliação.": "See the suggested topic and book your assessment.", "Este teste é só um ponto de partida e não substitui a avaliação médica.": "This quiz is just a starting point and does not replace a medical assessment.", "Teste rápido": "Quick quiz", "Qual região você quer cuidar?": "Which area would you like to treat?", "Assunto para a sua avaliação": "Topic for your assessment", "Espaço para a foto da Dra. Vanessa": "Space for Dr. Vanessa's photo", "A médica": "The doctor", "Dra. Vanessa": "Dr. Vanessa", "Cirurgiã plástica formada e especializada pela Universidade de São Paulo (USP), com atuação em medicina preventiva. À frente do Instituto, acompanha cada paciente de perto, da primeira avaliação ao pós-operatório.": "Plastic surgeon trained and specialized at the University of São Paulo (USP), also working in preventive medicine. Leading the Institute, she follows each patient closely, from the first assessment to post-op.", "“Meu nome é Vanessa Brandalise e eu nasci pra ser médica!”": "“My name is Vanessa Brandalise and I was born to be a doctor!”", "Cirurgia plástica": "Plastic surgery", "Medicina preventiva": "Preventive medicine", "* Completar com CRM, RQE e títulos (ex.: membro da SBCP), conforme as normas do CFM.": "* Add CRM, RQE and titles (e.g., SBCP member), as required by CFM rules.", "em destaque": "in focus", "Cirúrgicos": "Surgical", "Não cirúrgicos": "Non-surgical", "Procedimentos em destaque": "Highlighted procedures", "Prótese de mama": "Breast implants", "Silicone com naturalidade": "Natural-looking silicone", "Mamoplastia redutora": "Breast reduction", "Mais conforto e leveza": "More comfort and lightness", "Mastopexia": "Breast lift", "Elevação das mamas": "Lifting the breasts", "Abdômen mais firme": "A firmer abdomen", "Contorno do corpo": "Body contour", "Depois de emagrecer": "After weight loss", "Blefaroplastia": "Blepharoplasty", "Olhar descansado": "A rested look", "Otoplastia": "Otoplasty", "Correção das orelhas": "Ear correction", "Toxina botulínica": "Botulinum toxin", "Sem cirurgia": "Non-surgical", "Preenchimento": "Fillers", "Tem dúvida sobre outro procedimento?": "Questions about another procedure?", "Olá! A Dra. Vanessa realiza o procedimento que eu procuro?": "Hello! Does Dr. Vanessa perform the procedure I'm looking for?", "se a Dra. Vanessa realiza.": "whether Dr. Vanessa performs it.", "Sua avaliação": "Your assessment", "Fale com a equipe": "Talk to the team", "Chame no WhatsApp e conte o que você deseja. Respondemos de segunda a sexta, das 12h às 18h.": "Message us on WhatsApp and tell us what you'd like. We reply Monday to Friday, 12pm to 6pm.", "Avaliação com a Dra.": "Assessment with the doctor", "Uma consulta sem pressa para ouvir, examinar e explicar as opções com clareza.": "An unhurried visit to listen, examine and clearly explain the options.", "Plano e acompanhamento": "Plan and follow-up", "Você recebe um plano pensado para você e é acompanhada em todas as etapas.": "You get a plan designed for you and are supported at every step.", "Agende sua avaliação": "Book your assessment", "Interesse": "Interest", "Seios": "Breasts", "Abdômen": "Abdomen", "Lipo": "Lipo", "Rosto": "Face", "Pele": "Skin", "Consulta": "Visit", "Primeira consulta": "First visit", "Retorno": "Follow-up", "12h às 15h": "12pm to 3pm", "15h às 18h": "3pm to 6pm", "Como é a primeira consulta?": "What is the first visit like?", "É uma avaliação individual: a Dra. Vanessa ouve o seu objetivo, examina, explica as opções, os cuidados e a recuperação, e tira todas as suas dúvidas.": "It's an individual assessment: Dr. Vanessa listens to your goal, examines you, explains the options, care and recovery, and answers all your questions.", "Preciso de exames antes da avaliação?": "Do I need tests before the assessment?", "Não. Se houver indicação de cirurgia, os exames necessários são pedidos depois da consulta.": "No. If surgery is recommended, the necessary tests are requested after the visit.", "Quanto tempo leva a recuperação?": "How long is the recovery?", "Depende do procedimento e de cada paciente. Tudo é explicado na avaliação, com as orientações de pré e pós-operatório.": "It depends on the procedure and each patient. Everything is explained in the assessment, with pre- and post-op guidance.", "Onde fica o Instituto?": "Where is the Institute?", "Na Rua Frei Manoel da Ressurreição, 1181, no Jardim Guanabara, em Campinas.": "At Rua Frei Manoel da Ressurreição, 1181, in Jardim Guanabara, Campinas.", "Como faço para agendar?": "How do I book?", "É só chamar no WhatsApp pelo botão desta página. Atendemos de segunda a sexta, das 12h às 18h.": "Just message us on WhatsApp using the button on this page. We are open Monday to Friday, 12pm to 6pm.", "Mapa do Instituto Dra. Vanessa Brandalise": "Map of the Dr. Vanessa Brandalise Institute", "Fale com o Instituto": "Contact the Institute", "Segunda a sexta · 12h às 18h": "Monday to Friday · 12pm to 6pm", "Cuidado em cada detalhe": "Care in every detail", "Vamos conversar sobre o seu objetivo?": "Shall we talk about your goal?", "Agende sua avaliação com a Dra. Vanessa pelo WhatsApp em poucos minutos.": "Book your assessment with Dr. Vanessa on WhatsApp in a few minutes.", "Agendar minha avaliação": "Book my assessment", "Instituto Dra. Vanessa Brandalise, voltar ao início": "Dr. Vanessa Brandalise Institute, back to top", "Cirurgia plástica e procedimentos estéticos com acolhimento e segurança, no Jardim Guanabara, em Campinas.": "Plastic surgery and aesthetic procedures with warmth and safety, in Jardim Guanabara, Campinas.", "Ver no mapa": "View on map", "Visite o Instituto": "Visit the Institute", "Segunda a sexta, das 12h às 18h": "Monday to Friday, 12pm to 6pm", "Copyright © 2026 - Todos os direitos reservados para Instituto Dra. Vanessa Brandalise": "Copyright © 2026 - All rights reserved to Instituto Dra. Vanessa Brandalise", "Prévia de demonstração criada pela Adeza para apresentação à Dra. Vanessa. Não é o site oficial.": "Demo preview created by Adeza to present to Dr. Vanessa. This is not the official website.", "Fale com o Instituto no WhatsApp": "Contact the Institute on WhatsApp", "Instituto Dra. Vanessa": "Dr. Vanessa Institute", "Quer agendar sua avaliação com a Dra. Vanessa?": "Would you like to book your assessment with Dr. Vanessa?", "Gordura localizada": "Localized fat", "Corpo após emagrecer": "Body after weight loss", "Rosto e pálpebras": "Face and eyelids", "Pele, sem cirurgia": "Skin, no surgery", "Já fez alguma cirurgia plástica?": "Have you had plastic surgery before?", "Não, seria a primeira": "No, it would be my first", "Sim, já fiz antes": "Yes, I have before", "Quando pensa em fazer?": "When are you thinking of doing it?", "Nos próximos meses": "In the next few months", "Ainda estou pesquisando": "I'm still researching", "Sem pressa: a avaliação serve justamente para tirar dúvidas e conhecer as opções, sem compromisso de fazer o procedimento.": "No rush: the assessment is exactly for answering questions and learning about the options, with no commitment to the procedure.", "Na avaliação, a Dra. Vanessa entende o seu objetivo, examina com calma e indica, com segurança, o que faz sentido para você.": "In the assessment, Dr. Vanessa understands your goal, examines you calmly and safely recommends what makes sense for you.", "início da tarde": "early afternoon", "fim da tarde": "late afternoon"};
+  window.LANG='pt';window.T=function(x){return (window.LANG==='en'&&D[x])||x};
+  var ATR=['placeholder','aria-label','title','alt'],tx=new Map(),at=new Map(),hr=new Map(),aplicando=false;
+  function nz(v){return v.replace(/\s+/g,' ').trim()}
+  function txt(n){var p=n.parentElement;if(!p||/^(SCRIPT|STYLE)$/.test(p.tagName)||p.closest('.lang'))return;
+    var raw=tx.has(n)?tx.get(n):n.nodeValue,k=nz(raw);if(!k||!D[k])return;
+    tx.set(n,raw);n.nodeValue=raw.match(/^\s*/)[0]+D[k]+raw.match(/\s*$/)[0]}
+  function el(e){if(e.closest&&e.closest('.lang'))return;
+    ATR.forEach(function(a){if(!e.hasAttribute(a))return;var m=at.get(e)||{},o=a in m?m[a]:e.getAttribute(a);if(D[o]){m[a]=o;at.set(e,m);e.setAttribute(a,D[o])}});
+    if(e.tagName==='A'&&/wa\.me\//.test(e.getAttribute('href')||'')){var h=hr.has(e)?hr.get(e):e.getAttribute('href'),i=h.indexOf('text=');
+      if(i>-1){var t=decodeURIComponent(h.slice(i+5).split('&')[0]);if(D[t]){hr.set(e,h);e.setAttribute('href',h.slice(0,i+5)+encodeURIComponent(D[t]))}}}}
+  function varre(raiz){if(raiz.nodeType===3){txt(raiz);return}if(raiz.nodeType!==1)return;el(raiz);
+    var w=document.createTreeWalker(raiz,NodeFilter.SHOW_TEXT),n;while(n=w.nextNode())txt(n);
+    raiz.querySelectorAll('*').forEach(el)}
+  function volta(){tx.forEach(function(raw,n){n.nodeValue=raw});at.forEach(function(m,e){for(var a in m)e.setAttribute(a,m[a])});hr.forEach(function(h,e){e.setAttribute('href',h)});tx.clear();at.clear();hr.clear()}
+  var obs=new MutationObserver(function(ms){if(window.LANG!=='en'||aplicando)return;aplicando=true;
+    ms.forEach(function(m){if(m.type==='characterData')txt(m.target);else m.addedNodes.forEach(varre)});obs.takeRecords();aplicando=false});
+  function usa(l,salvar){window.LANG=l;aplicando=true;
+    if(l==='en')varre(document.body);else volta();
+    obs.takeRecords();aplicando=false;
+    document.documentElement.lang=l==='en'?'en':'pt-BR';
+    document.querySelectorAll('.lang button').forEach(function(b){var on=b.dataset.lang===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+    if(salvar)try{localStorage.setItem('idioma-vanessa',l)}catch(e){}
+    document.dispatchEvent(new Event('idioma'))}
+  obs.observe(document.body,{childList:true,subtree:true,characterData:true});
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.lang!==window.LANG)usa(b.dataset.lang,true)})});
+  var salvo=null;try{salvo=localStorage.getItem('idioma-vanessa')}catch(e){}
+  if(salvo==='en')usa('en',false);
+})();
+</script>
+</body>
+</html>
