@@ -663,7 +663,7 @@ $('anMsg').addEventListener('input',atuAn);
 $('anFechar').onclick=function(){$('dlgAn').close()};
 $('anAbrir').addEventListener('click',function(){var l=anLead;if(!l)return;$('dlgAn').close();var antes=Object.assign({},l),c=Object.assign({},l,{ultimoContato:hoje()});if(c.status==='Novo lead'||c.status==='Ainda não contatado')c.status='Mensagem enviada';gravar(c);desenhar();toast(l.nome+' saiu da lista e foi para “Contatados ✓”.','Desfazer (não enviei)',function(){gravar(antes);desenhar()})});
 $('rotFechar').onclick=function(){$('dlgRot').close()};
-if(!cfg.empresa){setTimeout(function(){toast('Coloque o nome da sua empresa nas mensagens.','Configurar',function(){$('bMsg').click()})},1200)}
+setTimeout(function(){if(!cfg.empresa)toast('Coloque o nome da sua empresa nas mensagens.','Configurar',function(){$('bMsg').click()})},1200);
 
 $('bCsv').onclick=function(){
   if(!leads.size){toast('Ainda não há leads.');return}
