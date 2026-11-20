@@ -48,6 +48,8 @@ textarea{min-height:84px;resize:vertical}
 .btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:var(--accent-ink);font-weight:600;box-shadow:0 6px 16px rgba(45,212,167,.3)}
 .btn.grande{padding:11px 22px;font-size:1rem}
 .btn.wa{background:var(--wa);border-color:var(--wa);color:#052e16;font-weight:600}
+.btn.mail{background:#e8f0fe;border-color:#c6d7fb;color:#173a8a;font-weight:600}
+.cel-mail{display:flex;flex-direction:column;gap:6px;min-width:170px}.cel-mail .end{word-break:break-all}
 .btn.peq{padding:6px 10px;font-size:.82rem;border-radius:8px}
 .btn[disabled]{opacity:.55;cursor:wait}
 .resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -227,7 +229,7 @@ body{background:
 
   <section class="card okcard" id="contatados">
     <h3>Contatados ✓ <span class="qt" id="okQt">0</span></h3>
-    <p>Estabelecimentos para os quais você já mandou mensagem. Entram aqui automaticamente quando você clica em “Conversar no WhatsApp”.</p>
+    <p>Estabelecimentos para os quais você já mandou mensagem. Entram aqui automaticamente quando você clica em “Conversar no WhatsApp” ou “Enviar e-mail”.</p>
     <div class="oklista" id="okLista"></div>
   </section>
 
@@ -244,7 +246,7 @@ body{background:
     <div class="filtros">
       <label>Procurar<input type="search" id="fTexto" placeholder="Nome, bairro, telefone…"></label>
       <label>Status do site<select id="fSite"><option value="">Todos</option><option value="semsite">Sem site próprio</option><option value="sem">Sem site identificado</option><option value="social">Só redes sociais</option><option value="tem">Tem site</option></select></label>
-      <label>Contato<select id="fTel"><option value="valido" selected>Celular / WhatsApp válido</option><option value="tel">Qualquer telefone válido (inclui fixo)</option><option value="wa">WhatsApp confirmado</option><option value="sem">Sem telefone válido ou sem WhatsApp</option><option value="">Todos</option></select></label>
+      <label>Contato<select id="fTel"><option value="valido" selected>Celular / WhatsApp válido</option><option value="tel">Qualquer telefone válido (inclui fixo)</option><option value="wa">WhatsApp confirmado</option><option value="email">Com e-mail</option><option value="sem">Sem telefone válido ou sem WhatsApp</option><option value="">Todos</option></select></label>
       <label>Cidade<select id="fCidade"><option value="">Todas</option></select></label>
       <label>Ordenar<select id="fOrdem"><option value="pri">Prioridade</option><option value="nome">Nome</option><option value="contato">Último contato</option></select></label>
       <div class="acoes">
@@ -284,13 +286,18 @@ body{background:
 </form></dialog>
 
 <dialog id="dlgMsg"><form class="ficha" id="fMsg" method="dialog">
-  <h2>Mensagens do WhatsApp</h2>
+  <h2>Mensagens do WhatsApp e do e-mail</h2>
   <p class="dica">A 1ª mensagem já vem escrita quando a conversa abre; as outras você copia na tela Contatados (botão “Roteiro”). Nada é enviado sozinho. Use {nome}, {ramo}, {cidade}, {eu} e {empresa}.</p>
   <div class="grade"><label>Seu nome<input type="text" id="mEu" placeholder="Rodrigo"></label><label>Nome da sua empresa<input type="text" id="mEmp" placeholder="Ex.: Nexo Sites"></label></div>
   <label>1ª mensagem — abordagem<textarea id="mT0" rows="4"></textarea></label>
   <label>2ª — quando responder “pode falar”<textarea id="mT1" rows="4"></textarea></label>
   <label>3ª — mostrar exemplo<textarea id="mT2" rows="3"></textarea></label>
   <label>4ª — como funciona / valores<textarea id="mT3" rows="3"></textarea></label>
+  <h2 style="margin-top:14px">E-mail</h2>
+  <p class="dica">O botão “Enviar e-mail” abre o e-mail já escrito para você revisar e enviar. Nada é enviado sozinho. Além das palavras acima, use {marca} (nome da empresa) e {whats} (seu WhatsApp).</p>
+  <div class="grade"><label>Seu WhatsApp (assinatura)<input type="tel" id="mWhats" placeholder="(19) 99293-2822"></label><label>Abrir o e-mail no<select id="mApp"><option value="gmail">Gmail (no navegador)</option><option value="mailto">Programa de e-mail do computador</option></select></label></div>
+  <label>Assunto<input type="text" id="mAss"></label>
+  <label>Texto do e-mail<textarea id="mCorpo" rows="12"></textarea></label>
   <footer><div><button class="btn peq" id="mPadrao" type="button">Restaurar modelo</button></div><div><button class="btn" id="mCancelar" type="button">Cancelar</button><button class="btn pri" type="submit">Salvar</button></div></footer>
 </form></dialog>
 
@@ -538,11 +545,18 @@ var ROT_PADRAO=[
 'Claro! Eu crio sites profissionais para {ramo}, com tudo o que vocês precisam: apresentação dos serviços, contato direto pelo WhatsApp, localização e muito mais. É uma ótima forma de passar mais confiança e facilitar para novos clientes encontrarem vocês no Google.',
 'Posso te mostrar um exemplo de como ficaria o site de vocês, personalizado com a identidade visual e as fotos de vocês?',
 'Perfeito! Funciona assim: eu monto o site com as informações e fotos de vocês, vocês aprovam e eu coloco no ar. Posso te passar os valores e as formas de pagamento?'];
+var EMAIL_PADRAO={assunto:'Site para {nome}',corpo:'Olá, tudo bem?\n\nMeu nome é {eu}{empresa}. Crio sites para empresas da região de Campinas e, pesquisando empresas de {cidade}, não encontrei um site de vocês.\n\nHoje a maioria dos clientes pesquisa no Google antes de escolher onde ir. Um site bem feito, com os serviços de vocês, o endereço e um botão direto para o WhatsApp, passa confiança e ajuda a trazer novos clientes.\n\nPosso te mandar um exemplo de como ficaria o site de vocês? Sem compromisso.\n\nUm abraço,\n{eu}\n{marca} · WhatsApp {whats}\n\nSe preferir não receber mais mensagens minhas, é só responder este e-mail.'};
+function modeloEmail(){var e=cfg.email||{};return{assunto:e.assunto||EMAIL_PADRAO.assunto,corpo:e.corpo||EMAIL_PADRAO.corpo}}
+function emailOk(e){return/^[^\s@<>()",;:]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/i.test(String(e||'').trim())}
+function linkEmail(l){if(!emailOk(l.email))return'';var m=modeloEmail(),to=l.email.trim(),su=limpaLinhas(preencher(m.assunto,l)),bo=limpaLinhas(preencher(m.corpo,l));
+  if(cfg.emailApp==='mailto')return'mailto:'+encodeURIComponent(to).replace(/%40/g,'@')+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(bo);
+  return'https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to)+'&su='+encodeURIComponent(su)+'&body='+encodeURIComponent(bo)}
+function limpaLinhas(t){return String(t).replace(/[ \t]+\n/g,'\n').replace(/[ \t]*·[ \t]*WhatsApp[ \t]*$/gm,'').replace(/^[ \t]*·[ \t]*/gm,'').replace(/\n{3,}/g,'\n\n').trim()}
 function roteiro(){if(cfg.roteiro&&cfg.roteiro.length===4){if(/^Olá, \{nome\}, tudo bem\? Sou \{eu\}/.test(cfg.roteiro[0]))cfg.roteiro[0]=ROT_PADRAO[0];return cfg.roteiro}return ROT_PADRAO}
 var RAMO={'Salão / barbearia':'salão e barbearia','Estética':'estética','Restaurante':'gastronomia','Lanchonete':'lanchonete','Padaria':'padaria','Pet shop':'pet shop','Veterinário':'veterinária','Dentista':'odontologia','Clínica':'saúde','Fisioterapia':'fisioterapia','Psicologia':'psicologia','Academia':'academia','Oficina mecânica':'mecânica automotiva','Advocacia':'advocacia','Contabilidade':'contabilidade','Imobiliária':'imóveis'};
 function preencher(t,l){var an=analise(l),ramo=an.faz;var eu=(cfg.eu||'Rodrigo').trim(),em=(cfg.empresa||'').trim();
   return String(t||'').replace(/\{nome\}/g,l.nome||'').replace(/\{cidade\}/g,l.cidade||'sua cidade').replace(/\{ramo\}/g,ramo).replace(/\{gancho\}/g,an.gancho)
-    .replace(/\{eu\}/g,eu||'o responsável').replace(/\{empresa\}/g,em?(eu?', da '+em:em):'').trim()}
+    .replace(/\{eu\}/g,eu||'o responsável').replace(/\{empresa\}/g,em?(eu?', da '+em:em):'').replace(/\{marca\}/g,em).replace(/\{whats\}/g,(cfg.meuWa||'').trim()).trim()}
 var COZ={pizza:'pizzaria',burger:'hamburgueria',japanese:'comida japonesa',sushi:'comida japonesa',brazilian:'comida brasileira',regional:'comida regional',italian:'comida italiana',chinese:'comida chinesa',arab:'comida árabe',barbecue:'churrascaria',steak_house:'churrascaria',coffee_shop:'cafeteria',ice_cream:'sorvetes',sandwich:'lanches',chicken:'frango',seafood:'frutos do mar',mexican:'comida mexicana',vegetarian:'comida vegetariana',acai:'açaí',juice:'sucos',bakery:'padaria',cake:'bolos e doces',pastry:'doces'};
 var BEL={nails:'manicure',hair_removal:'depilação',eyelashes:'cílios',eyebrows:'design de sobrancelhas',facial:'estética facial',skin_care:'cuidados com a pele',tanning:'bronzeamento',makeup:'maquiagem',spa:'spa',massage:'massagem'};
 function analise(l){
@@ -568,7 +582,7 @@ function pontos(l){var p=0;if(l.siteStatus!=='tem')p+=50;if(l.siteStatus==='soci
 function nivel(l){var p=pontos(l);return p>=70?'alta':p>=50?'media':'baixa'}
 function jaCont(l){return!!l.ultimoContato||CONTATADO.indexOf(l.status)>=0}
 
-var LOTE=100,limite=LOTE,verTodas=false;var leads=new Map(),cfg={eu:'Rodrigo',empresa:'',roteiro:null},filtroSt='';
+var LOTE=100,limite=LOTE,verTodas=false;var leads=new Map(),cfg={eu:'Rodrigo',empresa:'',roteiro:null,meuWa:'(19) 99293-2822'},filtroSt='';
 var ts=0;function salvar(){clearTimeout(ts);ts=setTimeout(function(){ts=0;salvarJa()},300)}window.addEventListener('pagehide',function(){if(ts){clearTimeout(ts);ts=0;salvarJa()}});function salvarJa(){try{localStorage.setItem(CHAVE,JSON.stringify({cfg:cfg,leads:Array.from(leads.values())}))}catch(e){toast('Não consegui salvar neste navegador.')}}
 function carregar(){try{var o=JSON.parse(localStorage.getItem(CHAVE)||'null');if(o){if(o.cfg)cfg=Object.assign(cfg,o.cfg);(o.leads||[]).forEach(function(l){if(l.telExibicao&&!l.telEx)l.telEx=l.telExibicao;if(l.categoria==='company')l.categoria='Empresa';if(l.categoria==='tax advisor')l.categoria='Consultoria tributária';leads.set(l.id,l)})}}catch(e){}}
 function gravar(l){leads.set(l.id,l);salvar()}
@@ -710,8 +724,8 @@ function filtrados(){
     if(filtroSt==='__c'){if(!jaCont(l))return false}else if(filtroSt){if(l.status!==filtroSt)return false}else if(jaCont(l)||l.descartado)return false;
     if(fs==='semsite'&&l.siteStatus==='tem')return false;
     if(['sem','social','tem'].indexOf(fs)>=0&&l.siteStatus!==fs)return false;
-    if(fc&&semAc(l.cidade)!==fc)return false;if(ft==='valido'&&!waOk(l))return false;if(ft==='tel'&&(!telOk(l)||l.semWa))return false;if(ft==='wa'&&(!l.waStatus||l.semWa))return false;if(ft==='sem'&&telOk(l)&&!l.semWa)return false;
-    if(tx&&semAc([l.nome,l.categoria,l.cidade,l.endereco,l.telEx,l.instagram,l.obs].join(' ')).indexOf(tx)<0)return false;
+    if(fc&&semAc(l.cidade)!==fc)return false;if(ft==='valido'&&!waOk(l))return false;if(ft==='tel'&&(!telOk(l)||l.semWa))return false;if(ft==='wa'&&(!l.waStatus||l.semWa))return false;if(ft==='sem'&&telOk(l)&&!l.semWa)return false;if(ft==='email'&&!emailOk(l.email))return false;
+    if(tx&&semAc([l.nome,l.categoria,l.cidade,l.endereco,l.telEx,l.email,l.instagram,l.obs].join(' ')).indexOf(tx)<0)return false;
     return true;
   }).sort(function(a,b){
     if(ord==='nome')return String(a.nome).localeCompare(b.nome,'pt-BR');
@@ -737,8 +751,14 @@ function linha(l){
   var sst0=l.siteStatus==='tem'?'<span class="pill p-mute">Tem site</span>':l.siteStatus==='social'?'<span class="pill p-good">Só redes sociais</span>':'<span class="pill p-good">Sem site identificado</span>';var sst=sst0+(l.siteStatus!=='tem'?'<button type="button" class="btn peq" style="margin-top:6px" data-ato="temsite" data-id="'+esc(l.id)+'">Achei site: descartar</button>':'');
   var red='';if(l.instagram)red+='<a href="https://www.instagram.com/'+esc(l.instagram)+'/" target="_blank" rel="noopener">@'+esc(l.instagram)+'</a>';if(l.facebook)red+='<span class="sub"><a href="'+esc(l.facebook)+'" target="_blank" rel="noopener">Facebook</a></span>';if(!red)red='<span class="nada">—</span>';
   var sel='<select data-ato="status" data-id="'+esc(l.id)+'">'+STATUS.map(function(s){return'<option'+(s===l.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select>';
-  return'<tr><td class="nome pri-'+nv+'"><button type="button" data-ato="abrir" data-id="'+esc(l.id)+'">'+esc(l.nome)+'</button><span class="sub">'+rot+(l.obs?' · tem observações':'')+'</span></td><td>'+esc(l.categoria||'—')+'</td><td>'+esc(l.cidade||'—')+'</td><td>'+(l.endereco?esc(l.endereco):'<span class="nada">Não informado</span>')+'</td><td class="tel">'+tel+'</td><td>'+wa+'</td><td><div class="cel-acoes">'+ac+'</div></td><td>'+(l.email?esc(l.email):'<span class="nada">—</span>')+'</td><td>'+red+'</td><td>'+site+'</td><td>'+sst+'</td><td>'+sel+'<span class="sub">'+(l.ultimoContato?'Último contato: '+esc(dataBr(l.ultimoContato)):'Sem contato registrado')+'</span></td></tr>';
+  return'<tr><td class="nome pri-'+nv+'"><button type="button" data-ato="abrir" data-id="'+esc(l.id)+'">'+esc(l.nome)+'</button><span class="sub">'+rot+(l.obs?' · tem observações':'')+'</span></td><td>'+esc(l.categoria||'—')+'</td><td>'+esc(l.cidade||'—')+'</td><td>'+(l.endereco?esc(l.endereco):'<span class="nada">Não informado</span>')+'</td><td class="tel">'+tel+'</td><td>'+wa+'</td><td><div class="cel-acoes">'+ac+'</div></td><td>'+celEmail(l)+'</td><td>'+red+'</td><td>'+site+'</td><td>'+sst+'</td><td>'+sel+'<span class="sub">'+(l.ultimoContato?'Último contato: '+esc(dataBr(l.ultimoContato)):'Sem contato registrado')+'</span></td></tr>';
 }
+function celEmail(l){
+  if(!l.email)return'<div class="cel-mail"><span class="nada">—</span><button class="btn peq" type="button" data-ato="addmail" data-id="'+esc(l.id)+'">Adicionar e-mail</button></div>';
+  var h='<div class="cel-mail"><span class="end">'+esc(l.email)+'</span>';
+  if(emailOk(l.email))h+='<a class="btn peq mail" href="'+esc(linkEmail(l))+'" target="_blank" rel="noopener" data-ato="email" data-id="'+esc(l.id)+'">Enviar e-mail</a>';else h+='<span class="nada">E-mail com formato inválido</span>';
+  if(l.emailEm)h+='<span class="sub">E-mail enviado em '+esc(dataBr(l.emailEm))+'</span>';
+  return h+'</div>'}
 function cidadesFiltro(sel){var f=$('fCidade'),at=sel!==undefined?sel:f.value,m={};leads.forEach(function(l){if(l.cidade){var k=semAc(l.cidade);if(!m[k])m[k]=l.cidade}});var ks=Object.keys(m).sort();f.innerHTML='<option value="">Todas</option>'+ks.map(function(k){return'<option value="'+esc(k)+'">'+esc(m[k])+'</option>'}).join('');f.value=ks.indexOf(at)>=0?at:''}
 function desenhar(){cidadesFiltro();
   var t=Array.from(leads.values());
@@ -783,6 +803,8 @@ $('corpo').addEventListener('click',function(ev){
   else if(a.dataset.ato==='analisar'){abrirAnalise(l)}
   else if(a.dataset.ato==='addtel'){ficha(l);$('eFonte').value=$('eFonte').value&&$('eFonte').value!=='OpenStreetMap'?$('eFonte').value:'Google';setTimeout(function(){$('eTel').focus()},60)}
   else if(a.dataset.ato==='semwa'){var antes3=Object.assign({},l);gravar(Object.assign({},l,{semWa:true,waStatus:''}));desenhar();toast(l.nome+': número sem WhatsApp, saiu da lista.','Desfazer',function(){gravar(antes3);desenhar()})}
+  else if(a.dataset.ato==='addmail'){ficha(l);setTimeout(function(){$('eEmail').focus()},60)}
+  else if(a.dataset.ato==='email'){var antesE=Object.assign({},l),cE=Object.assign({},l,{ultimoContato:hoje(),emailEm:hoje()});if(cE.status==='Novo lead'||cE.status==='Ainda não contatado')cE.status='Mensagem enviada';setTimeout(function(){gravar(cE);desenhar();toast('E-mail aberto para '+l.nome+'. Revise e clique em Enviar. O lead foi para “Contatados ✓”.','Desfazer (não enviei)',function(){gravar(antesE);desenhar()})},300)}
   else if(a.dataset.ato==='wa'){var antes=Object.assign({},l),c=Object.assign({},l,{ultimoContato:hoje()});if(c.status==='Novo lead'||c.status==='Ainda não contatado')c.status='Mensagem enviada';gravar(c);desenhar();toast(l.nome+' saiu da lista e foi para “Contatados ✓”.','Desfazer (não enviei)',function(){gravar(antes);desenhar()})}
 });
 $('corpo').addEventListener('change',function(ev){var s=ev.target.closest('select[data-ato=status]');if(!s)return;var l=leads.get(s.dataset.id);gravar(Object.assign({},l,{status:s.value}));desenhar()});
@@ -817,11 +839,11 @@ $('ficha').addEventListener('submit',function(ev){
 $('eCancelar').onclick=function(){$('dlg').close()};
 $('eExcluir').onclick=function(){if(!ed)return;if(!conf){conf=true;this.textContent='Clique de novo para excluir';return}leads.delete(ed.id);salvar();$('dlg').close();desenhar();toast('Lead excluído.')};
 $('bNovo').onclick=$('bNovo2').onclick=function(){ficha(null)};
-function abrirMsg(r){var x=r||roteiro();$('mEu').value=cfg.eu||'Rodrigo';$('mEmp').value=cfg.empresa||'';[0,1,2,3].forEach(function(k){$('mT'+k).value=x[k]})}
+function abrirMsg(r,em){var x=r||roteiro(),me=em||modeloEmail();$('mEu').value=cfg.eu||'Rodrigo';$('mEmp').value=cfg.empresa||'';[0,1,2,3].forEach(function(k){$('mT'+k).value=x[k]});$('mWhats').value=cfg.meuWa||'';$('mApp').value=cfg.emailApp||'gmail';$('mAss').value=me.assunto;$('mCorpo').value=me.corpo}
 $('bMsg').onclick=function(){abrirMsg();$('dlgMsg').showModal()};
-$('mPadrao').onclick=function(){abrirMsg(ROT_PADRAO)};
+$('mPadrao').onclick=function(){abrirMsg(ROT_PADRAO,EMAIL_PADRAO)};
 $('mCancelar').onclick=function(){$('dlgMsg').close()};
-$('fMsg').addEventListener('submit',function(ev){ev.preventDefault();cfg.eu=$('mEu').value.trim();cfg.empresa=$('mEmp').value.trim();cfg.roteiro=[0,1,2,3].map(function(k){return $('mT'+k).value});salvar();$('dlgMsg').close();desenhar();toast('Mensagens salvas.')});
+$('fMsg').addEventListener('submit',function(ev){ev.preventDefault();cfg.eu=$('mEu').value.trim();cfg.empresa=$('mEmp').value.trim();cfg.roteiro=[0,1,2,3].map(function(k){return $('mT'+k).value});cfg.meuWa=$('mWhats').value.trim();cfg.emailApp=$('mApp').value;cfg.email={assunto:$('mAss').value.trim(),corpo:$('mCorpo').value.trim()};salvar();$('dlgMsg').close();desenhar();toast('Mensagens salvas.')});
 $('okLista').addEventListener('click',function(ev){var b=ev.target.closest('[data-rot]');if(!b)return;var l=leads.get(b.dataset.rot);if(!l)return;
   $('rotTit').textContent='Roteiro: '+l.nome;var nomes=['1ª — abordagem','2ª — quando responder','3ª — mostrar exemplo','4ª — como funciona / valores'];
   $('rotLista').innerHTML=roteiro().map(function(t,k){return'<div style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface-2)"><b style="font-size:.85rem;color:var(--accent)">'+nomes[k]+'</b><p style="margin:6px 0 10px;white-space:pre-wrap">'+esc(preencher(t,l))+'</p><button type="button" class="btn peq" data-cp="'+k+'">Copiar</button></div>'}).join('');
