@@ -29,6 +29,18 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
 textarea{min-height:84px;resize:vertical}
 .opcoes{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
 #estado{grid-column:1/-1;font-size:.9rem;color:var(--ink-2)}
+.cid-campo{position:relative}
+.cid-pop{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:60;max-height:330px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 44px rgba(0,0,0,.5);padding:6px;overscroll-behavior:contain}
+.cid-pop[hidden]{display:none}
+.cid-sec{position:sticky;top:-6px;margin:0 -6px;background:var(--surface);padding:9px 16px 6px;font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);z-index:1}
+.cid-op{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:9px;cursor:pointer;color:var(--ink);font-size:.92rem;font-weight:500;line-height:1.25}
+.cid-op b{color:var(--accent);font-weight:700}
+.cid-op em{font-style:normal;font-size:.7rem;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:2px 8px;flex:none}
+.cid-op:hover,.cid-op.at{background:var(--surface-2)}
+.cid-op.sel{color:var(--accent)}
+.cid-op.sel>span::after{content:"  ✓";font-weight:700}
+.cid-vazio{padding:12px;color:var(--ink-2);font-size:.88rem}
+.cid-pop::-webkit-scrollbar{width:8px}.cid-pop::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 #estado.erro{color:var(--bad)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap;color:var(--ink)}
 .btn:hover{border-color:var(--ink-2)}
@@ -197,7 +209,7 @@ body{background:
   <section class="passo1">
     <header><span class="n">01</span><div><h3>Defina sua busca</h3><p>Escolha a cidade e o tipo de negócio que deseja prospectar.</p></div></header>
     <form class="busca" id="formBusca">
-      <label>Cidade <small style="font-weight:400;opacity:.75">(clique para ver todas · o DDD entra sozinho)</small><input type="text" id="bCidade" value="Campinas" list="cidadesRMC" autocomplete="off"><datalist id="cidadesRMC"><option value="Campinas"><option value="Sumaré"><option value="Hortolândia"><option value="Paulínia"><option value="Valinhos"><option value="Vinhedo"><option value="Louveira"><option value="Indaiatuba"><option value="Americana"><option value="Nova Odessa"><option value="Santa Bárbara d'Oeste"><option value="Jaguariúna"><option value="Pedreira"><option value="Itatiba"><option value="Monte Mor"><option value="Cosmópolis"><option value="Artur Nogueira"><option value="Holambra"><option value="Amparo"><option value="Jundiaí"></datalist></label>
+      <label class="cid-campo">Cidade <small style="font-weight:400;opacity:.75">(o DDD entra sozinho)</small><input type="text" id="bCidade" value="Campinas" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cidPop"><datalist id="cidadesRMC"><option value="Campinas"><option value="Sumaré"><option value="Hortolândia"><option value="Paulínia"><option value="Valinhos"><option value="Vinhedo"><option value="Louveira"><option value="Indaiatuba"><option value="Americana"><option value="Nova Odessa"><option value="Santa Bárbara d'Oeste"><option value="Jaguariúna"><option value="Pedreira"><option value="Itatiba"><option value="Monte Mor"><option value="Cosmópolis"><option value="Artur Nogueira"><option value="Holambra"><option value="Amparo"><option value="Jundiaí"></datalist><div class="cid-pop" id="cidPop" role="listbox" aria-label="Cidades" hidden></div></label>
       <label>Estado<select id="bUf"></select></label>
       <label>DDD<input type="text" id="bDdd" value="19" maxlength="2" inputmode="numeric"></label>
       <div class="catbox"><span class="catrot">Categorias <small style="font-weight:400;color:var(--ink-2)">— escolha uma ou várias</small></span><select id="bCat" hidden></select><div class="cats" id="catGrid" role="group" aria-label="Categorias"></div></div>
@@ -684,15 +696,15 @@ $('bCsv').onclick=function(){
 $('bUf').innerHTML=UFS.map(function(u){return'<option'+(u==='SP'?' selected':'')+'>'+u+'</option>'}).join('');
 // Todas as cidades do estado (IBGE) + DDD de cada uma (BrasilAPI/Anatel), guardadas por 30 dias
 var UFDDD={SP:[11,12,13,14,15,16,17,18,19],RJ:[21,22,24],ES:[27,28],MG:[31,32,33,34,35,37,38],PR:[41,42,43,44,45,46],SC:[47,48,49],RS:[51,53,54,55],DF:[61],GO:[61,62,64],TO:[63],MT:[65,66],MS:[67],AC:[68],RO:[69],BA:[71,73,74,75,77],SE:[79],PE:[81,87],AL:[82],PB:[83],RN:[84],CE:[85,88],PI:[86,89],PA:[91,93,94],AM:[92,97],RR:[95],AP:[96],MA:[98,99]};
-var RMC=Array.from($('cidadesRMC').options).map(function(o){return o.value}),cidDdd={};
+var RMC=Array.from($('cidadesRMC').options).map(function(o){return o.value}),cidDdd={},CIDS=RMC.map(function(n){return{n:n,d:'19',r:true}});
 function chaveCid(x){return semAc(x).replace(/[^a-z0-9]/g,'')}
 function aplicarCid(uf,v){if($('bUf').value!==uf)return;cidDdd=v.ddd||{};
   var vis={},lst=(uf==='SP'?RMC:[]).concat(v.nomes).filter(function(n){var c=chaveCid(n);if(vis[c])return false;vis[c]=1;return true});
-  $('cidadesRMC').innerHTML=lst.map(function(n){var d=cidDdd[chaveCid(n)];return'<option value="'+esc(n)+'"'+(d?' label="DDD '+d+'"':'')+'>'}).join('');dddDaCidade()}
+  CIDS=lst.map(function(n){return{n:n,d:cidDdd[chaveCid(n)]||'',r:uf==='SP'&&RMC.indexOf(n)>-1}});if(!$('cidPop').hidden)cidRender();dddDaCidade()}
 function listaCidades(uf){
   var k='cid1:'+uf,m=null;try{m=JSON.parse(localStorage.getItem(k)||'null')}catch(e){}
   if(m&&m.nomes&&m.nomes.length&&Date.now()-m.t<30*864e5){aplicarCid(uf,m);return}
-  if(uf!=='SP')$('cidadesRMC').innerHTML='';
+  if(uf!=='SP')CIDS=[];
   if(NO_CLAUDE)return;
   fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+uf+'/municipios?orderBy=nome').then(function(r){return r.json()}).then(function(a){
     var v={t:Date.now(),nomes:a.map(function(x){return x.nome}),ddd:{}};aplicarCid(uf,v);var todos={};
@@ -705,9 +717,33 @@ function listaCidades(uf){
 function dddDaCidade(){var d=cidDdd[chaveCid($('bCidade').value)];if(d)$('bDdd').value=d}
 $('bUf').addEventListener('change',function(){listaCidades(this.value)});
 ['input','change'].forEach(function(t){$('bCidade').addEventListener(t,dddDaCidade)});
-// ao clicar, mostra a lista inteira (o navegador só mostra o que bate com o texto já escrito)
-$('bCidade').addEventListener('focus',function(){var c=this;if(c.value){c.dataset.ant=c.value;c.placeholder=c.value;c.value=''}});
-$('bCidade').addEventListener('blur',function(){var c=this;if(!c.value.trim()&&c.dataset.ant)c.value=c.dataset.ant;c.placeholder='';dddDaCidade()});
+// lista de cidades própria (no lugar da lista padrão do navegador)
+var cidPop=$('cidPop'),cidInp=$('bCidade'),cidAt=-1,cidFiltra=false,cidVis=[];
+function cidMarca(n,q){if(!q)return esc(n);var i=semAc(n).indexOf(q);if(i<0)return esc(n);return esc(n.slice(0,i))+'<b>'+esc(n.slice(i,i+q.length))+'</b>'+esc(n.slice(i+q.length))}
+function cidRender(){var q=cidFiltra?semAc(cidInp.value).trim():'',atual=chaveCid(cidInp.value);
+  var lista=CIDS;if(q){var a=[],b=[];CIDS.forEach(function(x){var k=semAc(x.n).indexOf(q);if(k===0)a.push(x);else if(k>0)b.push(x)});lista=a.concat(b)}
+  cidVis=lista;if(!lista.length){cidPop.innerHTML='<div class="cid-vazio">'+(CIDS.length?'Nenhuma cidade encontrada':'Digite o nome da cidade')+'</div>';return}
+  var temReg=!q&&lista.some(function(x){return x.r}),sec='',h='';
+  lista.forEach(function(x,i){if(temReg){var t=x.r?'Região de Campinas · DDD 19':'Outras cidades de '+$('bUf').value;if(t!==sec){sec=t;h+='<div class="cid-sec">'+t+'</div>'}}
+    h+='<div class="cid-op'+(i===cidAt?' at':'')+(chaveCid(x.n)===atual?' sel':'')+'" role="option" id="cidOp'+i+'" data-i="'+i+'" aria-selected="'+(i===cidAt)+'"><span>'+cidMarca(x.n,q)+'</span>'+(x.d&&!(temReg&&x.r)?'<em>DDD '+x.d+'</em>':'')+'</div>'});
+  cidPop.innerHTML=h}
+function cidAbre(){cidRender();cidPop.hidden=false;cidInp.setAttribute('aria-expanded','true');if(!cidFiltra){var s=cidPop.querySelector('.cid-op.sel');if(s)cidPop.scrollTop=s.offsetTop-cidPop.clientHeight/2+s.offsetHeight/2;else cidPop.scrollTop=0}}
+function cidFecha(){cidPop.hidden=true;cidAt=-1;cidInp.setAttribute('aria-expanded','false');cidInp.removeAttribute('aria-activedescendant')}
+function cidMarcaAt(n){if(!cidVis.length)return;cidAt=(n+cidVis.length)%cidVis.length;cidPop.querySelectorAll('.cid-op').forEach(function(e){var on=+e.dataset.i===cidAt;e.classList.toggle('at',on);e.setAttribute('aria-selected',on)});var e=$('cidOp'+cidAt);if(e){e.scrollIntoView({block:'nearest'});cidInp.setAttribute('aria-activedescendant',e.id)}}
+function cidEscolhe(x){cidInp.value=x.n;cidInp.dataset.ant=x.n;cidFiltra=false;cidFecha();dddDaCidade();cidInp.dispatchEvent(new Event('change',{bubbles:true}))}
+cidInp.addEventListener('focus',function(){cidInp.dataset.ant=cidInp.value;cidFiltra=false;cidAt=-1;cidAbre()});
+cidInp.addEventListener('click',function(){if(cidPop.hidden){cidFiltra=false;cidAbre()}});
+cidInp.addEventListener('input',function(){cidFiltra=true;cidAt=0;cidAbre();cidMarcaAt(0)});
+cidInp.addEventListener('keydown',function(e){var aberto=!cidPop.hidden;
+  if(e.key==='ArrowDown'){e.preventDefault();if(!aberto)cidAbre();cidMarcaAt(cidAt+1)}
+  else if(e.key==='ArrowUp'){e.preventDefault();if(!aberto)cidAbre();cidMarcaAt(cidAt-1)}
+  else if(e.key==='Enter'&&aberto&&cidAt>-1&&cidVis[cidAt]){e.preventDefault();cidEscolhe(cidVis[cidAt])}
+  else if(e.key==='Escape'&&aberto){e.preventDefault();cidFecha()}
+  else if(e.key==='Tab')cidFecha()});
+cidInp.addEventListener('blur',function(){setTimeout(function(){if(document.activeElement===cidInp)return;cidFecha();if(!cidInp.value.trim()&&cidInp.dataset.ant)cidInp.value=cidInp.dataset.ant;dddDaCidade()},120)});
+cidPop.addEventListener('mousedown',function(e){e.preventDefault()});
+cidPop.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var o=e.target.closest('.cid-op');if(o)cidEscolhe(cidVis[+o.dataset.i])});
+document.addEventListener('click',function(e){if(!cidPop.hidden&&!e.target.closest('.cid-campo'))cidFecha()});
 listaCidades($('bUf').value);
 $('bCat').innerHTML=CATS.map(function(c,i){return'<option value="'+i+'">'+esc(c.nome)+'</option>'}).join('');
 var selCats=[0];var ICONES=['💇','🍔','🥐','🔧','🐾','🦷','🏋️','👗','🛒','🧱','🛠️','🏨','💼','🎓','🛍️'];
