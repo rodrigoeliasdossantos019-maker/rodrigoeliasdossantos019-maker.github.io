@@ -42,6 +42,7 @@ textarea{min-height:84px;resize:vertical}
 .cid-vazio{padding:12px;color:var(--ink-2);font-size:.88rem}
 .cid-pop::-webkit-scrollbar{width:8px}.cid-pop::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 #estado.erro{color:var(--bad)}
+.est-acoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.est-acoes .btn{text-decoration:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap;color:var(--ink)}
 .btn:hover{border-color:var(--ink-2)}
 .btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:var(--accent-ink);font-weight:600;box-shadow:0 6px 16px rgba(45,212,167,.3)}
@@ -337,7 +338,7 @@ var CATS=[
 {nome:'Padarias e confeitarias',f:{shop:'bakery|pastry|confectionery'}},
 {nome:'Oficinas, autopeças e lava-rápidos',f:{shop:'car_repair|car_parts|tyres|motorcycle|motorcycle_repair',amenity:'car_wash'}},
 {nome:'Pet shops e veterinários',f:{shop:'pet|pet_grooming',amenity:'veterinary'}},
-{nome:'Clínicas, dentistas e consultórios',f:{amenity:'dentist|clinic|doctors',healthcare:'physiotherapist|psychotherapist|laboratory|optometrist|alternative|speech_therapist'}},
+{nome:'Clínicas, dentistas e consultórios',f:{amenity:'dentist|clinic|doctors',healthcare:'doctor|dentist|clinic|centre|physiotherapist|psychotherapist|psychologist|counselling|nutrition_counselling|podiatrist|occupational_therapist|audiologist|laboratory|optometrist|alternative|speech_therapist|sample_collection',office:'physician|therapist|psychologist|medical'}},
 {nome:'Academias e esportes',f:{leisure:'fitness_centre|sports_centre|dance',amenity:'dojo'}},
 {nome:'Roupas, calçados e acessórios',f:{shop:'clothes|shoes|boutique|jewelry|bag|fashion_accessories'}},
 {nome:'Mercados, açougues e hortifrútis',f:{shop:'supermarket|convenience|greengrocer|butcher|beverages|deli'}},
@@ -523,12 +524,13 @@ $('formBusca').addEventListener('submit',function(ev){
   est.textContent='Buscando no OpenStreetMap… costuma levar de 30 a 60 segundos. Não feche a página.';
   var cid=$('bCidade').value.trim(),ddd=$('bDdd').value.trim(),soSem=$('soSemSite').checked,soTel=$('soComTel').checked;
   var chaveRes='res2:'+semAc(cid)+':'+$('bUf').value+':'+selCats.slice().sort().join('-');var cache=null;try{cache=JSON.parse(sessionStorage.getItem(chaveRes)||localStorage.getItem(chaveRes)||'null')}catch(e){}
-  var pr=(cache&&Date.now()-cache.t<6*3600e3)?Promise.resolve(cache.j):areaCidade().catch(function(){throw{cidade:true}}).then(function(area){return buscarEm(0,consulta(area.bb)).then(function(j){var dentro=j.elements.filter(function(el){return naCidade(el,area,cid)});return{elements:dentro,fora:j.elements.length-dentro.length,nome:area.nome}})}).then(function(j){try{localStorage.setItem(chaveRes,JSON.stringify({t:Date.now(),j:j}))}catch(e){}return j});
+  var pr=(cache&&Date.now()-cache.t<6*3600e3)?Promise.resolve(cache.j):areaCidade().catch(function(){throw{cidade:true}}).then(function(area){return buscarEm(0,consulta(area.bb)).then(function(j){var dentro=[],fora=[];j.elements.forEach(function(el){(naCidade(el,area,cid)?dentro:fora).push(el)});return{elements:dentro,fora:fora.length,foraEls:fora.slice(0,400),nome:area.nome}})}).then(function(j){try{localStorage.setItem(chaveRes,JSON.stringify({t:Date.now(),j:j}))}catch(e){}return j});
   pr.then(function(j){
     if(!j.elements.length){var qg=encodeURIComponent(selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' ')+' em '+(j.nome||cid));est.innerHTML='O OpenStreetMap não tem esse tipo de estabelecimento cadastrado em '+esc(j.nome||cid)+'. <a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Procurar no Google Maps</a> Depois use “Importar lista” para trazer os que você achar.';return}
-    var ach=0,nov=0,at=0,tel=0,pul=0,vis={},ids=[];
-    j.elements.forEach(function(el){
-      var l=leadOsm(el,j.nome||cid,ddd);if(!l||vis[l.id])return;vis[l.id]=1;ach++;
+    var ach=0,nov=0,at=0,tel=0,pul=0,visto={},ids=[];
+    function proc(lista,nomeCid,vizinha){lista.forEach(function(el){
+      var cn=vizinha?((el.tags&&el.tags['addr:city'])||nomeCid):nomeCid;
+      var l=leadOsm(el,cn,ddd);if(!l||visto[l.id])return;visto[l.id]=1;ach++;
       if((soSem&&l.siteStatus==='tem')||(soTel&&!telOk(l))){pul++;return}
       if(l.telefone)tel++;ids.push(l.id);
       var a=leads.get(l.id);
@@ -537,13 +539,29 @@ $('formBusca').addEventListener('submit',function(ev){
         if(!m.waStatus&&l.waStatus&&m.telefone===l.telefone)m.waStatus=l.waStatus;
         if(m.fonte==='OpenStreetMap'){m.verificadoEm=l.verificadoEm;if(l.cidade)m.cidade=l.cidade}leads.set(m.id,m);at++}
       else{leads.set(l.id,l);nov++}
-    });
-    cfg.ultima={rotulo:selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' + ')+' · '+(j.nome||cid),ids:ids};verTodas=false;limite=LOTE;
-    $('fTexto').value='';$('fSite').value='';$('fTel').value='valido';cidadesFiltro(semAc(j.nome||cid));
+    })}
+    proc(j.elements,j.nome||cid,false);
+    var rot=selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' + ');
+    cfg.ultima={rotulo:rot+' · '+(j.nome||cid),ids:ids};verTodas=false;limite=LOTE;
+    $('fTexto').value='';$('fSite').value='';$('fTel').value=soTel?'valido':'';cidadesFiltro(semAc(j.nome||cid));
     salvar();filtroSt='';desenhar();
     var jc=ids.filter(function(id){var x=leads.get(id);return x&&(jaCont(x)||x.descartado)}).length,semT=ids.filter(function(id){var x=leads.get(id);return x&&(!telOk(x)||x.semWa)&&!jaCont(x)&&!x.descartado}).length,fix=ids.filter(function(id){var x=leads.get(id);return x&&telOk(x)&&!x.semWa&&!waOk(x)&&!jaCont(x)&&!x.descartado}).length,vis=filtrados().length;
-    est.textContent=ach+' estabelecimentos encontrados: '+vis+' na lista agora'+(vis?' (celulares/WhatsApp)':'')+(jc?', '+jc+' que você já contatou (estão em “Contatados ✓”)':'')+(fix?', '+fix+' só com telefone fixo, que geralmente não tem WhatsApp (escondidos; para ver, use Contato → “Qualquer telefone válido”)':'')+(semT?', '+semT+' sem telefone válido (escondidos)':'')+(pul?', '+pul+' deixados de fora pelos filtros':'')+'.'+(j.fora?' ('+j.fora+' de cidades vizinhas foram ignorados.)':'');
-    if(!vis&&ach)est.textContent+=' Nenhum novo para mostrar: '+(pul?'desmarque “Só quem não tem site próprio” ou “Só quem tem telefone público” para ver mais, ou ':'')+'tente outra categoria ou cidade.';
+    est.textContent=ach+' estabelecimentos encontrados: '+vis+' na lista agora'+(vis&&soTel?' (celulares/WhatsApp)':'')+(jc?', '+jc+' que você já contatou (estão em “Contatados ✓”)':'')+(fix?', '+fix+' só com telefone fixo, que geralmente não tem WhatsApp':'')+(semT?', '+semT+' sem telefone válido':'')+(pul?', '+pul+' deixados de fora pelos filtros':'')+'.'+(j.fora?' Mais '+j.fora+' ficam em cidades vizinhas.':'');
+    if(vis<5){
+      var qg=encodeURIComponent(rot+' em '+(j.nome||cid)),ac=[];
+      if(!vis)est.textContent+=' O OpenStreetMap tem poucos cadastros desse tipo aqui. Para ver mais:';
+      if(fix)ac.push('<button type="button" class="btn peq" data-ac="fixo">Mostrar os '+fix+' com telefone fixo</button>');
+      if(pul)ac.push('<button type="button" class="btn peq" data-ac="filtros">Mostrar os '+pul+' escondidos pelos filtros</button>');
+      if(j.foraEls&&j.foraEls.length)ac.push('<button type="button" class="btn peq" data-ac="vizinhas">Incluir as cidades vizinhas ('+j.foraEls.length+')</button>');
+      ac.push('<a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Procurar no Google Maps ↗</a>');
+      var box=document.createElement('div');box.className='est-acoes';box.innerHTML=ac.join('');est.appendChild(box);
+      box.addEventListener('click',function(e){var bt=e.target.closest('[data-ac]');if(!bt)return;var k=bt.dataset.ac;
+        if(k==='fixo'){$('fTel').value='tel';desenhar();bt.disabled=true;bt.textContent='Telefones fixos na lista ✓';var tb=$('corpo').closest('section');if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}
+        else if(k==='filtros'){$('soSemSite').checked=false;$('soComTel').checked=false;$('fTel').value='';$('formBusca').requestSubmit()}
+        else if(k==='vizinhas'){var antes=ids.length;proc(j.foraEls,(j.nome||cid)+' (região)',true);cfg.ultima.ids=ids;cfg.ultima.rotulo=rot+' · '+(j.nome||cid)+' e região';
+          $('fCidade').value='';salvar();desenhar();bt.disabled=true;bt.textContent='Cidades vizinhas incluídas ✓ (+'+(ids.length-antes)+')';
+          var tb=$('corpo').closest('section');if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}});
+    }
     if(vis){var tb=$('corpo').closest('section');if(tb)setTimeout(function(){tb.scrollIntoView({behavior:'smooth',block:'start'})},150)}
   }).catch(function(err){est.className='erro';if(err&&err.cidade){est.textContent='Não encontrei essa cidade. Confira o nome (com acentos) e o estado.';return}if(NO_CLAUDE){est.innerHTML='Dentro do Claude a busca é bloqueada por segurança. <button type="button" class="btn pri peq" id="bBaixar2">Baixar o Prospecta e buscar</button> Depois aperte Ctrl+J e abra o arquivo: lá a busca funciona.';$('bBaixar2').onclick=baixarArquivo;return}est.textContent='Os servidores gratuitos do OpenStreetMap estão sobrecarregados agora. Espere um ou dois minutos e clique em Buscar de novo.'})
   .then(function(){b.disabled=false;b.textContent='Buscar estabelecimentos'});
