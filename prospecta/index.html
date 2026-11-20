@@ -189,7 +189,7 @@ body{background:
       <div class="tag">✦ Prospecção inteligente</div>
       <h2>Encontre novos clientes <span>antes da</span> concorrência.</h2>
       <p class="lead">Descubra estabelecimentos sem site, encontre contatos públicos e inicie conversas em poucos minutos.</p>
-      <div class="fatos"><div><b>3 etapas</b><span>Fluxo simples</span></div><div><b>Dados públicos</b><span>Fonte OpenStreetMap</span></div><div><b>Sem mensalidade</b><span>Busca gratuita</span></div></div>
+      <div class="fatos"><div><b>3 etapas</b><span>Fluxo simples</span></div><div><b>Dados públicos</b><span>Receita Federal + OpenStreetMap</span></div><div><b>Sem mensalidade</b><span>Busca gratuita</span></div></div>
     </div>
     <div class="painel" aria-hidden="true">
       <div class="bar"><span class="pts"><i></i><i></i><i></i>&nbsp; Prospecção ao vivo</span><span class="vivo" id="pvStatus">Pronto</span></div>
@@ -220,7 +220,7 @@ body{background:
         <label class="linha"><input type="checkbox" id="soComTel" checked> Só quem tem telefone público</label>
         <button class="btn peq" type="button" id="bNovo2">Cadastrar lead à mão</button>
       </div>
-      <p id="estado">Escolha a cidade e a categoria e clique em Buscar. Fonte: OpenStreetMap (gratuito). Nenhum telefone é inventado.</p>
+      <p id="estado">Escolha a cidade e a categoria e clique em Buscar. Fontes gratuitas: cadastro de CNPJ da Receita Federal e OpenStreetMap. Nenhum telefone é inventado.</p>
     </form>
   </section>
   </section>
@@ -428,6 +428,110 @@ function leadOsm(el,cid,ddd){
     extra:{cuisine:t.cuisine||'',beauty:t.beauty||'',esp:t['healthcare:speciality']||'',desc:t.description||'',horario:t.opening_hours||'',delivery:t.delivery||'',takeaway:t.takeaway||'',craft:t.craft||'',sport:t.sport||''}};
 }
 
+/* ---------- Receita Federal (cadastro público de CNPJ) ----------
+   Lista: Casa dos Dados (pesquisa pública por cidade e atividade). Telefone e endereço: Minha Receita, com a BrasilAPI de reserva.
+   Os dados vêm da base aberta da Receita Federal. Nenhum número é inventado: só completamos o 9 dos celulares gravados com 8 dígitos. */
+var CNAE=[
+['9602501','9602502','9609206','4772500'],
+['5611201','5611203','5611204','5611205','5620104'],
+['1091102','4721102','4721104'],
+['4520001','4520002','4520003','4520004','4520005','4520006','4520007','4530703','4543900','4541206'],
+['4789004','7500100','9609208','9609207'],
+['8630501','8630502','8630503','8630504','8650001','8650002','8650003','8650004','8650005','8650006','8690901','8690903','8690904','8640202'],
+['9313100','8591100','8592901','9311500'],
+['4781400','4782201','4782202','4783101','4783102'],
+['4711302','4712100','4722901','4722902','4724500','4723700','4729699'],
+['4744001','4744005','4744099','4741500','4742300','4743100','4744002','4744003','4744004','9529102'],
+['4321500','4322301','4322302','4330404','4330402','4399103','3101200','3329501','2512800','9521500','8121400','7420001','9529101','1412602'],
+['5510801','5510802','5510803','5590601','5590603','5590699'],
+['6911701','6920601','6920602','6821801','6821802','6822600','6622300','7111100','7112000'],
+['8593700','8599601','8592903','8512100','8511200','8599604','8599605','8599699','8599603','8592999'],
+['4789002','4774100','4754701','4752100','4753900','4763603','4763601','4761001','4761003','4789001','4759899']];
+var CNAEROT={'9602501':'Salão / barbearia','9602502':'Estética','9609206':'Tatuagem','4772500':'Cosméticos',
+'5611201':'Restaurante','5611203':'Lanchonete','5611204':'Bar','5611205':'Bar','5620104':'Marmitaria e delivery',
+'1091102':'Padaria','4721102':'Padaria','4721104':'Doceria',
+'4520001':'Oficina mecânica','4520002':'Funilaria e pintura','4520003':'Autoelétrica','4520004':'Alinhamento e balanceamento','4520005':'Lava-rápido','4520006':'Borracharia','4520007':'Acessórios automotivos','4530703':'Autopeças','4543900':'Oficina de motos','4541206':'Peças para motos',
+'4789004':'Pet shop','7500100':'Veterinário','9609208':'Banho e tosa','9609207':'Hotel para pets',
+'8630501':'Clínica','8630502':'Clínica','8630503':'Consultório','8630504':'Dentista','8650001':'Enfermagem','8650002':'Nutrição','8650003':'Psicologia','8650004':'Fisioterapia','8650005':'Terapia ocupacional','8650006':'Fonoaudiologia','8690901':'Terapias integrativas','8690903':'Acupuntura','8690904':'Podologia','8640202':'Laboratório',
+'9313100':'Academia','8591100':'Escola de esportes','8592901':'Escola de dança','9311500':'Centro esportivo',
+'4781400':'Loja de roupas','4782201':'Calçados','4782202':'Artigos de viagem','4783101':'Joalheria','4783102':'Relojoaria',
+'4711302':'Supermercado','4712100':'Mercearia','4722901':'Açougue','4722902':'Peixaria','4724500':'Hortifrúti','4723700':'Bebidas','4729699':'Empório',
+'4744001':'Ferragens','4744005':'Materiais de construção','4744099':'Materiais de construção','4741500':'Tintas','4742300':'Material elétrico','4743100':'Vidraçaria','4744002':'Madeireira','4744003':'Materiais hidráulicos','4744004':'Materiais de construção','9529102':'Chaveiro',
+'4321500':'Eletricista','4322301':'Encanador','4322302':'Ar-condicionado','4330404':'Pintor','4330402':'Portas, janelas e armários','4399103':'Pedreiro','3101200':'Marcenaria','3329501':'Montador de móveis','2512800':'Serralheria','9521500':'Assistência técnica','8121400':'Limpeza','7420001':'Fotógrafo','9529101':'Sapataria','1412602':'Costura sob medida',
+'5510801':'Hotel','5510802':'Apart-hotel','5510803':'Motel','5590601':'Hostel','5590603':'Pensão','5590699':'Pousada',
+'6911701':'Advocacia','6920601':'Contabilidade','6920602':'Contabilidade','6821801':'Imobiliária','6821802':'Imobiliária','6822600':'Administradora de imóveis','6622300':'Seguros','7111100':'Arquitetura','7112000':'Engenharia',
+'8593700':'Escola de idiomas','8599601':'Autoescola','8592903':'Escola de música','8512100':'Escola infantil','8511200':'Creche','8599604':'Treinamentos','8599605':'Cursinho para concursos','8599699':'Cursos e reforço escolar','8599603':'Curso de informática','8592999':'Escola de artes',
+'4789002':'Floricultura','4774100':'Ótica','4754701':'Móveis','4752100':'Celulares','4753900':'Eletrônicos','4763603':'Bicicletaria','4763601':'Brinquedos','4761001':'Livraria','4761003':'Papelaria','4789001':'Presentes e artesanato','4759899':'Utilidades para o lar'};
+var CDURL='https://api.casadosdados.com.br/v5/public/cnpj/pesquisa';
+function munRf(c){return semAc(c).toUpperCase().replace(/\s+/g,' ').trim()}
+function diaIso(t){return new Date(t).toISOString().slice(0,10)}
+function espera(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function rfJanela(f,w){
+  var corpo=JSON.stringify(Object.assign({},f,{data_abertura:{inicio:w.i,fim:w.f},limite:20,pagina:1}));
+  function vai(n){return fetch(CDURL,{method:'POST',headers:{'Content-Type':'application/json'},body:corpo}).then(function(r){if(r.status===429&&n<2)return espera(1500*(n+1)).then(function(){return vai(n+1)});if(!r.ok)throw new Error('rf '+r.status);return r.json()})}
+  return vai(0)}
+function rfNovo(cat,cid,uf,soCel){var mf={somente_matriz:true};if(soCel)mf.somente_celular=true;
+  return{cat:cat,f:{codigo_atividade_principal:CNAE[cat]||[],situacao_cadastral:['ATIVA'],uf:[uf],municipio:[munRf(cid)],mais_filtros:mf},jan:[{i:'1900-01-01',f:hoje()}],vistos:{},total:null}}
+// Pega até "quantos" CNPJs, dos abertos mais recentemente para os mais antigos.
+// A pesquisa pública devolve no máximo 20 por consulta, então o período de abertura é dividido ao meio até caber.
+function rfColeta(e,quantos,prog){var out=[],n=0;
+  function passo(){if(out.length>=quantos||!e.jan.length||n>=45)return Promise.resolve(out);n++;var w=e.jan.shift();
+    return rfJanela(e.f,w).then(function(j){var tot=j&&j.total||0;if(e.total==null)e.total=tot;
+      if(tot>20&&w.i<w.f){var a=Date.parse(w.i),b=Date.parse(w.f),m=diaIso(a+Math.floor((b-a)/864e5/2)*864e5);e.jan.unshift({i:w.i,f:m});e.jan.unshift({i:diaIso(Date.parse(m)+864e5),f:w.f})}
+      else(j&&j.cnpjs||[]).forEach(function(c){if(c&&c.cnpj&&!e.vistos[c.cnpj]){e.vistos[c.cnpj]=1;out.push(c.cnpj)}});
+      prog&&prog(out.length);return espera(120).then(passo)},
+    function(err){e.jan.unshift(w);if(out.length)return out;throw err})}
+  return passo()}
+var RFD={},RFNADA={};try{RFD=JSON.parse(localStorage.getItem('rfd1')||'{}')||{}}catch(e){RFD={}}
+function rfGuarda(){try{var k=Object.keys(RFD);if(k.length>2500)k.slice(0,k.length-2000).forEach(function(x){delete RFD[x]});localStorage.setItem('rfd1',JSON.stringify(RFD))}catch(e){}}
+function rfDet(cnpj){
+  if(RFD[cnpj])return Promise.resolve(RFD[cnpj]);if(RFNADA[cnpj])return Promise.resolve(null);
+  function pega(u){return fetch(u).then(function(r){if(r.status===404)return null;if(!r.ok)throw new Error(r.status);return r.json()})}
+  return pega('https://minhareceita.org/'+cnpj).catch(function(){return null}).then(function(d){return d||pega('https://brasilapi.com.br/api/cnpj/v1/'+cnpj).catch(function(){return null})})
+    .then(function(d){if(!d){RFNADA[cnpj]=1;return null}
+      var c={nf:d.nome_fantasia||'',rz:d.razao_social||'',t1:d.ddd_telefone_1||'',t2:d.ddd_telefone_2||'',em:d.email||'',tl:d.descricao_tipo_de_logradouro||'',lg:d.logradouro||'',nu:d.numero||'',ba:d.bairro||'',ab:d.data_inicio_atividade||'',cn:String(d.cnae_fiscal||''),mei:!!d.opcao_pelo_mei};
+      RFD[cnpj]=c;return c})}
+// Receita grava muitos celulares com 8 dígitos (antes do 9 extra): 19 9168-5446 vira 19 99168-5446.
+function telRf(v){var d=String(v||'').replace(/\D/g,'');if(d.length===10&&/[6-9]/.test(d[2]))d=d.slice(0,2)+'9'+d.slice(2);return d.length>=10?normTel(d,''):null}
+var MINUS={de:1,da:1,do:1,das:1,dos:1,e:1,em:1,para:1,com:1,na:1,no:1,nas:1,nos:1};
+function titulo(s){return String(s||'').toLowerCase().replace(/\s+/g,' ').trim().split(' ').map(function(w,i){return(i&&MINUS[w])?w:w.replace(/^([^a-zà-ÿ]*)([a-zà-ÿ])/,function(_,p,c){return p+c.toUpperCase()})}).join(' ')}
+function nomeRf(nf,rz){var n=String(nf||'').trim();if(!n||!/[A-Za-zÀ-ÿ]{2}/.test(n))n=String(rz||'');
+  n=n.replace(/^\s*[\d.\-\/]{8,}\s+/,'').replace(/\s+\d{11}\s*$/,'').replace(/SOCIEDADE INDIVIDUAL DE ADVOCACIA/i,'ADVOCACIA').replace(/SOCIEDADE DE ADVOGAD(O|A)S/i,'ADVOGAD$1S');
+  for(var k=0;k<3;k++)n=n.replace(/[\s,.\-–]+(LTDA|EIRELI|EPP|ME|MEI|S\/A|S\.A|SA|SLU|S\/S|SS)\.?\s*$/i,'');
+  return titulo(n)||titulo(rz)}
+function fmtCnpj(c){return String(c||'').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,'$1.$2.$3/$4-$5')}
+function leadRf(cnpj,d,cid){
+  var ts=[d.t1,d.t2].map(telRf).filter(function(n){return n&&n.e164}),o={celular:0,fixo:1};ts.sort(function(a,b){return(o[a.tipo]!=null?o[a.tipo]:2)-(o[b.tipo]!=null?o[b.tipo]:2)});
+  ts=ts.filter(function(n,i){return ts.findIndex(function(x){return x.e164===n.e164})===i});var pr=ts[0]||null;
+  var end=titulo([d.tl,d.lg].filter(Boolean).join(' '));if(end)end+=d.nu&&!/^s\.?\/?n/i.test(d.nu)?', '+d.nu:', s/n';if(d.ba)end+=(end?' · ':'')+titulo(d.ba);
+  var cat=CNAEROT[d.cn]||'Estabelecimento';
+  return{id:'rf-'+cnpj,nome:nomeRf(d.nf,d.rz),categoria:cat,cidade:cid,endereco:end,
+    telefone:pr?pr.e164:'',telEx:pr?pr.ex:'',telTipo:pr?pr.tipo:'',dddA:false,outros:ts.slice(1).map(function(n){return n.ex}),
+    waStatus:'',email:String(d.em||'').trim().toLowerCase(),instagram:'',facebook:'',site:'',siteStatus:'sem',
+    fonte:'Receita Federal (CNPJ)',fonteUrl:'https://minhareceita.org/'+cnpj,verificadoEm:hoje(),status:'Novo lead',obs:'',ultimoContato:'',
+    extra:{cnpj:cnpj,razao:titulo(d.rz),abertura:d.ab,mei:d.mei}}}
+// E-mail com domínio próprio (ex.: contato@clinicax.com.br) que responde na internet = provavelmente já tem site.
+var LIVRE=/^(gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|rocketmail|uol|bol|terra|ig|icloud|me|mac|globo|globomail|r7|zipmail|oi|proton|protonmail|pm|aol|yandex|gmx|mail|zoho|pop|superig|brturbo|itelefonica|veloxmail|click21|ibest|folha|estadao|tutanota|email|outlook)\./i;
+function dominioSite(l){var m=/@([a-z0-9.-]+\.[a-z]{2,})$/i.exec(l.email||'');if(!m)return'';var dom=m[1].toLowerCase();
+  if(LIVRE.test(dom))return'';if(/contab|contad|fiscal|tribut/.test(dom)&&l.categoria!=='Contabilidade')return'';return dom}
+var DNS={};
+function temDominio(dom){if(DNS[dom]!=null)return Promise.resolve(DNS[dom]);
+  return fetch('https://dns.google/resolve?name='+encodeURIComponent(dom)+'&type=A').then(function(r){return r.json()}).then(function(j){return DNS[dom]=!!(j&&j.Status===0&&j.Answer&&j.Answer.length)}).catch(function(){return false})}
+function pool(itens,n,fn){var i=0,res=new Array(itens.length);
+  function w(){if(i>=itens.length)return Promise.resolve();var k=i++;return Promise.resolve().then(function(){return fn(itens[k],k)}).catch(function(){return null}).then(function(r){res[k]=r;return w()})}
+  var ws=[];for(var t=0;t<Math.min(n,itens.length);t++)ws.push(w());return Promise.all(ws).then(function(){return res})}
+function rfResta(ests){return ests.some(function(e){return e.jan.length>0})}
+function rfBusca(ests,quantos,cid,prog){
+  var cada=Math.max(20,Math.ceil(quantos/ests.length)),lista=[],erros=0;
+  return ests.reduce(function(p,e){return p.then(function(){if(!e.jan.length)return;return rfColeta(e,cada,function(n){prog&&prog((lista.length+n)+' empresas')}).then(function(cs){cs.forEach(function(c){lista.push(c)})},function(){erros++})})},Promise.resolve())
+  .then(function(){if(!lista.length&&erros)throw new Error('rf');var feitos=0;
+    return pool(lista,6,function(c){return rfDet(c).then(function(d){feitos++;prog&&prog('telefones '+feitos+' de '+lista.length);return d?leadRf(c,d,cid):null})})})
+  .then(function(ls){rfGuarda();ls=ls.filter(Boolean);var doms={};
+    ls.forEach(function(l){var d=dominioSite(l);if(d){l._dom=d;doms[d]=null}});
+    return pool(Object.keys(doms),6,function(d){return temDominio(d).then(function(ok){doms[d]=ok})}).then(function(){
+      ls.forEach(function(l){if(l._dom){if(doms[l._dom]===true){l.site='https://'+l._dom;l.siteStatus='tem';l.obs='Site deduzido pelo e-mail @'+l._dom}delete l._dom}});
+      ls.pedidos=lista.length;return ls})})}
+
 function numWa(l){return(!l.semWa&&telOk(l)&&(['celular','fixo'].indexOf(l.telTipo)>=0||l.waStatus))?l.telefone:''}
 var ROT_PADRAO=[
 'Olá, tudo bem? Falo com a {nome}?',
@@ -453,6 +557,9 @@ function analise(l){
   if(x.delivery==='yes'||x.takeaway==='yes'){o.push('Faz entrega/retirada: site com cardápio e pedido pelo WhatsApp');if(!g)g=', com '+(x.delivery==='yes'?'entregas':'retirada no local')+','}
   if(x.horario)o.push('Horário publicado: '+x.horario);
   if(x.desc)o.push('Descrição: '+x.desc);
+  if(x.abertura){var dias=(Date.now()-Date.parse(x.abertura))/864e5;o.push('Empresa aberta em '+dataBr(x.abertura)+(dias<400?': negócio novo, ótimo momento para ter site':''))}
+  if(x.cnpj)o.push('CNPJ '+fmtCnpj(x.cnpj)+(x.razao&&semAc(x.razao)!==semAc(l.nome)?' · '+x.razao:'')+(x.mei?' · MEI':''));
+  if(/Receita/.test(l.fonte||''))o.push('Telefone do cadastro na Receita Federal: confirme o nome logo no início da conversa');
   o.push(l.waStatus?'WhatsApp confirmado pela fonte':(l.telTipo==='celular'?'Número de celular (provável WhatsApp)':'Número fixo: pode não ter WhatsApp'));
   return{faz:faz,gancho:g,pontos:o};
 }
@@ -506,7 +613,7 @@ $('fImp').addEventListener('submit',function(ev){
 function buscarEm(_i,q){
   // Consulta todos os servidores ao mesmo tempo e usa a primeira resposta válida.
   var ctls=[],pend=SERVIDORES.length,feito=false,ini=Date.now();
-  var tk=setInterval(function(){if(!feito)$('estado').textContent='Buscando no OpenStreetMap… '+Math.round((Date.now()-ini)/1000)+'s · costuma levar de 30 a 60 segundos, aguarde que o resultado aparece sozinho'},1000);
+  var tk=setInterval(function(){},1000);
   return new Promise(function(ok,falha){
     SERVIDORES.forEach(function(u){
       var c=new AbortController();ctls.push(c);var tm=setTimeout(function(){c.abort()},120000);
@@ -518,53 +625,81 @@ function buscarEm(_i,q){
     });
   });
 }
+var SEQ=0;
 $('formBusca').addEventListener('submit',function(ev){
   ev.preventDefault();
-  var b=$('bBuscar'),est=$('estado');b.disabled=true;b.textContent='Buscando…';est.className='';
-  est.textContent='Buscando no OpenStreetMap… costuma levar de 30 a 60 segundos. Não feche a página.';
-  var cid=$('bCidade').value.trim(),ddd=$('bDdd').value.trim(),soSem=$('soSemSite').checked,soTel=$('soComTel').checked;
-  var chaveRes='res3:'+semAc(cid)+':'+$('bUf').value+':'+selCats.slice().sort().join('-');var cache=null;try{cache=JSON.parse(sessionStorage.getItem(chaveRes)||localStorage.getItem(chaveRes)||'null')}catch(e){}
-  var pr=(cache&&Date.now()-cache.t<6*3600e3)?Promise.resolve(cache.j):areaCidade().catch(function(){throw{cidade:true}}).then(function(area){return buscarEm(0,consulta(area.bb)).then(function(j){var dentro=[],fora=[];j.elements.forEach(function(el){(naCidade(el,area,cid)?dentro:fora).push(el)});return{elements:dentro,fora:fora.length,foraEls:fora.slice(0,400),nome:area.nome}})}).then(function(j){try{localStorage.setItem(chaveRes,JSON.stringify({t:Date.now(),j:j}))}catch(e){}return j});
-  pr.then(function(j){
-    if(!j.elements.length){var qg=encodeURIComponent(selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' ')+' em '+(j.nome||cid));est.innerHTML='O OpenStreetMap não tem esse tipo de estabelecimento cadastrado em '+esc(j.nome||cid)+'. <a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Procurar no Google Maps</a> Depois use “Importar lista” para trazer os que você achar.';return}
-    var ach=0,nov=0,at=0,tel=0,pul=0,visto={},ids=[];
-    function proc(lista,nomeCid,vizinha){lista.forEach(function(el){
-      var cn=vizinha?((el.tags&&el.tags['addr:city'])||nomeCid):nomeCid;
-      var l=leadOsm(el,cn,ddd);if(!l||visto[l.id])return;visto[l.id]=1;ach++;
-      if((soSem&&l.siteStatus==='tem')||(soTel&&!telOk(l))){pul++;return}
-      if(l.telefone)tel++;ids.push(l.id);
-      var a=leads.get(l.id);
-      if(a){var m=Object.assign({},a);if(!m.telEx&&l.telEx){['telefone','telEx','telTipo','dddA','fonte','fonteUrl'].forEach(function(k){m[k]=l[k]})}
-        ['email','instagram','facebook','site','endereco'].forEach(function(k){if(!m[k]&&l[k])m[k]=l[k]});
-        if(!m.waStatus&&l.waStatus&&m.telefone===l.telefone)m.waStatus=l.waStatus;
-        if(m.fonte==='OpenStreetMap'){m.verificadoEm=l.verificadoEm;if(l.cidade)m.cidade=l.cidade}leads.set(m.id,m);at++}
-      else{leads.set(l.id,l);nov++}
-    })}
-    proc(j.elements,j.nome||cid,false);
-    var rot=selCats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' + ');
-    cfg.ultima={rotulo:rot+' · '+(j.nome||cid),ids:ids};verTodas=false;limite=LOTE;
-    $('fTexto').value='';$('fSite').value='';$('fTel').value=soTel?'valido':'';cidadesFiltro(semAc(j.nome||cid));
-    salvar();filtroSt='';desenhar();
-    var jc=ids.filter(function(id){var x=leads.get(id);return x&&(jaCont(x)||x.descartado)}).length,semT=ids.filter(function(id){var x=leads.get(id);return x&&(!telOk(x)||x.semWa)&&!jaCont(x)&&!x.descartado}).length,fix=ids.filter(function(id){var x=leads.get(id);return x&&telOk(x)&&!x.semWa&&!waOk(x)&&!jaCont(x)&&!x.descartado}).length,vis=filtrados().length;
-    est.textContent=ach+' estabelecimentos encontrados: '+vis+' na lista agora'+(vis&&soTel?' (celulares/WhatsApp)':'')+(jc?', '+jc+' que você já contatou (estão em “Contatados ✓”)':'')+(fix?', '+fix+' só com telefone fixo, que geralmente não tem WhatsApp':'')+(semT?', '+semT+' sem telefone válido':'')+(pul?', '+pul+' deixados de fora pelos filtros':'')+'.'+(j.fora?' Mais '+j.fora+' ficam em cidades vizinhas.':'');
-    if(vis<5){
-      var qg=encodeURIComponent(rot+' em '+(j.nome||cid)),ac=[];
-      if(!vis)est.textContent+=' O OpenStreetMap tem poucos cadastros desse tipo aqui. Para ver mais:';
+  var meu=++SEQ,b=$('bBuscar'),est=$('estado');b.disabled=true;b.textContent='Buscando…';est.className='';
+  var cid=$('bCidade').value.trim(),uf=$('bUf').value,ddd=$('bDdd').value.trim(),soSem=$('soSemSite').checked,soTel=$('soComTel').checked;
+  var cats=selCats.slice(),rot=cats.map(function(i){return CATS[i].nome.replace(/\s*\(.*\)/,'').split(',')[0]}).join(' + ');
+  var S={ach:0,pul:0,ids:[],visto:{},porTel:{},nome:cid,viz:false,rfN:0,osmN:0,rfTot:0,rfPed:0,rfOk:null,osmOk:null,cidErro:false,j:null,mostrou:false,seg:0,prog:''};
+  var rfEst=cats.map(function(i){return rfNovo(i,cid,uf,soTel)});
+  function vivo(){return meu===SEQ}
+  // junta o lead na lista desta busca, sem duplicar (mesmo id ou mesmo telefone)
+  function poe(l,org){
+    if(!l||S.visto[l.id])return;S.visto[l.id]=1;
+    var dup=l.telefone&&S.porTel[l.telefone]&&leads.get(S.porTel[l.telefone]);
+    if(dup){var d=Object.assign({},dup);['email','instagram','facebook','endereco'].forEach(function(k){if(!d[k]&&l[k])d[k]=l[k]});
+      if(l.site&&!d.site){d.site=l.site;d.siteStatus=l.siteStatus}else if(l.siteStatus==='social'&&d.siteStatus==='sem')d.siteStatus='social';
+      if(!d.waStatus&&l.waStatus)d.waStatus=l.waStatus;d.extra=Object.assign({},l.extra||{},d.extra||{});leads.set(d.id,d);
+      if(soSem&&d.siteStatus==='tem'){var ix=S.ids.indexOf(d.id);if(ix>=0){S.ids.splice(ix,1);S.pul++}}return}
+    S.ach++;S[org+'N']++;
+    if((soSem&&l.siteStatus==='tem')||(soTel&&!telOk(l))){S.pul++;return}
+    var a=leads.get(l.id);if(!a&&l.telefone)leads.forEach(function(x){if(!a&&x.telefone===l.telefone)a=x});
+    if(a){var m=Object.assign({},a);if(!m.telEx&&l.telEx)['telefone','telEx','telTipo','dddA','fonte','fonteUrl'].forEach(function(k){m[k]=l[k]});
+      ['email','instagram','facebook','endereco'].forEach(function(k){if(!m[k]&&l[k])m[k]=l[k]});
+      if(!m.site&&l.site){m.site=l.site;m.siteStatus=l.siteStatus}
+      if(!m.waStatus&&l.waStatus&&m.telefone===l.telefone)m.waStatus=l.waStatus;
+      if(m.fonte===l.fonte){m.verificadoEm=l.verificadoEm;if(l.cidade)m.cidade=l.cidade}
+      m.extra=Object.assign({},l.extra||{},m.extra||{});leads.set(m.id,m);if(S.ids.indexOf(m.id)<0)S.ids.push(m.id);if(m.telefone)S.porTel[m.telefone]=m.id}
+    else{leads.set(l.id,l);S.ids.push(l.id);if(l.telefone)S.porTel[l.telefone]=l.id}
+  }
+  function aplica(){
+    if(!S.mostrou){S.mostrou=true;cfg.ultima={rotulo:rot+' · '+S.nome,ids:S.ids};verTodas=false;limite=LOTE;$('fTexto').value='';$('fSite').value='';$('fTel').value=soTel?'valido':'';cidadesFiltro(semAc(S.nome));filtroSt='';b.disabled=false;b.textContent='Buscar estabelecimentos';S.rolar=true}
+    else if(cfg.ultima){cfg.ultima.ids=S.ids;if(S.viz)cfg.ultima.rotulo=rot+' · '+S.nome+' e região'}
+    salvar();desenhar();if(S.rolar&&filtrados().length){S.rolar=false;var tb=$('corpo').closest('section');if(tb)setTimeout(function(){tb.scrollIntoView({behavior:'smooth',block:'start'})},150)}}
+  function osmTxt(){return S.osmOk===null?' Procurando também no OpenStreetMap… '+S.seg+'s':''}
+  function mostra(){
+    if(!vivo())return;
+    if(!S.mostrou){est.textContent='Buscando'+(S.rfOk===null?' na Receita Federal'+(S.prog?' ('+S.prog+')':''):'')+(S.rfOk===null&&S.osmOk===null?' e':'')+(S.osmOk===null?' no OpenStreetMap ('+S.seg+'s)':'')+'… Não feche a página.';return}
+    var g=function(f){return S.ids.filter(function(id){var x=leads.get(id);return x&&f(x)}).length};
+    var jc=g(function(x){return jaCont(x)||x.descartado}),semT=g(function(x){return(!telOk(x)||x.semWa)&&!jaCont(x)&&!x.descartado}),fix=g(function(x){return telOk(x)&&!x.semWa&&!waOk(x)&&!jaCont(x)&&!x.descartado}),vis=filtrados().length;
+    var f=[];if(S.rfN)f.push(S.rfN+' da Receita Federal');if(S.osmN)f.push(S.osmN+' do OpenStreetMap');
+    var t=S.ach+' estabelecimentos encontrados'+(f.length>1?' ('+f.join(' e ')+')':f.length?' ('+f[0].replace(/^\d+ /,'')+')':'')+': '+vis+' na lista agora'+(vis&&soTel?' (celulares/WhatsApp)':'')+(jc?', '+jc+' que você já contatou (estão em “Contatados ✓”)':'')+(fix?', '+fix+' só com telefone fixo, que geralmente não tem WhatsApp':'')+(semT?', '+semT+' sem telefone válido':'')+(S.pul?', '+S.pul+(S.pul===1?' deixado':' deixados')+' de fora pelos filtros':'')+'.';
+    if(S.rfTot)t+=' A Receita Federal tem '+S.rfTot.toLocaleString('pt-BR')+' cadastros ativos desse tipo em '+S.nome+(soTel?' com celular':'')+(rfResta(rfEst)?'; foram consultados os '+S.rfPed+' abertos mais recentemente.':'.');
+    if(S.rfOk===false)t+=' A Receita Federal não respondeu agora; tente de novo em alguns minutos.';
+    if(S.osmOk&&S.j&&S.j.fora&&!S.viz)t+=' Mais '+S.j.fora+' do OpenStreetMap ficam em cidades vizinhas.';
+    est.textContent=t;var sp=document.createElement('span');sp.id='estOsm';sp.textContent=osmTxt();est.appendChild(sp);
+    var ac=[];
+    if(rfResta(rfEst)&&S.rfOk)ac.push('<button type="button" class="btn pri peq" data-ac="mais">Buscar mais 60 na Receita Federal</button>');
+    if(vis<5&&S.osmOk!==null){
       if(fix)ac.push('<button type="button" class="btn peq" data-ac="fixo">Mostrar os '+fix+' com telefone fixo</button>');
-      if(pul)ac.push('<button type="button" class="btn peq" data-ac="filtros">Mostrar os '+pul+' escondidos pelos filtros</button>');
-      if(j.foraEls&&j.foraEls.length)ac.push('<button type="button" class="btn peq" data-ac="vizinhas">Incluir as cidades vizinhas ('+j.foraEls.length+')</button>');
-      ac.push('<a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+qg+'">Procurar no Google Maps ↗</a>');
-      var box=document.createElement('div');box.className='est-acoes';box.innerHTML=ac.join('');est.appendChild(box);
-      box.addEventListener('click',function(e){var bt=e.target.closest('[data-ac]');if(!bt)return;var k=bt.dataset.ac;
-        if(k==='fixo'){$('fTel').value='tel';desenhar();bt.disabled=true;bt.textContent='Telefones fixos na lista ✓';var tb=$('corpo').closest('section');if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}
-        else if(k==='filtros'){$('soSemSite').checked=false;$('soComTel').checked=false;$('fTel').value='';$('formBusca').requestSubmit()}
-        else if(k==='vizinhas'){var antes=ids.length;proc(j.foraEls,(j.nome||cid)+' (região)',true);cfg.ultima.ids=ids;cfg.ultima.rotulo=rot+' · '+(j.nome||cid)+' e região';
-          $('fCidade').value='';salvar();desenhar();bt.disabled=true;bt.textContent='Cidades vizinhas incluídas ✓ (+'+(ids.length-antes)+')';
-          var tb=$('corpo').closest('section');if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}});
-    }
-    if(vis){var tb=$('corpo').closest('section');if(tb)setTimeout(function(){tb.scrollIntoView({behavior:'smooth',block:'start'})},150)}
-  }).catch(function(err){est.className='erro';if(err&&err.cidade){est.textContent='Não encontrei essa cidade. Confira o nome (com acentos) e o estado.';return}if(NO_CLAUDE){est.innerHTML='Dentro do Claude a busca é bloqueada por segurança. <button type="button" class="btn pri peq" id="bBaixar2">Baixar o Prospecta e buscar</button> Depois aperte Ctrl+J e abra o arquivo: lá a busca funciona.';$('bBaixar2').onclick=baixarArquivo;return}est.textContent='Os servidores gratuitos do OpenStreetMap estão sobrecarregados agora. Espere um ou dois minutos e clique em Buscar de novo.'})
-  .then(function(){b.disabled=false;b.textContent='Buscar estabelecimentos'});
+      if(S.pul)ac.push('<button type="button" class="btn peq" data-ac="filtros">Mostrar os '+S.pul+' escondidos pelos filtros</button>');
+      if(S.j&&S.j.foraEls&&S.j.foraEls.length&&!S.viz)ac.push('<button type="button" class="btn peq" data-ac="vizinhas">Incluir as cidades vizinhas ('+S.j.foraEls.length+')</button>');
+      ac.push('<a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+encodeURIComponent(rot+' em '+S.nome)+'">Procurar no Google Maps ↗</a>')}
+    if(!ac.length)return;
+    var box=document.createElement('div');box.className='est-acoes';box.innerHTML=ac.join('');est.appendChild(box);
+    box.addEventListener('click',function(e){var bt=e.target.closest('[data-ac]');if(!bt||!vivo())return;var k=bt.dataset.ac,tb=$('corpo').closest('section');
+      if(k==='mais'){bt.disabled=true;bt.textContent='Buscando na Receita Federal…';rodaRf(60).then(function(){toast('Mais estabelecimentos da Receita Federal na lista.')},function(){toast('A Receita Federal não respondeu agora. Tente de novo em alguns minutos.');bt.disabled=false;bt.textContent='Buscar mais 60 na Receita Federal'})}
+      else if(k==='fixo'){$('fTel').value='tel';desenhar();bt.disabled=true;bt.textContent='Telefones fixos na lista ✓';if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}
+      else if(k==='filtros'){$('soSemSite').checked=false;$('soComTel').checked=false;$('fTel').value='';$('formBusca').requestSubmit()}
+      else if(k==='vizinhas'){var antes=S.ids.length;S.viz=true;S.j.foraEls.forEach(function(el){poe(leadOsm(el,(el.tags&&el.tags['addr:city'])||S.nome+' (região)',ddd),'osm')});
+        $('fCidade').value='';aplica();mostra();toast('Cidades vizinhas incluídas (+'+(S.ids.length-antes)+').');if(tb)tb.scrollIntoView({behavior:'smooth',block:'start'})}});
+  }
+  function rodaRf(q){return rfBusca(rfEst,q,cid,function(p){S.prog=p;if(!S.mostrou)mostra()}).then(function(ls){if(!vivo())return;
+    S.rfOk=true;S.rfTot=rfEst.reduce(function(s,e){return s+(e.total||0)},0);S.rfPed+=ls.pedidos||0;ls.forEach(function(l){poe(l,'rf')});if(S.ach)aplica();mostra()})}
+  var tk=setInterval(function(){if(!vivo()){clearInterval(tk);return}S.seg++;if(S.osmOk!==null)return;var sp=$('estOsm');if(S.mostrou){if(sp)sp.textContent=osmTxt()}else mostra()},1000);
+  mostra();
+  var rfP=rodaRf(80).catch(function(){S.rfOk=false});
+  var chaveRes='res3:'+semAc(cid)+':'+uf+':'+cats.slice().sort().join('-'),cache=null;try{cache=JSON.parse(sessionStorage.getItem(chaveRes)||localStorage.getItem(chaveRes)||'null')}catch(e){}
+  var osmP=((cache&&Date.now()-cache.t<6*3600e3)?Promise.resolve(cache.j):areaCidade().catch(function(){throw{cidade:true}}).then(function(area){return buscarEm(0,consulta(area.bb)).then(function(j){var dentro=[],fora=[];j.elements.forEach(function(el){(naCidade(el,area,cid)?dentro:fora).push(el)});return{elements:dentro,fora:fora.length,foraEls:fora.slice(0,400),nome:area.nome}})}).then(function(j){try{localStorage.setItem(chaveRes,JSON.stringify({t:Date.now(),j:j}))}catch(e){}return j}))
+    .then(function(j){if(!vivo())return;S.j=j;S.osmOk=true;j.elements.forEach(function(el){poe(leadOsm(el,j.nome||cid,ddd),'osm')});if(S.ach)aplica();mostra()},function(err){S.osmOk=false;S.cidErro=!!(err&&err.cidade);if(vivo()&&S.mostrou)mostra()});
+  Promise.all([rfP,osmP]).then(function(){clearInterval(tk);if(!vivo())return;b.disabled=false;b.textContent='Buscar estabelecimentos';
+    if(S.rfOk===false&&S.osmOk===false){est.className='erro';
+      if(NO_CLAUDE){est.innerHTML='Dentro do Claude a busca é bloqueada por segurança. <button type="button" class="btn pri peq" id="bBaixar2">Baixar o Prospecta e buscar</button> Depois aperte Ctrl+J e abra o arquivo: lá a busca funciona.';$('bBaixar2').onclick=baixarArquivo;return}
+      est.textContent=S.cidErro?'Não encontrei essa cidade. Confira o nome (com acentos) e o estado.':'A Receita Federal e o OpenStreetMap não responderam agora. Espere um ou dois minutos e clique em Buscar de novo.';return}
+    if(!S.ach){est.innerHTML=esc('Não achei '+rot.toLowerCase()+' ativos em '+S.nome+(soTel?' com celular cadastrado':'')+' na Receita Federal nem no OpenStreetMap. Confira o nome da cidade ou escolha outra categoria.')+' <a class="btn peq" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+encodeURIComponent(rot+' em '+S.nome)+'">Procurar no Google Maps ↗</a>';return}
+    if(!S.mostrou)aplica();mostra();
+  });
 });
 
 /* ---------- Tabela ---------- */
@@ -694,7 +829,7 @@ $('okLista').addEventListener('click',function(ev){var b=ev.target.closest('[dat
   $('dlgRot').showModal()});
 var anLead=null;
 function abrirAnalise(l){anLead=l;var an=analise(l);$('anTit').textContent='Análise: '+l.nome;
-  $('anPontos').innerHTML=an.pontos.map(function(p){return'<div style="display:flex;gap:8px;font-size:.9rem"><span style="color:var(--accent)">●</span><span>'+esc(p)+'</span></div>'}).join('')+'<p class="dica">Baseado nos dados públicos do OpenStreetMap. Use “Ver no Google” para conferir mais.</p>';
+  $('anPontos').innerHTML=an.pontos.map(function(p){return'<div style="display:flex;gap:8px;font-size:.9rem"><span style="color:var(--accent)">●</span><span>'+esc(p)+'</span></div>'}).join('')+'<p class="dica">Baseado em dados públicos ('+esc(l.fonte||'OpenStreetMap')+'). Use “Ver no Google” para conferir se já tem site.</p>';
   $('anMsg').value=preencher(roteiro()[0],l);atuAn();$('dlgAn').showModal()}
 function atuAn(){if(!anLead)return;$('anAbrir').href='https://web.whatsapp.com/send?phone='+numWa(anLead)+'&text='+encodeURIComponent($('anMsg').value.trim())}
 $('anMsg').addEventListener('input',atuAn);
