@@ -31,7 +31,7 @@ textarea{min-height:84px;resize:vertical}
 #estado{grid-column:1/-1;font-size:.9rem;color:var(--ink-2)}
 .cid-campo{position:relative}
 .cid-pop{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:60;max-height:330px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 44px rgba(0,0,0,.5);padding:6px;overscroll-behavior:contain}
-.cid-pop[hidden]{display:none}
+.cid-pop[hidden],#mSogo[hidden]{display:none}
 .cid-sec{position:sticky;top:-6px;margin:0 -6px;background:var(--surface);padding:9px 16px 6px;font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);z-index:1}
 .cid-op{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:9px;cursor:pointer;color:var(--ink);font-size:.92rem;font-weight:500;line-height:1.25}
 .cid-op b{color:var(--accent);font-weight:700}
@@ -294,8 +294,9 @@ body{background:
   <label>3ª — mostrar exemplo<textarea id="mT2" rows="3"></textarea></label>
   <label>4ª — como funciona / valores<textarea id="mT3" rows="3"></textarea></label>
   <h2 style="margin-top:14px">E-mail</h2>
-  <p class="dica">O botão “Enviar e-mail” abre o e-mail já escrito para você revisar e enviar. Nada é enviado sozinho. Além das palavras acima, use {marca} (nome da empresa) e {whats} (seu WhatsApp).</p>
-  <div class="grade"><label>Seu WhatsApp (assinatura)<input type="tel" id="mWhats" placeholder="(19) 99293-2822"></label><label>Abrir o e-mail no<select id="mApp"><option value="gmail">Gmail (no navegador)</option><option value="mailto">Programa de e-mail do computador</option></select></label></div>
+  <p class="dica">O botão “Enviar e-mail” abre o e-mail já escrito, saindo da conta escolhida abaixo, para você revisar e enviar. Nada é enviado sozinho. Além das palavras acima, use {marca} (nome da empresa) e {whats} (seu WhatsApp).</p>
+  <div class="grade"><label>Seu WhatsApp (assinatura)<input type="tel" id="mWhats" placeholder="(19) 99293-2822"></label><label>Abrir o e-mail no<select id="mApp"><option value="sogo">Webmail da empresa (Kubmix / SOGo)</option><option value="gmail">Gmail (no navegador)</option><option value="mailto">Programa de e-mail do computador</option></select></label></div>
+  <div class="grade" id="mSogo"><label>Seu e-mail no webmail<input type="email" id="mSogoUser" placeholder="rodrigo@adeza.com.br"></label><label>Endereço do webmail<input type="url" id="mSogoUrl" placeholder="https://mail.cloud.kubmix.com/SOGo/"></label></div>
   <label>Assunto<input type="text" id="mAss"></label>
   <label>Texto do e-mail<textarea id="mCorpo" rows="12"></textarea></label>
   <footer><div><button class="btn peq" id="mPadrao" type="button">Restaurar modelo</button></div><div><button class="btn" id="mCancelar" type="button">Cancelar</button><button class="btn pri" type="submit">Salvar</button></div></footer>
@@ -549,6 +550,8 @@ var EMAIL_PADRAO={assunto:'Site para {nome}',corpo:'Olá, tudo bem?\n\nMeu nome 
 function modeloEmail(){var e=cfg.email||{};return{assunto:e.assunto||EMAIL_PADRAO.assunto,corpo:e.corpo||EMAIL_PADRAO.corpo}}
 function emailOk(e){return/^[^\s@<>()",;:]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/i.test(String(e||'').trim())}
 function linkEmail(l){if(!emailOk(l.email))return'';var m=modeloEmail(),to=l.email.trim(),su=limpaLinhas(preencher(m.assunto,l)),bo=limpaLinhas(preencher(m.corpo,l));
+  if(cfg.emailApp==='sogo'){var base=String(cfg.sogoUrl||'https://mail.cloud.kubmix.com/SOGo/').trim().replace(/\/+$/,''),us=String(cfg.sogoUser||'').trim();
+    if(base&&us){var mt='mailto:'+to+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(bo);return base+'/so/'+encodeURI(us)+'/Mail/UIxMailPopupView#!/Mail/0/new?'+encodeURIComponent(mt)}}
   if(cfg.emailApp==='mailto')return'mailto:'+encodeURIComponent(to).replace(/%40/g,'@')+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(bo);
   return'https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to)+'&su='+encodeURIComponent(su)+'&body='+encodeURIComponent(bo)}
 function limpaLinhas(t){return String(t).replace(/[ \t]+\n/g,'\n').replace(/[ \t]*·[ \t]*WhatsApp[ \t]*$/gm,'').replace(/^[ \t]*·[ \t]*/gm,'').replace(/\n{3,}/g,'\n\n').trim()}
@@ -839,11 +842,12 @@ $('ficha').addEventListener('submit',function(ev){
 $('eCancelar').onclick=function(){$('dlg').close()};
 $('eExcluir').onclick=function(){if(!ed)return;if(!conf){conf=true;this.textContent='Clique de novo para excluir';return}leads.delete(ed.id);salvar();$('dlg').close();desenhar();toast('Lead excluído.')};
 $('bNovo').onclick=$('bNovo2').onclick=function(){ficha(null)};
-function abrirMsg(r,em){var x=r||roteiro(),me=em||modeloEmail();$('mEu').value=cfg.eu||'Rodrigo';$('mEmp').value=cfg.empresa||'';[0,1,2,3].forEach(function(k){$('mT'+k).value=x[k]});$('mWhats').value=cfg.meuWa||'';$('mApp').value=cfg.emailApp||'gmail';$('mAss').value=me.assunto;$('mCorpo').value=me.corpo}
+function abrirMsg(r,em){var x=r||roteiro(),me=em||modeloEmail();$('mEu').value=cfg.eu||'Rodrigo';$('mEmp').value=cfg.empresa||'';[0,1,2,3].forEach(function(k){$('mT'+k).value=x[k]});$('mWhats').value=cfg.meuWa||'';$('mApp').value=cfg.emailApp||'gmail';$('mSogoUser').value=cfg.sogoUser||'';$('mSogoUrl').value=cfg.sogoUrl||'https://mail.cloud.kubmix.com/SOGo/';$('mSogo').hidden=$('mApp').value!=='sogo';$('mAss').value=me.assunto;$('mCorpo').value=me.corpo}
 $('bMsg').onclick=function(){abrirMsg();$('dlgMsg').showModal()};
+$('mApp').onchange=function(){$('mSogo').hidden=this.value!=='sogo'};
 $('mPadrao').onclick=function(){abrirMsg(ROT_PADRAO,EMAIL_PADRAO)};
 $('mCancelar').onclick=function(){$('dlgMsg').close()};
-$('fMsg').addEventListener('submit',function(ev){ev.preventDefault();cfg.eu=$('mEu').value.trim();cfg.empresa=$('mEmp').value.trim();cfg.roteiro=[0,1,2,3].map(function(k){return $('mT'+k).value});cfg.meuWa=$('mWhats').value.trim();cfg.emailApp=$('mApp').value;cfg.email={assunto:$('mAss').value.trim(),corpo:$('mCorpo').value.trim()};salvar();$('dlgMsg').close();desenhar();toast('Mensagens salvas.')});
+$('fMsg').addEventListener('submit',function(ev){ev.preventDefault();cfg.eu=$('mEu').value.trim();cfg.empresa=$('mEmp').value.trim();cfg.roteiro=[0,1,2,3].map(function(k){return $('mT'+k).value});cfg.meuWa=$('mWhats').value.trim();cfg.emailApp=$('mApp').value;cfg.sogoUser=$('mSogoUser').value.trim();cfg.sogoUrl=$('mSogoUrl').value.trim();cfg.email={assunto:$('mAss').value.trim(),corpo:$('mCorpo').value.trim()};salvar();$('dlgMsg').close();desenhar();toast('Mensagens salvas.')});
 $('okLista').addEventListener('click',function(ev){var b=ev.target.closest('[data-rot]');if(!b)return;var l=leads.get(b.dataset.rot);if(!l)return;
   $('rotTit').textContent='Roteiro: '+l.nome;var nomes=['1ª — abordagem','2ª — quando responder','3ª — mostrar exemplo','4ª — como funciona / valores'];
   $('rotLista').innerHTML=roteiro().map(function(t,k){return'<div style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface-2)"><b style="font-size:.85rem;color:var(--accent)">'+nomes[k]+'</b><p style="margin:6px 0 10px;white-space:pre-wrap">'+esc(preencher(t,l))+'</p><button type="button" class="btn peq" data-cp="'+k+'">Copiar</button></div>'}).join('');
