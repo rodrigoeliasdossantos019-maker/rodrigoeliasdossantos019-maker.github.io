@@ -494,7 +494,8 @@ function rfJanela(f,w){
   function vai(n){return fetch(CDURL,{method:'POST',headers:{'Content-Type':'application/json'},body:corpo}).then(function(r){if(r.status===429&&n<2)return espera(1500*(n+1)).then(function(){return vai(n+1)});if(!r.ok)throw new Error('rf '+r.status);return r.json()})}
   return vai(0)}
 function rfNovo(cat,cid,uf,soCel){var mf={somente_matriz:true};if(soCel)mf.somente_celular=true;
-  return{cat:cat,f:{codigo_atividade_principal:CNAE[cat]||[],situacao_cadastral:['ATIVA'],uf:[uf],municipio:[munRf(cid)],mais_filtros:mf},jan:[{i:'1900-01-01',f:hoje()}],vistos:{},total:null}}
+  // MEI fica de fora: a base aberta da Receita não traz telefone nem endereço dos MEIs
+  return{cat:cat,f:{codigo_atividade_principal:CNAE[cat]||[],situacao_cadastral:['ATIVA'],uf:[uf],municipio:[munRf(cid)],mais_filtros:mf,mei:{excluir_optante:true}},jan:[{i:'1900-01-01',f:hoje()}],vistos:{},total:null}}
 // uma categoria pode ter mais de uma pesquisa na Receita (ex.: estética = CNAE de estética + clínicas de saúde com estética no nome)
 function rfNovos(cat,cid,uf,soCel){var a=[rfNovo(cat,cid,uf,soCel)],t=CNAE_TXT[cat];
   if(t){a[0].rot='Estética';var e=rfNovo(cat,cid,uf,soCel);e.rot=t.rot;e.f.codigo_atividade_principal=t.cnae;
@@ -629,28 +630,32 @@ function candidatosSite(l){var c=[];function add(d,org){d=String(d||'').toLowerC
   [l.nome,l.extra&&l.extra.razao].forEach(function(n){if(!n)return;var a=semJuridico(n),s=slugDom(a),s2=slugDom(a.replace(GENER,''));
     if(s.length>=5&&s.length<=40)add(s+'.com.br','nome');if(s2!==s&&s2.length>=6&&s2.length<=40)add(s2+'.com.br','nome')});
   return c.slice(0,5)}
-// o domínio é desta empresa? (mesmo CNPJ, ou dono com o nome da empresa / de um sócio)
-function donoConfere(l,v){var cnpj=l.extra&&l.extra.cnpj;if(!v)return false;if(cnpj&&v.doc&&v.doc===cnpj)return true;if(cnpj&&v.doc&&v.doc.length===14&&v.doc.slice(0,8)===cnpj.slice(0,8))return true;
-  var fn=semJuridico(v.fn),tk=function(s){return semJuridico(s).split(' ').filter(function(w){return w.length>=4&&!/^(clinica|consultorio|studio|odontologia|estetica|servicos|medicos|saude|comercio|centro|instituto)$/.test(w)})};
-  var nomes=[l.nome,l.extra&&l.extra.razao].concat((l.extra&&l.extra.socios)||[]);
-  return!!fn&&nomes.some(function(n){var t=tk(n||'');if(!t.length)return false;var hit=t.filter(function(w){return fn.indexOf(w)>=0}).length;return hit>=Math.min(2,t.length)})}
+// de quem é o domínio: 'cnpj' (mesmo CNPJ), 'socio' (pessoa com o nome de um sócio), 'nome' (só o nome parecido: pode ser outra empresa) ou false
+function donoConfere(l,v){var cnpj=l.extra&&l.extra.cnpj;if(!v)return false;var doc=v.doc||'';
+  if(doc.length===14)return cnpj&&doc.slice(0,8)===cnpj.slice(0,8)?'cnpj':false;
+  var fn=' '+semJuridico(v.fn)+' ',tk=function(s){return semJuridico(s).split(' ').filter(function(w){return w.length>=4&&!/^(clinica|consultorio|studio|odontologia|odonto|estetica|servicos|medicos|saude|comercio|centro|instituto|espaco|beleza|advogados|advocacia)$/.test(w)})};
+  function bate(n){var t=tk(n||'');if(t.length<2)return false;return t.filter(function(w){return fn.indexOf(' '+w+' ')>=0}).length>=Math.min(3,t.length)}
+  if(((l.extra&&l.extra.socios)||[]).some(bate))return'socio';
+  if([l.nome,l.extra&&l.extra.razao].some(bate))return'nome';
+  return false}
 function conferirSite(l){
-  var cnpj=l.extra&&l.extra.cnpj,cands=candidatosSite(l),outro=[],incerto=false;
+  var cnpj=l.extra&&l.extra.cnpj,cands=candidatosSite(l),outro=[],incerto=false,talvez=null;
   return(cnpj?rdap('entity/'+cnpj):Promise.resolve(false)).then(function(ent){if(ent===undefined)incerto=true;
     var i=0;function prox(){if(i>=cands.length)return Promise.resolve(null);var c=cands[i++];
       if(c.org==='fonte'||c.org==='email')return existeDom(c.d.split('.').slice(-3).join('.')).then(function(ex){return ex===false&&c.org==='email'?prox():c});
       return existeDom(c.d).then(function(ex){if(ex===false)return prox();if(ex===undefined){incerto=true;return prox()}
-        return rdap('domain/'+c.d).then(function(v){if(v===undefined){incerto=true;return prox()}if(v&&donoConfere(l,v)){c.dono=v.doc===cnpj?'cnpj':'nome';return c}if(v)outro.push(c.d);return prox()})})}
+        return rdap('domain/'+c.d).then(function(v){if(v===undefined){incerto=true;return prox()}var dn=donoConfere(l,v);if(dn==='nome'){if(!talvez)talvez={d:c.d,fn:v.fn};if(v)outro.push(c.d);return prox()}if(dn){c.dono=dn;return c}if(v)outro.push(c.d);return prox()})})}
     return prox().then(function(achou){
-      if(achou)return situacaoSite(achou.d).then(function(sit){var u='https://'+achou.d,como=achou.org==='fonte'?'informado no mapa':achou.org==='email'?'do e-mail da empresa':achou.dono==='cnpj'?'registrado no CNPJ da empresa':'registrado no nome da empresa';
+      if(achou)return situacaoSite(achou.d).then(function(sit){var u='https://'+achou.d,como=achou.org==='fonte'?'informado no mapa':achou.org==='email'?'do e-mail da empresa':achou.dono==='cnpj'?'registrado no CNPJ da empresa':'registrado no nome de um sócio';
         if(sit==='no-ar')return{siteStatus:'tem',site:u,siteNota:'Site no ar ('+como+')'};
         if(sit==='nao-abre')return{siteStatus:'tem',site:u,siteNota:'Domínio '+como+'; o site não abriu no teste, confira'};
         if(sit==='fora'||sit==='parado')return{siteStatus:'fora',site:u,siteNota:'Domínio '+achou.d+' '+como+', mas o site não está no ar'};
         return{siteStatus:'tem',site:u,siteNota:'Domínio '+como+' (não deu para testar se está no ar)'}});
       if(ent&&ent.cnt>0)return{siteStatus:'tem',site:'',siteNota:'A empresa tem '+ent.cnt+(ent.cnt>1?' domínios .br registrados':' domínio .br registrado')+' no Registro.br: provavelmente tem site, confira no Google'};
+      if(talvez)return{siteStatus:l.siteStatus==='social'?'social':'sem',sitePossivel:'https://'+talvez.d,siteNota:'Existe o site '+talvez.d+' em nome de '+titulo(talvez.fn)+': confira se é desta empresa'};
       if(incerto)return null;
-      var nota=(ent===null?'Nenhum domínio .br no CNPJ e nenhum':'Nenhum')+' site com o nome da empresa'+(outro.length?' ('+outro[0]+' é de outra empresa)':'');
-      return{siteStatus:l.siteStatus==='social'?'social':'sem',siteNota:nota}})})
+      var nota=(ent===null?'Nenhum domínio .br no CNPJ e nenhum':'Nenhum')+' site com o nome da empresa'+(outro.length?' ('+outro[0]+' é de outra pessoa ou empresa)':'');
+      return{siteStatus:l.siteStatus==='social'?'social':'sem',sitePossivel:'',siteNota:nota}})})
   .then(function(p){if(!p)return null;p.siteChk=hoje();return p})}
 var SITECONF={};
 function precisaConferir(l){return l&&!l.siteManual&&!l.descartado&&!SITECONF[l.id]&&(!l.siteChk||Date.now()-Date.parse(l.siteChk)>30*864e5)}
@@ -661,7 +666,7 @@ function conferirSites(ids,prog,soSem){
   function redesenha(){if(dt)return;dt=setTimeout(function(){dt=0;desenhar()},700)}
   if(alvo.length)redesenha();
   return pool(alvo,4,function(l0){return conferirSite(l0).then(function(p){var l=leads.get(l0.id);delete SITECONF[l0.id];feitos++;
-    if(p&&l&&!l.siteManual&&!l.descartado){var m=Object.assign({},l,p);if(p.siteStatus!=='tem'&&!p.site&&l.site&&l.siteStatus!=='tem')m.site=l.site;gravar(m);
+    if(p&&l&&!l.siteManual&&!l.descartado){var m=Object.assign({},l,p);if(p.siteStatus==='tem'||p.siteStatus==='fora')m.sitePossivel='';if(p.siteStatus!=='tem'&&!p.site&&l.site&&l.siteStatus!=='tem')m.site=l.site;gravar(m);
       if(p.siteStatus==='tem'){tem++;if(soSem&&cfg.ultima&&cfg.ultima.ids){var ix=cfg.ultima.ids.indexOf(l.id);if(ix>=0)cfg.ultima.ids.splice(ix,1)}}}
     prog&&prog(feitos,alvo.length,tem);redesenha()},function(){delete SITECONF[l0.id];feitos++;prog&&prog(feitos,alvo.length,tem)})})
   .then(function(){clearTimeout(dt);dt=0;salvar();desenhar();return{n:alvo.length,tem:tem}})}
@@ -670,6 +675,7 @@ function seloSite(l,curto){
   if(l.siteStatus==='tem')return'<span class="pill p-mute">Tem site</span>'+(curto?'':nota);
   if(l.siteStatus==='fora')return'<span class="pill p-good">Site fora do ar</span>'+nota;
   if(SITECONF[l.id])return'<span class="pill p-warn">Conferindo site…</span>';
+  if(l.sitePossivel&&l.siteStatus!=='tem')return'<span class="pill p-warn">Pode ter site</span>'+(curto?'':nota+'<a class="sub" href="'+esc(l.sitePossivel)+'" target="_blank" rel="noopener">Abrir '+esc(l.sitePossivel.replace(/^https?:\/\//,''))+' ↗</a>');
   if(l.siteStatus==='social')return'<span class="pill p-good">Sem site · só redes sociais</span>'+(curto?'':nota);
   if(l.siteChk||l.siteManual)return'<span class="pill p-good">Sem site ✓</span>'+(curto?'':nota||'<span class="sub">conferido</span>');
   return'<span class="pill p-warn">Site não conferido</span>'+(curto?'':'<span class="sub">use “Ver no Google” ou “Conferir sites”</span>')}
@@ -718,7 +724,7 @@ function analise(l){
   return{faz:faz,gancho:g,pontos:o};
 }
 function linkWa(l){var n=numWa(l);if(!n)return'';var m=preencher(roteiro()[0],l);return'https://web.whatsapp.com/send?phone='+n+(m?'&text='+encodeURIComponent(m):'')}
-function pontos(l){var p=0;if(l.siteStatus!=='tem')p+=50;if(l.siteStatus==='social')p+=10;if(l.siteStatus==='fora')p+=15;if(telOk(l)&&!l.semWa&&!telDeContador(l)){p+=20;if(l.waStatus)p+=20;else if(l.telTipo==='celular')p+=15;var c=avaliaTel(l);if(c&&c.n==='alta')p+=10;else if(c&&c.n==='baixa')p-=15}return p}
+function pontos(l){var p=0;if(l.siteStatus!=='tem')p+=50;if(l.siteStatus==='social')p+=10;if(l.siteStatus==='fora')p+=15;if(l.sitePossivel&&l.siteStatus!=='tem')p-=10;if(telOk(l)&&!l.semWa&&!telDeContador(l)){p+=20;if(l.waStatus)p+=20;else if(l.telTipo==='celular')p+=15;var c=avaliaTel(l);if(c&&c.n==='alta')p+=10;else if(c&&c.n==='baixa')p-=15}return p}
 function nivel(l){var p=pontos(l);return p>=70?'alta':p>=50?'media':'baixa'}
 function jaCont(l){return!!l.ultimoContato||CONTATADO.indexOf(l.status)>=0}
 
@@ -1000,7 +1006,7 @@ $('ficha').addEventListener('submit',function(ev){
   l.waStatus=($('eWa').checked&&l.telefone)?(l.waStatus==='fonte'?'fonte':'usuario'):'';
   if(l.waStatus||tn!==(b.telEx||''))l.semWa=false;
   l.email=$('eEmail').value.trim();l.instagram=insta($('eInsta').value);l.facebook=face($('eFace').value);l.site=urlSegura($('eSite').value);l.siteStatus=$('eSiteSt').value;
-  if(l.site!==(b.site||'')||l.siteStatus!==(b.siteStatus||'sem'))l.siteManual=true;
+  if(l.site!==(b.site||'')||l.siteStatus!==(b.siteStatus||'sem')){l.siteManual=true;l.sitePossivel=''}
   l.status=$('eStatus').value;l.ultimoContato=$('eData').value;l.obs=$('eObs').value.trim();
   gravar(l);$('dlg').close();desenhar();toast(ed?'Lead atualizado.':'Lead cadastrado.');
 });
@@ -1038,7 +1044,7 @@ setTimeout(function(){if(!cfg.empresa)toast('Coloque o nome da sua empresa nas m
 $('bCsv').onclick=function(){
   if(!leads.size){toast('Ainda não há leads.');return}
   var cab=['Nome do estabelecimento','Categoria','Cidade','Endereço','Telefone','WhatsApp','Link para conversar','E-mail','Instagram','Site','Status do site','Status do contato','Fonte do telefone','Última verificação','Último contato','Observações'];
-  var ls=filtrados().map(function(l){return[l.nome,l.categoria,l.cidade,l.endereco,l.telEx||'Telefone não encontrado',l.semWa?'Sem WhatsApp':l.waStatus==='fonte'?'Confirmado pela fonte':l.waStatus==='usuario'?'Confirmado por você':numWa(l)?'Não confirmado':'',numWa(l)?'https://wa.me/'+numWa(l):'',l.email,l.instagram?'@'+l.instagram:'',l.site,l.siteStatus==='tem'?'Tem site':l.siteStatus==='fora'?'Site fora do ar':l.siteStatus==='social'?'Só redes sociais':l.siteChk?'Sem site (conferido)':'Sem site identificado',l.status,l.fonte,dataBr(l.verificadoEm),dataBr(l.ultimoContato),l.obs]});
+  var ls=filtrados().map(function(l){return[l.nome,l.categoria,l.cidade,l.endereco,l.telEx||'Telefone não encontrado',l.semWa?'Sem WhatsApp':l.waStatus==='fonte'?'Confirmado pela fonte':l.waStatus==='usuario'?'Confirmado por você':numWa(l)?'Não confirmado':'',numWa(l)?'https://wa.me/'+numWa(l):'',l.email,l.instagram?'@'+l.instagram:'',l.site,l.siteStatus==='tem'?'Tem site':l.siteStatus==='fora'?'Site fora do ar':l.sitePossivel?'Pode ter site ('+l.sitePossivel+')':l.siteStatus==='social'?'Só redes sociais':l.siteChk?'Sem site (conferido)':'Sem site identificado',l.status,l.fonte,dataBr(l.verificadoEm),dataBr(l.ultimoContato),l.obs]});
   var txt='\ufeff'+[cab].concat(ls).map(function(r){return r.map(function(c){return'"'+String(c==null?'':c).replace(/"/g,'""')+'"'}).join(';')}).join('\r\n');
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv'}));a.download='leads-prospecta-'+hoje()+'.csv';a.click();
 };
