@@ -422,7 +422,7 @@ function naCidade(el,area,cid){
 }
 function consulta(bbox){
   var p=selCats.map(function(i){var cat=CATS[i];return Object.keys(cat.f).map(function(k){return cat.f[k]?'nwr["name"]["'+k+'"~"^('+cat.f[k]+')$"]('+bbox+');':'nwr["name"]["'+k+'"]('+bbox+');'}).join('')+(cat.x||[]).map(function(r){return r+'('+bbox+');'}).join('')}).join('');
-  return '[out:json][timeout:60];('+p+');out tags center 800;';
+  return '[out:json][timeout:60];('+p+');out meta center 800;';
 }
 
 function leadOsm(el,cid,ddd){
@@ -444,7 +444,7 @@ function leadOsm(el,cid,ddd){
     waStatus:wa?'fonte':'',email:t['contact:email']||t.email||'',instagram:ig,facebook:fb,site:urlSegura(site),siteStatus:st,
     fonte:'OpenStreetMap',fonteUrl:'https://www.openstreetmap.org/'+el.type+'/'+el.id,verificadoEm:hoje(),
     status:'Novo lead',obs:'',ultimoContato:'',
-    extra:{cuisine:t.cuisine||'',beauty:t.beauty||'',esp:t['healthcare:speciality']||'',desc:t.description||'',horario:t.opening_hours||'',delivery:t.delivery||'',takeaway:t.takeaway||'',craft:t.craft||'',sport:t.sport||''}};
+    extra:{osmData:String(el.timestamp||'').slice(0,10),cuisine:t.cuisine||'',beauty:t.beauty||'',esp:t['healthcare:speciality']||'',desc:t.description||'',horario:t.opening_hours||'',delivery:t.delivery||'',takeaway:t.takeaway||'',craft:t.craft||'',sport:t.sport||''}};
 }
 
 /* ---------- Receita Federal (cadastro público de CNPJ) ----------
@@ -556,9 +556,11 @@ function emailContador(l){var e=semAc(l.email||'');return!!e&&CONTAB_RE.test(e)&
 // Confiança do telefone: alta (confirmado), média (uma fonte, sem sinal de problema) ou baixa (pode ser de outra pessoa ou estar desligado)
 function avaliaTel(l){
   if(!telOk(l))return null;var m=[],n='media',rf=/Receita/.test(l.fonte||''),dd=l.telefone.slice(2,4);
+  var od=l.extra&&l.extra.osmData,velho=!rf&&od&&(Date.now()-Date.parse(od))/31557600000>=3;
   if(l.telFontes>=2){n='alta';m.push('mesmo número no OpenStreetMap e na Receita Federal')}
-  else if(l.waStatus==='fonte'){n='alta';m.push('WhatsApp publicado pela própria empresa')}
   else if(l.waStatus==='usuario'){n='alta';m.push('confirmado por você')}
+  else if(l.waStatus==='fonte'&&!velho){n='alta';m.push('WhatsApp informado no mapa (OpenStreetMap)'+(od?', atualizado em '+dataBr(od):''))}
+  if(velho&&n!=='alta'){m.push('dado do mapa atualizado pela última vez em '+od.slice(0,4)+': pode estar desatualizado');n='baixa'}
   if(l.ddd&&dd!==l.ddd){m.push('DDD '+dd+', de fora da região da cidade');if(n!=='alta')n='baixa'}
   if(rf&&n!=='alta'){var u=usoTel(l.telefone);
     if(u.emp>=2&&u.end>=2){m.push('usado por '+u.emp+' empresas em endereços diferentes: pode ser do contador');n='baixa'}
@@ -568,7 +570,7 @@ function avaliaTel(l){
     else if(anos>=6){m.push('cadastro de '+String(ab).slice(0,4)+': o número pode ter mudado');}
     if(l.nono)m.push('número antigo de 8 dígitos, o 9 foi acrescentado');
     if(!m.length)m.push('celular do cadastro da empresa na Receita Federal')}
-  else if(!rf&&n!=='alta'){if(l.nono)m.push('número antigo de 8 dígitos, o 9 foi acrescentado');if(!m.length)m.push(l.telTipo==='fixo'?'fixo publicado no OpenStreetMap':'número publicado no OpenStreetMap')}
+  else if(!rf&&n!=='alta'){if(l.nono)m.push('número antigo de 8 dígitos, o 9 foi acrescentado');if(l.telTipo==='fixo'&&!velho){m.push('fixo publicado no mapa: pode não ter WhatsApp');}if(!m.length)m.push('número publicado no OpenStreetMap'+(od?' (atualizado em '+dataBr(od)+')':''))}
   return{n:n,m:m.join(' · ')}}
 // telefone que é do contador: não serve para falar com a empresa
 function telDeContador(l){return/Receita/.test(l.fonte||'')&&telOk(l)&&(function(u){return u.emp>=3&&u.end>=2})(usoTel(l.telefone))}
